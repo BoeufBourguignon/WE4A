@@ -2,32 +2,17 @@
 
 include "Test.php";
 
-
-class Allo {
-
-    #[Test("test", name:"salut")]
-    public function test()
-    {
-        echo "bonjour";
-    }
-}
-
-$path = "test";
+$action = "test12";
 
 
-$r = new ReflectionClass(Allo::class);
-$methods = $r->getMethods(ReflectionMethod::IS_PUBLIC);
-foreach($methods as $method)
+$files = array_diff(scandir("./Tests"), array('..', '.'));
+
+var_dump($files);
+
+foreach($files as $file)
 {
-    $attributes = $method->getAttributes(Test::class);
-    foreach($attributes as $attribute)
-    {
-        if($path === $attribute->newInstance()->getPath())
-        {
-            $obj = new Allo();
-            $obj->test();
-        }
-    }
+
 }
+
 
 
