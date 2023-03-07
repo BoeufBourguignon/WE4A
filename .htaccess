@@ -1,0 +1,5 @@
+Options +FollowSymlinks
+RewriteEngine on
+RewriteRule ^(.*)/$ /$1 [L,R]
+
+RewriteRule ^(.*)$   index.php?url=$1 [nc,qsa]
