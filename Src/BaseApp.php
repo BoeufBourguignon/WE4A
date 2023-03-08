@@ -28,8 +28,21 @@ class BaseApp
 
         if(($route = $this->routeCollection->getRoute($route)) !== false)
         {
-            $method = $route->getMethod()->getName();
-            (new ($route->getMethod()->class))->$method();
+            $params = array();
+            foreach($route->getMethod()->getParameters() as $param)
+            {
+                if(!$param->getType()->isBuiltin())
+                    $params[$param->getName()] = new ($param->getType()->getName());
+                else
+                {
+                    switch($param->getType()->getName())
+                    {
+                        case "string": $params[$param->getName()] = "je suis un autre string";
+                    }
+                }
+            }
+
+            call_user_func_array([new ($route->getMethod()->class), $route->getMethod()->getName()], $params);
         }
         else
         {
