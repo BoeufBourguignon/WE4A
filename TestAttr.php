@@ -1,7 +1,11 @@
 <?php
 
+namespace Src\Route;
+
+use Attribute;
+
 #[Attribute]
-class Test
+class TestAttr
 {
     private string $path;
     private ?string $name;
