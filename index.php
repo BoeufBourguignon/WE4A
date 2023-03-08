@@ -2,7 +2,7 @@
 const ROOT = __DIR__;
 
 require_once ROOT . "/src/AutoLoader.php";
-new \Src\AutoLoader();
+new Src\AutoLoader();
 
 
 $actionUrl = "test12";

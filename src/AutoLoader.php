@@ -4,9 +4,11 @@ namespace Src;
 
 class AutoLoader
 {
+    private const CONTROLLER = "Controller\\";
+
     private static array $dirs = array(
-        "Controller\TestDeux" => ROOT . "/Tests/TestDeux.php",
-        "Controller\TestUn" => ROOT . "/Tests/TestUn.php",
+        self::CONTROLLER."TestDeux" => ROOT . "/Tests/TestDeux.php",
+        self::CONTROLLER."TestUn" => ROOT . "/Tests/TestUn.php",
         "Src\Route\TestAttr" => ROOT . "/TestAttr.php"
     );
 
