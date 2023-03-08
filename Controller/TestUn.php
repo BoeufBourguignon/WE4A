@@ -2,17 +2,17 @@
 
 namespace Controller;
 
-use Src\Route\TestAttr;
+use Src\Routing\Route;
 
 class TestUn
 {
-    #[TestAttr("test11")]
+    #[Route("/")]
     public function methTestUnUn(): void
     {
         echo "test 1.1";
     }
 
-    #[TestAttr("test12")]
+    #[Route("/test12")]
     public function methTestUnDeux(): void
     {
         echo "test 1.2";
