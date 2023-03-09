@@ -26,7 +26,7 @@ class Route
         {
             $e = new RouteElement();
             $e->setName(trim($element, "{}"));
-            $e->setIsParam(preg_match("/{.*\}/", $element));
+            $e->setIsParam(preg_match("/{.*}/", $element));
 
             $elements[] = $e;
         }
