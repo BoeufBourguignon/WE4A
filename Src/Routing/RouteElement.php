@@ -7,9 +7,23 @@ class RouteElement
     private string $name;
     private bool $isParam;
 
-    public function __construct(string $route)
+    public function getName(): string
     {
-        $route = explode("/", $route);
+        return $this->name;
     }
 
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+
+    public function isParam(): bool
+    {
+        return $this->isParam;
+    }
+
+    public function setIsParam(bool $isParam): void
+    {
+        $this->isParam = $isParam;
+    }
 }

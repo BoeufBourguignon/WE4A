@@ -24,29 +24,34 @@ class BaseApp
 
     public function launchApp(): void
     {
-        $route = "/".$_GET["url"];
+        $route = $_GET["url"];
 
-        if(($route = $this->routeCollection->getRoute($route)) !== false)
-        {
-            $params = array();
-            foreach($route->getMethod()->getParameters() as $param)
-            {
-                if(!$param->getType()->isBuiltin())
-                    $params[$param->getName()] = new ($param->getType()->getName());
-                else
-                {
-                    switch($param->getType()->getName())
-                    {
-                        case "string": $params[$param->getName()] = "je suis un autre string";
-                    }
-                }
-            }
+        $route = $this->routeCollection->getRoute($route);
 
-            call_user_func_array([new ($route->getMethod()->class), $route->getMethod()->getName()], $params);
-        }
-        else
-        {
-            echo "<span style='color:red'>Erreur</span>";
-        }
+        var_dump($route);
+        var_dump($route->getAllParams());
+
+//        if(($route = $this->routeCollection->getRoute($route)) !== false)
+//        {
+//            $params = array();
+//            foreach($route->getMethod()->getParameters() as $param)
+//            {
+//                if(!$param->getType()->isBuiltin())
+//                    $params[$param->getName()] = new ($param->getType()->getName());
+//                else
+//                {
+//                    switch($param->getType()->getName())
+//                    {
+//                        case "string": $params[$param->getName()] = "je suis un autre string";
+//                    }
+//                }
+//            }
+//
+//            call_user_func_array([new ($route->getMethod()->class), $route->getMethod()->getName()], $params);
+//        }
+//        else
+//        {
+//            echo "<span style='color:red'>Erreur</span>";
+//        }
     }
 }

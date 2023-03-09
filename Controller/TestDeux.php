@@ -6,7 +6,7 @@ use Src\Routing\Route;
 
 class TestDeux
 {
-    #[Route("/test21")]
+    #[Route("/test21/{test}")]
     public function methTestDeuxUn(): void
     {
         echo "test 2.1";

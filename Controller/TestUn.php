@@ -7,7 +7,7 @@ use Src\TestClass;
 
 class TestUn
 {
-    #[Route("/")]
+    #[Route("/", name: "route test 1")]
     public function methTestUnUn(string $test, TestClass $class): void
     {
         echo "test 1.1";
@@ -15,8 +15,20 @@ class TestUn
         var_dump($class);
     }
 
-    #[Route("/test12")]
+    #[Route("/test", name: "route test 2")]
     public function methTestUnDeux(): void
+    {
+        echo "test 1.2 oui";
+    }
+
+    #[Route("/test/{allo}/test", name: "route test 3")]
+    public function methTest(): void
+    {
+        echo "test 1.2 oui";
+    }
+
+    #[Route("/test/{allo}/{salope}", name: "route test 4")]
+    public function methTestDeFou(): void
     {
         echo "test 1.2 oui";
     }
