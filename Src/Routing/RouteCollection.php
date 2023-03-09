@@ -17,9 +17,12 @@ class RouteCollection
         $this->loadRoutes();
     }
 
-    public function getRoute(string $route): false|Route
+    /**
+     * @throws \Exception
+     */
+    public function getRoute(string $url): false|Route
     {
-        $path = explode("/", $route);
+        $path = explode("/", $url);
 
         $bestRouteNoParam = null;
         $bestRouteWithParam = null;
@@ -74,11 +77,16 @@ class RouteCollection
             }
         }
 
-        return $bestRouteNoParam != null
+        $bestRoute = $bestRouteNoParam != null
             ? $bestRouteNoParam
             : ($bestRouteWithParam != null
                 ? $bestRouteWithParam
                 : false);
+
+        if($bestRoute instanceof Route)
+            $bestRoute->loadParams($path);
+
+        return $bestRoute;
     }
 
     /**

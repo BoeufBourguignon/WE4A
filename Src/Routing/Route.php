@@ -10,6 +10,7 @@ class Route
     private string $path;
     private ?string $name;
     private ?\ReflectionMethod $method = null;
+    private array $elements;
 
     public function __construct(string $path, ?string $name = null)
     {
@@ -19,19 +20,21 @@ class Route
 
     public function getAllElements(): array
     {
-        $route = explode("/", ltrim($this->path, "/"));
-        $elements = array();
-
-        foreach($route as $element)
+        if(!isset($this->elements))
         {
-            $e = new RouteElement();
-            $e->setName(trim($element, "{}"));
-            $e->setIsParam(preg_match("/{.*}/", $element));
+            $route = explode("/", ltrim($this->path, "/"));
+            $this->elements = array();
 
-            $elements[] = $e;
+            foreach($route as $element)
+            {
+                $e = new RouteElement();
+                $e->setName(trim($element, "{}"));
+                $e->setIsParam(preg_match("/{.*}/", $element));
+
+                $this->elements[] = $e;
+            }
         }
-
-        return $elements;
+        return $this->elements;
     }
 
     public function getAllParams(): array
@@ -41,6 +44,23 @@ class Route
             if($element->isParam())
                 $params[] = $element;
         return $params;
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function loadParams(array $path): void
+    {
+        if(count($path) != count($this->elements))
+            throw new \Exception("Erreur entre la route de l'URL et son objet");
+
+        for($i=0;$i<count($path);++$i)
+        {
+            if($this->elements[$i]->isParam())
+            {
+                $this->elements[$i]->setValue($path[$i]);
+            }
+        }
     }
 
     public function getPath() : string

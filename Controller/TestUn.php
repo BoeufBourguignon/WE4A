@@ -28,8 +28,12 @@ class TestUn
     }
 
     #[Route("/test/{allo}/{salope}", name: "route test 4")]
-    public function methTestDeFou(): void
+    public function methTestDeFou(string $allo, string $salope): void
     {
-        echo "test 1.2 oui";
+        echo "
+        <p>test 1.2 oui</p>
+        <p>$allo</p>
+        <p>$salope</p>
+        ";
     }
 }
