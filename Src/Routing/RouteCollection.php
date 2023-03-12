@@ -112,21 +112,24 @@ class RouteCollection
             $r = new \ReflectionClass("Controller\\" . $class);
             foreach($r->getMethods() as $method)
             {
-                /** @var Route $route */
-                $route = $method->getAttributes(Route::class, \ReflectionAttribute::IS_INSTANCEOF)[0]->newInstance();
+                $attrs = $method->getAttributes(Route::class, \ReflectionAttribute::IS_INSTANCEOF);
+                if($method->isPublic() && count($attrs))
+                {/** @var Route $route */
+                    $route = $attrs[0]->newInstance();
 
-                if(in_array($route->getPath(), $all_paths))
-                    throw new \Exception("La route ".$route->getPath()." est en double dans l'application");
-                $all_paths[] = $route->getPath();
-                if(in_array($route->getName(), $all_names))
-                    throw new \Exception("Le nom de route ".$route->getName()." est en double dans l'application");
-                if($route->getName() != null)
-                    $all_names[] = $route->getName();
+                    if(in_array($route->getPath(), $all_paths))
+                        throw new \Exception("La route ".$route->getPath()." est en double dans l'application");
+                    $all_paths[] = $route->getPath();
+                    if(in_array($route->getName(), $all_names))
+                        throw new \Exception("Le nom de route ".$route->getName()." est en double dans l'application");
+                    if($route->getName() != null)
+                        $all_names[] = $route->getName();
 
 
-                $route->setMethod($method);
+                    $route->setMethod($method);
 
-                $this->routes[] = $route;
+                    $this->routes[] = $route;
+                }
             }
         }
     }

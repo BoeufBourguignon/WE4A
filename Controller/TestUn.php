@@ -2,17 +2,21 @@
 
 namespace Controller;
 
+use Src\ControllerBase;
 use Src\Routing\Route;
-use Src\TestClass;
 
-class TestUn
+class TestUn extends ControllerBase
 {
-    #[Route("/", name: "route test 1")]
-    public function methTestUnUn(string $test, TestClass $class): void
+    #[Route("/home", name: "Home")]
+    public function home(): void
     {
-        echo "test 1.1";
-        var_dump($test);
-        var_dump($class);
+        $this->render("home");
+    }
+
+    #[Route("/", name: "Home bis")]
+    public function homeBis(): void
+    {
+        $this->redirect("/home");
     }
 
     #[Route("/test", name: "route test 2")]

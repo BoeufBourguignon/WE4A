@@ -27,12 +27,15 @@ class AutoWiring
             }
             else
             {
-                $i=0;
                 $routeParams = $route->getAllParams();
-                while($i < count($routeParams) - 1 && $routeParams[$i]->getName() != $param->getName())
-                    $i++;
-                if($routeParams[$i]->getName() == $param->getName())
-                    $params[$param->getName()] = $routeParams[$i]->getValue();
+                if(count($routeParams))
+                {
+                    $i=0;
+                    while($i < count($routeParams) - 1 && $routeParams[$i]->getName() != $param->getName())
+                        $i++;
+                    if($routeParams[$i]->getName() == $param->getName())
+                        $params[$param->getName()] = $routeParams[$i]->getValue();
+                }
             }
         }
         return $params;

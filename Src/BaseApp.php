@@ -35,7 +35,12 @@ class BaseApp
         {
             $params = $this->autoWiring->doAutoWiring($route);
 
-            call_user_func_array([new ($route->getMethod()->class), $route->getMethod()->getName()], $params);
+            $class = ($route->getMethod()->class);
+            if(!is_subclass_of($class, "Src\\ControllerBase"))
+                throw new \Exception("L'action ".$route->getMethod()->getName()." n'est pas dans un controller");
+
+            $obj = new $class($this->routeCollection);
+            call_user_func_array([$obj, $route->getMethod()->getName()], $params);
         }
         else
         {
