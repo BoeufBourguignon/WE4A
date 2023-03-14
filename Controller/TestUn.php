@@ -19,7 +19,7 @@ class TestUn extends ControllerBase
         $this->redirect("/home");
     }
 
-    #[Route("/test", name: "route test 2")]
+    #[Route("/test/salut", name: "route test 2")]
     public function methTestUnDeux(): void
     {
         echo "test 1.2 oui";
