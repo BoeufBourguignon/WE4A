@@ -31,13 +31,13 @@ class TestUn extends ControllerBase
         echo "test 1.2 oui";
     }
 
-    #[Route("/test/{allo}/{salope}", name: "route test 4")]
-    public function methTestDeFou(string $allo, string $salope): void
+    #[Route("/test/{allo}/{param}", name: "route test 4")]
+    public function methTestDeFou(string $allo, string $param): void
     {
         echo "
         <p>test 1.2 oui</p>
         <p>$allo</p>
-        <p>$salope</p>
+        <p>$param</p>
         ";
     }
 }
