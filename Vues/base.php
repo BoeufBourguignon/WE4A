@@ -1,24 +1,16 @@
-<?php
-/**
- * @var $vue
- */
-$css = "";
-$js = "";
-$body = "";
-
-include VUES."/".$vue.".php";
-?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <title>Banger</title>
     <meta charset="utf-8"/>
 
-    <?php echo $css ?>
+    <?php $this->drawBlock("css") ?>
 
-    <?php echo $js ?>
+    <?php $this->drawBlock("js") ?>
 </head>
 <body>
-<?php echo $body; ?>
+<div id="main">
+    <?php $this->drawBlock("body") ?>
+</div>
 </body>
 </html>

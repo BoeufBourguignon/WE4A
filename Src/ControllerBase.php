@@ -8,6 +8,8 @@ abstract class ControllerBase
 {
     private RouteCollection $routes;
 
+    private Render $render;
+
     public function __construct(RouteCollection $routes)
     {
         $this->routes = $routes;
@@ -15,11 +17,9 @@ abstract class ControllerBase
 
     protected function render(string $vue, array $params = []): void
     {
-        if(!file_exists(VUES."/".$vue.".php"))
-            throw new \Exception("La vue ".$vue." n'existe pas");
+        $this->render = new Render($vue);
 
-        extract($params);
-        include VUES."/base.php";
+        $this->render->render();
     }
 
     protected function redirect(string $route): void

@@ -1,13 +1,14 @@
 <?php
-/**
- * @var $css
- */
+$this->extends("base.php");
 
-$css .= <<<EOH
-    <link rel="stylesheet" href="/PublicAssets/Style/main.css">
-EOH;
+$this->addBlock("css", <<<EOH
+    <link rel='stylesheet' href='/PublicAssets/Style/main.css'>
+EOH);
 
-$navbar = include(ROOT."/Vues/Assets/navbar.php");
-$body = <<<EOH
-    { $navbar }
-EOH;
+$this->include("Assets/navbar.php", "navbar");
+$this->addBlock("body", <<<EOH
+    {$this->getBlock("navbar")}
+    <div id="canvas">
+        <h1>Test</h1>
+    </div>
+EOH);

@@ -1,7 +1,39 @@
-.main_nav
+#main_nav
 {
     position: fixed;
-    top: 0; left: 0;
-    width: 100%;
-    background-color: #314766;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 49px;
+    background-color: #1A1A1B;
+    color: gainsboro;
+    border-bottom: 1px solid #343536;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+#main_nav *
+{
+    margin: 0;
+}
+
+#search {
+    background-color: #272729;
+    border: 1px solid #343536;
+    padding: 8px;
+    border-radius: 12px;
+    color: gainsboro;
+}
+#search:hover, #search:focus, #search:focus-visible
+{
+    background-color: #1A1A1B;
+}
+#search:focus, #search:focus-visible
+{
+    border: 1px solid lightgray;
+    outline: none;
 }

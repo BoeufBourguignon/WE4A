@@ -10,7 +10,7 @@ class HomeController extends ControllerBase
     #[Route("/home", name: "Home")]
     public function home(): void
     {
-        $this->render("Home/home");
+        $this->render("Home/home.php");
     }
 
     #[Route("/", name: "Home bis")]

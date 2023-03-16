@@ -1,14 +1,24 @@
+* {
+    font-family: Calibri, sans-serif;
+    font-size: 1rem;
+}
+
 body
 {
     margin: 0;
-    background-color: #0D1117;
+    background-color: gainsboro;
 }
 
-.center-fixed
+#main
 {
-    background-color: #314766;
+    background-color: #030303;
+    padding-top: 50px;
+    min-height: calc(100vh - 50px);
+}
 
-    position: fixed;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
+#canvas
+{
+    width: 65%;
+    margin: 0 auto;
+    color: gainsboro;
 }
