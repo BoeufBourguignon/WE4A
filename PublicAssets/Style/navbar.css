@@ -27,6 +27,7 @@
     padding: 8px;
     border-radius: 12px;
     color: gainsboro;
+    width: 50%;
 }
 #search:hover, #search:focus, #search:focus-visible
 {

@@ -9,6 +9,8 @@ $this->include("Assets/navbar.php", "navbar");
 $this->addBlock("body", <<<EOH
     {$this->getBlock("navbar")}
     <div id="canvas">
-        <h1>Test</h1>
+        <div class="post">
+            <h1>Test</h1>
+        </div>
     </div>
 EOH);
