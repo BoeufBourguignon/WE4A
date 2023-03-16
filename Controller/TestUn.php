@@ -7,18 +7,6 @@ use Src\Routing\Route;
 
 class TestUn extends ControllerBase
 {
-    #[Route("/home", name: "Home")]
-    public function home(): void
-    {
-        $this->render("home");
-    }
-
-    #[Route("/", name: "Home bis")]
-    public function homeBis(): void
-    {
-        $this->redirect("/home");
-    }
-
     #[Route("/test/salut", name: "route test 2")]
     public function methTestUnDeux(): void
     {

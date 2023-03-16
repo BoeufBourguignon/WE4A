@@ -29,4 +29,9 @@ abstract class ControllerBase
 
         header("Location: ".$route);
     }
+
+    protected function includeView(string $view)
+    {
+        return include ROOT."/Vues/".$view.".php";
+    }
 }

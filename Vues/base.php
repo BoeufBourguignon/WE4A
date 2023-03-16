@@ -2,6 +2,10 @@
 /**
  * @var $vue
  */
+$css = "";
+$js = "";
+$body = "";
+
 include VUES."/".$vue.".php";
 ?>
 <!DOCTYPE html>
@@ -10,11 +14,11 @@ include VUES."/".$vue.".php";
     <title>Banger</title>
     <meta charset="utf-8"/>
 
-    <?php echo $css ?? null; ?>
+    <?php echo $css ?>
 
-    <?php echo $js ?? null; ?>
+    <?php echo $js ?>
 </head>
 <body>
-<?php echo $body ?? null; ?>
+<?php echo $body; ?>
 </body>
 </html>
