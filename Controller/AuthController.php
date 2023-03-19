@@ -6,7 +6,7 @@ use Managers\UserManager;
 use Src\ControllerBase;
 use Src\Routing\Route;
 
-class FormController extends ControllerBase
+class AuthController extends ControllerBase
 {
     #[Route("/form_login", name:"Login form")]
     public function login(UserManager $userManager)
@@ -74,5 +74,14 @@ class FormController extends ControllerBase
         }
 
         $this->redirect($redirect);
+    }
+
+    #[Route("/logout", name:"Logout")]
+    public function logout()
+    {
+        if($this->auth->getUser() != null)
+            setcookie("user", null, -1);
+
+        $this->redirect("/home");
     }
 }

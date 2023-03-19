@@ -23,17 +23,6 @@ CREATE TABLE IF NOT EXISTS category
     PRIMARY KEY (idCategory)
 ) ENGINE = InnoDB;
 
-DROP TABLE IF EXISTS category_suggestion;
-CREATE TABLE IF NOT EXISTS category_suggestion
-(
-    idSuggestion INT NOT NULL AUTO_INCREMENT,
-    idCategory   INT NOT NULL,
-    idUser       INT NOT NULL,
-    PRIMARY KEY (idSuggestion),
-    FOREIGN KEY (idCategory) REFERENCES category (idCategory),
-    UNIQUE (idCategory, idUser)
-) ENGINE = InnoDB;
-
 DROP TABLE IF EXISTS post;
 CREATE TABLE IF NOT EXISTS post
 (
@@ -83,7 +72,6 @@ CREATE TABLE IF NOT EXISTS comment_thread
 CREATE USER IF NOT EXISTS 'ProjetWE4A'@'localhost' IDENTIFIED BY '1P1rSOm2V&&w';
 GRANT SELECT, INSERT, DELETE, UPDATE ON user TO 'ProjetWE4A'@'localhost';
 GRANT SELECT, INSERT, DELETE, UPDATE ON category TO 'ProjetWE4A'@'localhost';
-GRANT SELECT, INSERT, DELETE, UPDATE ON category_suggestion TO 'ProjetWE4A'@'localhost';
 GRANT SELECT, INSERT, DELETE, UPDATE ON post TO 'ProjetWE4A'@'localhost';
 GRANT SELECT, INSERT, DELETE, UPDATE ON comment TO 'ProjetWE4A'@'localhost';
 GRANT SELECT, INSERT, DELETE, UPDATE ON comment_post TO 'ProjetWE4A'@'localhost';

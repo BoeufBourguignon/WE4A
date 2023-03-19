@@ -23,13 +23,13 @@ class HomeController extends ControllerBase
     #[Route("/login", "Login")]
     public function login()
     {
-        $this->render("Home/login.php", css:["login.css"]);
+        $this->render("Auth/login.php", css:["login.css"]);
     }
 
     #[Route("/register", name:"Register")]
     public function register()
     {
-        $this->render("Home/register.php", css:["login.css"], js:["register.js"]);
+        $this->render("Auth/register.php", css:["login.css"], js:["register.js"]);
     }
 
     #[Route("/profile", name:"Profile")]
