@@ -41,6 +41,7 @@ body
     border: 1px solid #343536;
     border-radius: 6px;
     padding: 8px;
+    margin-bottom: 8px;
 }
 
 .btn
