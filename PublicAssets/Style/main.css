@@ -1,6 +1,16 @@
-* {
+*
+{
     font-family: Calibri, sans-serif;
+}
+p, input, a
+{
     font-size: 1rem;
+}
+
+p,a
+{
+    color: gainsboro;
+    text-decoration: none;
 }
 
 body
@@ -14,6 +24,7 @@ body
     background-color: #030303;
     padding-top: 50px;
     min-height: calc(100vh - 50px);
+    color: gainsboro;
 }
 
 #canvas
@@ -30,4 +41,85 @@ body
     border: 1px solid #343536;
     border-radius: 6px;
     padding: 8px;
+}
+
+.btn
+{
+    text-decoration: none;
+    padding: 6px 8px;
+    border-radius: 8px;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    color: gainsboro;
+}
+.btn-orange
+{
+    background-color: #ff9933;
+}
+.btn:hover
+{
+    opacity: .8;
+}
+
+.txt-orange
+{
+    color: #ff9933;
+}
+.muted
+{
+    opacity: .6;
+}
+
+input[type=text], input[type=password]
+{
+    background-color: #272729;
+    border: 1px solid #343536;
+    padding: 8px;
+    border-radius: 12px;
+    color: gainsboro;
+    width: 50%;
+}
+input[type=text]:hover, input[type=text]:focus, input[type=text]:focus-visible,
+input[type=password]:hover, input[type=password]:focus, input[type=password]:focus-visible
+{
+    background-color: #1A1A1B;
+}
+input[type=text]:focus, input[type=text]:focus-visible,
+input[type=password]:focus, input[type=password]:focus-visible
+{
+    border: 1px solid lightgray;
+    outline: none;
+}
+.input-danger
+{
+    border: 1px solid crimson !important;
+}
+
+.text-center
+{
+    text-align: center;
+}
+
+.d-block
+{
+    display: block;
+}
+.d-inblock
+{
+    display: inline-block;
+}
+.d-none
+{
+    display: none;
+}
+
+.txt-danger
+{
+    color: crimson;
+}
+
+.no-margin
+{
+    margin: 0;
 }

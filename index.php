@@ -1,6 +1,8 @@
 <?php
+session_start();
+
 const ROOT = __DIR__;
-const VUES = ROOT."/Vues";
+const VIEWS = ROOT."/Vues";
 
 require_once ROOT . "/Src/BaseApp.php";
 
