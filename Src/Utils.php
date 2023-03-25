@@ -4,14 +4,18 @@ namespace Src;
 
 class Utils
 {
-    public static function getSessionMsg(string $sessionName)
+    public static function getSessionMsgAsErreur(string $sessionName): string
     {
-        $msg = "";
-        if(isset($_SESSION[$sessionName]))
-        {
-            $msg = "<p class='txt-danger no-margin'>" .$_SESSION[$sessionName]."</p>";
-            unset($_SESSION[$sessionName]);
-        }
+        $msg = self::getSessionMsg($sessionName);
+        return $msg == null
+            ? ""
+            : "<p class='txt-danger no-margin'>" .$msg."</p>";
+    }
+
+    public static function getSessionMsg(string $sessionName, bool $deleteAfter = true): ?string
+    {
+        $msg = $_SESSION[$sessionName] ?? null;
+        if($deleteAfter) unset($_SESSION[$sessionName]);
         return $msg;
     }
 

@@ -39,7 +39,7 @@ class BaseApp
             if(!is_subclass_of($class, "Src\\ControllerBase"))
                 throw new \Exception("L'action ".$route->getMethod()->getName()." n'est pas dans un controller");
 
-            $obj = new $class($this->routeCollection);
+            $obj = new $class($this->routeCollection, $route);
             call_user_func_array([$obj, $route->getMethod()->getName()], $params);
         }
         else

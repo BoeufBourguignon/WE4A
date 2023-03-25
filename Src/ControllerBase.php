@@ -2,17 +2,20 @@
 
 namespace Src;
 
+use Src\Routing\Route;
 use Src\Routing\RouteCollection;
 
 abstract class ControllerBase
 {
     private RouteCollection $routes;
+    protected Route $route;
     protected UserAuthentication $auth;
 
 
-    public function __construct(RouteCollection $routes)
+    public function __construct(RouteCollection $routes, Route $route)
     {
         $this->routes = $routes;
+        $this->route = $route;
         $this->auth = new UserAuthentication();
     }
 

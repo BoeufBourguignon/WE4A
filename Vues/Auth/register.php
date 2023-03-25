@@ -12,7 +12,7 @@
                 <input id="password-verify" type="password" name="password-verify" class="d-inblock" required>
             </div>
             <?php
-            echo \Src\Utils::getSessionMsg("register_error");
+            echo \Src\Utils::getSessionMsgAsErreur("register_error");
             ?>
             <button type="submit" class="btn btn-orange">S'inscrire</button>
             <p class="muted">Vous avez déjà un compte ? <a class="txt-orange" href="/login">Se connecter</a></p>

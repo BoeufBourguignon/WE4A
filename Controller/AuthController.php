@@ -28,6 +28,7 @@ class AuthController extends ControllerBase
             if($user == null || !password_verify($password, $user->getPasswd()))
             {
                 $_SESSION["login_error"] = "Identifiant ou mot de passe incorrect";
+                $_SESSION["last_username"] = $username;
             }
             else
             {

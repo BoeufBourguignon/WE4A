@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <title>Banger</title>
+    <title><?php echo $this->route->getTitle() ?? "Le site de fou" ?></title>
     <meta charset="utf-8"/>
 
     <link rel="stylesheet" href="/PublicAssets/Style/navbar.css">

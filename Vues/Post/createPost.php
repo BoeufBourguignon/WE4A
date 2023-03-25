@@ -2,6 +2,14 @@
 <link href="/PublicAssets/Style/quill.css" rel="stylesheet">
 
 <div class="post">
+    <div id="category-group">
+        <label for="category" class="d-none"></label>
+        <input type="text" id="category" placeholder="Choisir une catégorie" aria-selected="false">
+        <div id="category-list">
+            <p id="category-list-close" class="no-margin txt-orange">Fermer</p>
+            <a class="category-list-option" href="/category/create" target="_blank">&CirclePlus;&nbsp;Nouvelle catégorie</a>
+        </div>
+    </div>
     <div id="post-editor">
         <div id="editor-container"></div>
     </div>
@@ -9,13 +17,4 @@
 </div>
 
 <script src="//cdn.quilljs.com/1.3.6/quill.min.js"></script>
-<script>
-        let quill = new Quill('#editor-container', {
-            theme: 'snow',
-            placeholder: 'Poster un message'
-        });
-
-        document.getElementById("send-post").addEventListener("click", () => {
-            console.log(JSON.stringify(quill.getContents()))
-        })
-</script>
+<script src="/PublicAssets/Js/quill.js"></script>

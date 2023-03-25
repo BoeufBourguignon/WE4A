@@ -21,6 +21,11 @@
     margin: 0;
 }
 
+#main-nav #search
+{
+    width: 50%;
+}
+
 #main-nav #user-profile
 {
     height: 80%;

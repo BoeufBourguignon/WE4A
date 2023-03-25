@@ -32,7 +32,8 @@
 {
     background-color: #1A1A1B;
 }
-.ql-snow.ql-toolbar button.ql-active .ql-stroke
+.ql-snow.ql-toolbar button.ql-active .ql-stroke,
+.ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke
 {
     stroke: #ff9933;
 }
@@ -56,17 +57,51 @@
 {
     fill: #ff9933;
 }
-/*.ql-toolbar *, .ql-container **/
-/*{*/
-/*    color: gainsboro !important;*/
-/*    stroke: gainsboro !important;*/
-/*}*/
-/*.ql-picker-options*/
-/*{*/
-/*    background-color: #272729 !important;*/
-/*}*/
-/*.ql-active*/
-/*{*/
-/*    color: #FF9933 !important;*/
-/*    stroke: #FF9933 !important;*/
-/*}*/
+
+
+#category-group
+{
+    width: 100%;
+    position: relative;
+    margin-bottom: 8px;
+}
+#category-group #category
+{
+    width: calc(100% - 16px);
+}
+#category-group #category[aria-selected=false] ~ #category-list
+{
+    display: none;
+}
+#category-group #category[aria-selected=true]
+{
+    border-bottom-left-radius: unset;
+    border-bottom-right-radius: unset;
+    border: 1px solid lightgray;
+    border-bottom: #bebebe;
+}
+#category-group #category-list
+{
+    position: absolute;
+    width: 100%;
+    background-color: #272729;
+    border: 1px solid lightgray;
+    border-top: 1px solid #484848;
+    z-index: 80;
+}
+#category-group #category-list .category-list-option
+{
+    padding: 8px;
+    display: block;
+}
+#category-group #category-list .category-list-option:hover
+{
+    background-color: #1A1A1B;
+}
+#category-list-close
+{
+    border-bottom: 1px solid #484848;
+    padding: 4px;
+    cursor: pointer;
+    text-align: center;
+}

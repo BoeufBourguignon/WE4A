@@ -9,13 +9,15 @@ class Route
 {
     private string $path;
     private ?string $name;
+    private ?string $title;
     private ?\ReflectionMethod $method = null;
     private array $elements;
 
-    public function __construct(string $path, ?string $name = null)
+    public function __construct(string $path, ?string $name = null, ?string $title = null)
     {
         $this->path = $path;
         $this->name = $name;
+        $this->title = $title;
     }
 
     public function getAllElements(): array
@@ -86,5 +88,10 @@ class Route
     public function getName(): ?string
     {
         return $this->name;
+    }
+
+    public function getTitle(): ?string
+    {
+        return $this->title;
     }
 }
