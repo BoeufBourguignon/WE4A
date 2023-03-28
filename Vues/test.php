@@ -1,8 +1,12 @@
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<?php
+/**
+ * @var $categ
+ */
+?>
 <script>
     axios({
         method:'get',
-        url:'/ajax/test'
+        url:'/ajax/searchCateg/<?php echo $categ ?>'
     })
         .then(function(resp) {
             console.log(resp.data)

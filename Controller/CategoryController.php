@@ -2,14 +2,25 @@
 
 namespace Controller;
 
+use Managers\CategoryManager;
 use Src\ControllerBase;
 use Src\Routing\Route;
 
 class CategoryController extends ControllerBase
 {
-    #[Route("/add/category", name:"Create a category")]
-    public function addCateg()
+    #[Route("/ajax/searchCateg/{nomCateg}", name: "Search a categ", isAjax: true)]
+    public function searchCateg(string $nomCateg, CategoryManager $categoryManager)
     {
-        $this->render("Category/createCategory.php", params:["navbar" => false]);
+        $categExists = !($categoryManager->getCategoryByName($nomCateg) === false);
+
+        $categsLike = $categoryManager->searchCategory($nomCateg);
+
+        $this->renderJSON(array("categ_exists" => $categExists, "categs" => $categsLike));
+    }
+
+    #[Route("/test/{categ}")]
+    public function testCategs(string $categ)
+    {
+        $this->render("test.php", params:["categ" => $categ]);
     }
 }

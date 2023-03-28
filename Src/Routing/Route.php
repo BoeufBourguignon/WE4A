@@ -10,14 +10,16 @@ class Route
     private string $path;
     private ?string $name;
     private ?string $title;
+    private bool $isAjax;
     private ?\ReflectionMethod $method = null;
     private array $elements;
 
-    public function __construct(string $path, ?string $name = null, ?string $title = null)
+    public function __construct(string $path, ?string $name = null, ?string $title = null, bool $isAjax = false)
     {
         $this->path = $path;
         $this->name = $name;
         $this->title = $title;
+        $this->isAjax = $isAjax;
     }
 
     public function getAllElements(): array
@@ -93,5 +95,10 @@ class Route
     public function getTitle(): ?string
     {
         return $this->title;
+    }
+
+    public function isAjax(): bool
+    {
+        return $this->isAjax;
     }
 }

@@ -37,6 +37,11 @@ abstract class ControllerBase
         exit();
     }
 
+    protected function renderJSON(array $array)
+    {
+        echo json_encode($array);
+    }
+
     protected function includeView(string $view)
     {
         return include ROOT."/Vues/".$view.".php";

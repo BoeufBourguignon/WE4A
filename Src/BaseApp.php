@@ -39,6 +39,9 @@ class BaseApp
             if(!is_subclass_of($class, "Src\\ControllerBase"))
                 throw new \Exception("L'action ".$route->getMethod()->getName()." n'est pas dans un controller");
 
+            if($route->isAjax() && (empty($_SERVER['HTTP_X_REQUESTED_WITH']) || strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) != 'xmlhttprequest'))
+                throw new \Exception("Pas de l'AJAX");
+
             $obj = new $class($this->routeCollection, $route);
             call_user_func_array([$obj, $route->getMethod()->getName()], $params);
         }

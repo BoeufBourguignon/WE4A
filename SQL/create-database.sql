@@ -19,7 +19,6 @@ CREATE TABLE IF NOT EXISTS category
 (
     idCategory   INT         NOT NULL AUTO_INCREMENT,
     nameCategory VARCHAR(50) NOT NULL,
-    img          VARCHAR(50) DEFAULT NULL,
     PRIMARY KEY (idCategory)
 ) ENGINE = InnoDB;
 
