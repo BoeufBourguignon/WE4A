@@ -22,9 +22,13 @@ body
 #main
 {
     background-color: #030303;
+    color: gainsboro;
+    min-height: 100vh;
+}
+#main.has-navbar
+{
     padding-top: 50px;
     min-height: calc(100vh - 50px);
-    color: gainsboro;
 }
 
 #canvas
@@ -33,6 +37,12 @@ body
     margin: 0 auto;
     color: gainsboro;
     padding-top: 20px;
+}
+@media (max-width: 1000px) {
+    #canvas
+    {
+        width: 96%;
+    }
 }
 
 .post
@@ -61,6 +71,10 @@ body
 .btn:hover
 {
     opacity: .8;
+}
+.pointer
+{
+    cursor: pointer;
 }
 
 .txt-orange
@@ -121,6 +135,10 @@ input[type=password]:focus, input[type=password]:focus-visible
 .txt-danger
 {
     color: crimson;
+}
+.txt-success
+{
+    color: limegreen;
 }
 
 .no-margin

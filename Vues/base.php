@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <title><?php echo $this->route->getTitle() ?? "Le site de fou" ?></title>
+    <title><?php echo $this->route->getTitle() ?? "Projet WE4A" ?></title>
     <meta charset="utf-8"/>
 
     <link rel="stylesheet" href="/PublicAssets/Style/navbar.css">
@@ -32,7 +32,7 @@
     ?>
 </head>
 <body>
-<div id="main">
+<div id="main" <?php if(!isset($navbar) || $navbar) echo "class=\"has-navbar\""; ?>>
     <?php
     if(!isset($navbar) || $navbar)
         include(VIEWS."/Assets/navbar.php");

@@ -20,7 +20,7 @@ class HomeController extends ControllerBase
         $this->redirect("/home");
     }
 
-    #[Route("/login", "Login")]
+    #[Route("/login", name:"Login")]
     public function login()
     {
         $this->render("Auth/login.php", css:["login.css"]);

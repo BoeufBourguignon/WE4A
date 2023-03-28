@@ -7,9 +7,9 @@ use Src\Routing\Route;
 
 class CategoryController extends ControllerBase
 {
-    #[Route("/category/create", name:"Create a category")]
+    #[Route("/add/category", name:"Create a category")]
     public function addCateg()
     {
-        echo "salut";
+        $this->render("Category/createCategory.php", params:["navbar" => false]);
     }
 }
