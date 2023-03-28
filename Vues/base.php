@@ -32,7 +32,7 @@
     ?>
 </head>
 <body>
-<div id="main">
+<div id="main" <?php if(!isset($navbar) || $navbar) echo "class=\"has-navbar\""; ?>>
     <?php
     if(!isset($navbar) || $navbar)
         include(VIEWS."/Assets/navbar.php");

@@ -1,5 +1,3 @@
-- Connexion: vérification si HTTPS
-
 - Script AJAX
 
 - Création de Catégorie
@@ -8,3 +6,4 @@
 - Modifier/Supprimer post
 - Page Profile user
 - Ajout photo user
+- Ajouter des controles JS (connexion, inscription)

@@ -10,7 +10,7 @@ class UserManager extends Database
     {
         $sql = "SELECT idUser, username, passwd, idRole, avatar FROM user WHERE idUser = :id";
 
-        $stmt = $this->cnx->prepare($sql);
+        $stmt = self::$cnx->prepare($sql);
         $stmt->bindParam("id", $id);
         $stmt->setFetchMode(\PDO::FETCH_CLASS, User::class);
         $stmt->execute();
@@ -23,7 +23,7 @@ class UserManager extends Database
     {
         $sql = "SELECT idUser, username, passwd, idRole, avatar FROM user WHERE username = :username";
 
-        $stmt = $this->cnx->prepare($sql);
+        $stmt = self::$cnx->prepare($sql);
         $stmt->bindParam("username", $username);
         $stmt->setFetchMode(\PDO::FETCH_CLASS, User::class);
         $stmt->execute();
@@ -39,7 +39,7 @@ class UserManager extends Database
             VALUE (:username, :passwd)
         ";
 
-        $stmt = $this->cnx->prepare($sql);
+        $stmt = self::$cnx->prepare($sql);
         $stmt->bindParam("username", $username);
         $stmt->bindParam("passwd", $password);
 

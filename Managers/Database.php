@@ -13,11 +13,14 @@ abstract class Database
     private const PASS = "1P1rSOm2V&&w";
     private const DBNAME = "projet_we4a";
 
-    protected ?PDO $cnx = null;
+    protected static ?PDO $cnx = null;
 
     public function __construct()
     {
-        $dsn = "mysql:host=".self::HOST.";port=".self::PORT.";dbname=".self::DBNAME.";charset=".self::CHARSET;
-        $this->cnx = new PDO($dsn, self::LOGIN, self::PASS);
+        if(self::$cnx == null || self::$cnx->errorCode() != null)
+        {
+            $dsn = "mysql:host=".self::HOST.";port=".self::PORT.";dbname=".self::DBNAME.";charset=".self::CHARSET;
+            self::$cnx = new PDO($dsn, self::LOGIN, self::PASS);
+        }
     }
 }
