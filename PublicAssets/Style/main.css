@@ -122,6 +122,10 @@ input[type=password]:focus, input[type=password]:focus-visible
 {
     color: crimson;
 }
+.txt-success
+{
+    color: limegreen;
+}
 
 .no-margin
 {

@@ -12,6 +12,7 @@
             </div>
             <?php
             echo \Src\Utils::getSessionMsgAsErreur("login_error");
+            echo \Src\Utils::getSessionMsgAsSuccess("register_success");
             ?>
             <button type="submit" class="btn btn-orange">Se connecter</button>
             <p class="muted">Pas de compte ? <a class="txt-orange" href="/register">S'inscrire</a></p>

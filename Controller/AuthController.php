@@ -8,6 +8,11 @@ use Src\Routing\Route;
 
 class AuthController extends ControllerBase
 {
+    /**
+     * @param UserManager $userManager
+     * @return void
+     * @throws \Exception
+     */
     #[Route("/form_login", name:"Login form")]
     public function login(UserManager $userManager)
     {
@@ -66,6 +71,7 @@ class AuthController extends ControllerBase
                 if($userManager->addUser($username, password_hash($password, PASSWORD_BCRYPT)))
                 {
                     $redirect = "/login";
+                    $_SESSION["register_success"] = "Le compte a bien été créé";
                 }
                 else
                 {
