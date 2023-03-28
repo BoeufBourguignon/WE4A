@@ -8,20 +8,20 @@ window.onload = () => {
     password.addEventListener("keyup", () => {
         if(!password.value.match(passwordRegex))
         {
-            password.classList.add("input-error")
-            passwordIndication.classList.add("txt-error")
+            password.classList.add("input-danger")
+            passwordIndication.classList.add("txt-danger")
         }
         else
         {
-            password.classList.remove("input-error")
-            passwordIndication.classList.remove("txt-error")
+            password.classList.remove("input-danger")
+            passwordIndication.classList.remove("txt-danger")
         }
     })
 
     passwordVerify.addEventListener("keyup", () => {
         if(password.value !== passwordVerify.value)
-            passwordVerify.classList.add("input-error")
+            passwordVerify.classList.add("input-danger")
         else
-            passwordVerify.classList.remove("input-error")
+            passwordVerify.classList.remove("input-danger")
     })
 }
