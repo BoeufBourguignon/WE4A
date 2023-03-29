@@ -7,8 +7,8 @@
             <label for="category" class="d-none"></label>
             <input type="text" id="category" placeholder="Choisir une catégorie" aria-selected="false">
             <div id="category-list">
-                <p id="category-list-close" class="no-margin txt-orange">Fermer</p>
-                <span class="category-list-option pointer" onclick="window.open('/add/category', 'Create category', 'width=600,height=400')">&CirclePlus;&nbsp;Nouvelle catégorie</span>
+                <!--<p id="category-list-close" class="no-margin txt-orange">Fermer</p>-->
+                <div id="new-category" class="d-none category-list-option" onclick="window.open('/add/category', 'Create category', 'width=600,height=400')">Créer la catégorie "<span id="new-category-name"></span>"</div>
             </div>
         </div>
         <div id="category-title">

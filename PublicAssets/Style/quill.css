@@ -107,6 +107,12 @@
 {
     padding: 8px;
     display: block;
+    cursor: pointer;
+}
+#category-group #category-list .category-list-option:last-child
+{
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
 }
 #category-group #category-list .category-list-option:hover
 {

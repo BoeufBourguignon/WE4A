@@ -129,7 +129,7 @@ input[type=password]:focus, input[type=password]:focus-visible
 }
 .d-none
 {
-    display: none;
+    display: none !important;
 }
 
 .txt-danger
