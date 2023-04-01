@@ -17,21 +17,6 @@
         }
     }
     ?>
-
-    <script src="/PublicAssets/Js/navbar.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="/PublicAssets/Js/axios-config.js"></script>
-    <?php
-    if(isset($js))
-    {
-        foreach($js as $line)
-        {
-            ?>
-            <script src="/PublicAssets/Js/<?php echo $line ?>"></script>
-            <?php
-        }
-    }
-    ?>
 </head>
 <body>
 <div id="main" <?php if(!isset($navbar) || $navbar) echo "class=\"has-navbar\""; ?>>
@@ -43,5 +28,20 @@
     include VIEWS."/".$view;
     ?>
 </div>
+
+<script src="/PublicAssets/Js/navbar.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="/PublicAssets/Js/axios-config.js"></script>
+<?php
+if(isset($js))
+{
+    foreach($js as $line)
+    {
+        ?>
+        <script src="/PublicAssets/Js/<?php echo $line ?>"></script>
+        <?php
+    }
+}
+?>
 </body>
 </html>

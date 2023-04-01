@@ -23,4 +23,9 @@ abstract class Database
             self::$cnx = new PDO($dsn, self::LOGIN, self::PASS);
         }
     }
+
+    public function getConnection(): PDO
+    {
+        return self::$cnx;
+    }
 }

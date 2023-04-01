@@ -9,10 +9,10 @@ class CategoryManager extends Database
     public function searchCategory(string $str): array
     {
         $sql = "
-            SELECT nameCategory FROM category
+            SELECT idCategory, nameCategory FROM category
             WHERE nameCategory LIKE :startMatch
                 UNION
-            SELECT nameCategory FROM category
+            SELECT idCategory, nameCategory FROM category
             WHERE nameCategory LIKE :anyMatch
         ";
 
@@ -21,7 +21,7 @@ class CategoryManager extends Database
         $stmt->bindValue("anyMatch", "%".$str."%");
         $stmt->execute();
 
-        return $stmt->fetchAll();
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     public function getCategoryByName(string $categoryName): Category|false
@@ -34,5 +34,18 @@ class CategoryManager extends Database
         $stmt->execute();
 
         return $stmt->fetch();
+    }
+
+    public function addCategory(string $categName): bool
+    {
+        $sql = "
+            INSERT INTO category (nameCategory)
+            VALUE (:categName)
+        ";
+
+        $stmt = self::$cnx->prepare($sql);
+        $stmt->bindParam("categName", $categName);
+
+        return $stmt->execute();
     }
 }

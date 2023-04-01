@@ -11,7 +11,7 @@ class HomeController extends ControllerBase
     #[Route("/home", name: "Home")]
     public function home(UserAuthentication $auth)
     {
-        $this->render("Home/home.php");
+        $this->render("Home/home.php", js:["create-category"]);
     }
 
     #[Route("/", name: "Home bis")]

@@ -18,9 +18,18 @@ class CategoryController extends ControllerBase
         $this->renderJSON(array("categ_exists" => $categExists, "categs" => $categsLike));
     }
 
-    #[Route("/test/{categ}")]
-    public function testCategs(string $categ)
+    #[Route("/create/category", name: "Create a category")]
+    public function createCateg(CategoryManager $categoryManager)
     {
-        $this->render("test.php", params:["categ" => $categ]);
+        $categ_name = filter_input(INPUT_POST, "categ");
+
+        $response = array("response" => false);
+        if($categ_name !== null && $categoryManager->getCategoryByName($categ_name) === false)
+        {
+            $response["response"] = $categoryManager->addCategory($categ_name);
+            $response["categId"] = $categoryManager->getConnection()->lastInsertId();
+        }
+
+        $this->renderJSON($response);
     }
 }
