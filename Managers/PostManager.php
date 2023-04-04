@@ -2,6 +2,8 @@
 
 namespace Managers;
 
+use Model\Post;
+
 class PostManager extends Database
 {
     public function postPost(int $idUser, int $categId, string $title, string $msg): bool
@@ -20,4 +22,20 @@ class PostManager extends Database
         return $stmt->execute();
     }
 
+    public function getLastPosts(int $idGreaterThan = 0): array
+    {
+        $sql = "
+            SELECT idPost, title, content, datePost, idUser, idCategory
+            FROM post
+            WHERE idPost > :id
+            ORDER BY datePost DESC
+        ";
+
+        $stmt = self::$cnx->prepare($sql);
+        $stmt->bindParam("id", $idGreaterThan);
+        $stmt->setFetchMode(\PDO::FETCH_CLASS, Post::class);
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+    }
 }

@@ -10,13 +10,14 @@ class PostController extends \Src\ControllerBase
     #[Route("/post/post", name:"Post post")]
     public function post_post(PostManager $postManager)
     {
+        $response = array();
+
         $data = json_decode(file_get_contents('php://input'));
 
-        $title = filter_var($data->title);
-        $categ = filter_var($data->categoryId);
-        $msg = filter_var($data->message);
+        $title = htmlspecialchars($data->title);
+        $categ = htmlspecialchars($data->categoryId);
+        $msg = htmlspecialchars($data->message);
 
-        $response = array();
         // Vérification paramètres
         if(
             $categ == null || $categ == 0 ||
@@ -24,6 +25,7 @@ class PostController extends \Src\ControllerBase
             $msg == null || strlen($msg) < 2 || strlen($msg) > 500
         ) {
             $response["response"] = false;
+            $response["debug"] = $msg;
         }
         else
         {

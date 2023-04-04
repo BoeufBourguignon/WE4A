@@ -8,7 +8,7 @@ abstract class Database
 {
     private const HOST = "localhost";
     private const PORT = "3306";
-    private const CHARSET = "utf8";
+    private const CHARSET = "utf8mb4";
     private const LOGIN = "ProjetWE4A";
     private const PASS = "1P1rSOm2V&&w";
     private const DBNAME = "projet_we4a";

@@ -6,8 +6,7 @@ let quill = new Quill('#editor-container', {
             [{ header: [1, 2, false] }],
             ['bold', 'italic', 'underline', 'strike'],
             [{'color': []}],
-            ['link', 'blockquote'],
-            ['image', 'code-block']
+            ['link', 'blockquote']
         ]
     }
 });

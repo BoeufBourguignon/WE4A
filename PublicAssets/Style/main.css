@@ -24,6 +24,7 @@ body
     background-color: #030303;
     color: gainsboro;
     min-height: 100vh;
+    padding-bottom: 8px;
 }
 #main.has-navbar
 {

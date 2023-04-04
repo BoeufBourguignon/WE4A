@@ -4,7 +4,11 @@
         include_once(VIEWS."/Post/createPost.php")
     ?>
 
-    <div class="post">
-        <h1>Test</h1>
-    </div>
+    <?php
+    /** @var array $posts */
+    foreach($posts as $post)
+    {
+        include(VIEWS."/Post/showPost.php");
+    }
+    ?>
 </div>

@@ -26,10 +26,22 @@ class CategoryManager extends Database
 
     public function getCategoryByName(string $categoryName): Category|false
     {
-        $sql = "SELECT idCategory, nameCategory FROM category WHERE nameCategory = :name";
+        $sql = "SELECT idCategory, nameCategory FROM category WHERE LOWER(nameCategory) = :name";
 
         $stmt = self::$cnx->prepare($sql);
         $stmt->bindParam("name", $categoryName);
+        $stmt->setFetchMode(\PDO::FETCH_CLASS, Category::class);
+        $stmt->execute();
+
+        return $stmt->fetch();
+    }
+
+    public function getCategoryById(int $id): Category|false
+    {
+        $sql = "SELECT idCategory, nameCategory FROM category WHERE idCategory = :id";
+
+        $stmt = self::$cnx->prepare($sql);
+        $stmt->bindParam("id", $id);
         $stmt->setFetchMode(\PDO::FETCH_CLASS, Category::class);
         $stmt->execute();
 
@@ -40,7 +52,7 @@ class CategoryManager extends Database
     {
         $sql = "
             INSERT INTO category (nameCategory)
-            VALUE (:categName)
+            VALUE (LOWER(:categName))
         ";
 
         $stmt = self::$cnx->prepare($sql);

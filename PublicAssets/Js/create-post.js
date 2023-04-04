@@ -26,12 +26,12 @@ document.getElementById("send-post").addEventListener("click", () =>
         alert("Le titre ne doit pas faire plus de 100 caractères")
         verified = false
     }
-    if(quill.getLength() < 2)
+    if(quill.getContents().length < 2)
     {
         alert("Le message ne doit pas être vide")
         verified = false
     }
-    if(quill.getLength() > 500)
+    if(quill.getLength().length > 500)
     {
         alert("Votre message est trop long")
         verified = false
@@ -43,14 +43,17 @@ document.getElementById("send-post").addEventListener("click", () =>
         axios.post("/post/post", {
                 title: title.value,
                 categoryId: categoryId.value,
-                message: quill.getText()
+                message: quill.root.innerHTML
         })
             .then(function(resp)
             {
                 if(resp.data["response"] === true)
                     location.reload()
                 else
+                {
                     alert("Une erreur est survenue")
+                    console.log(resp.data)
+                }
             })
             .catch(axiosCatchError)
     }
@@ -142,13 +145,15 @@ document.getElementById("new-category").addEventListener("click", () =>
     // Crée la catégorie
     axios({
         method:'post',
-        url:'/create/category',
+        url:'/ajax/create/category',
         data: "categ="+categoryInput.value
     })
         .then(function(resp)
         {
             if(resp.data["response"] === true)
             {
+                categoryInput.value = categoryInput.value.toLowerCase()
+                alert("La catégorie "+categoryInput.value+" a été correctement créée")
                 categoryId.value = resp.data["categId"]
                 categoryInput.ariaSelected = "false"
                 document.querySelectorAll("#category-list .category-list-option.ajax-option").forEach((e) => e.remove())

@@ -2,16 +2,29 @@
 
 namespace Controller;
 
+use Managers\CategoryManager;
+use Managers\PostManager;
+use Managers\UserManager;
+use Model\Post;
 use Src\ControllerBase;
 use Src\Routing\Route;
-use Src\UserAuthentication;
 
 class HomeController extends ControllerBase
 {
     #[Route("/home", name: "Home")]
-    public function home(UserAuthentication $auth)
+    public function home(UserManager $userManager, PostManager $postManager, CategoryManager $categManager)
     {
-        $this->render("Home/home.php", js:["create-category"]);
+        $posts = $postManager->getLastPosts();
+        /** @var Post $post */
+        foreach($posts as $post)
+        {
+            $post->setUser($userManager->getUserById($post->getIdUser()));
+            $post->setCategory($categManager->getCategoryById($post->getIdCategory()));
+        }
+
+        $this->render("Home/home.php",
+            params:["posts" => $posts],
+            js:["create-post"]);
     }
 
     #[Route("/", name: "Home bis")]

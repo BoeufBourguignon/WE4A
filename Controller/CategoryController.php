@@ -18,7 +18,7 @@ class CategoryController extends ControllerBase
         $this->renderJSON(array("categ_exists" => $categExists, "categs" => $categsLike));
     }
 
-    #[Route("/create/category", name: "Create a category")]
+    #[Route("/ajax/create/category", name: "Create a category")]
     public function createCateg(CategoryManager $categoryManager)
     {
         $categ_name = filter_input(INPUT_POST, "categ");
