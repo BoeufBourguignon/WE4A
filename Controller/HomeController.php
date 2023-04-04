@@ -24,7 +24,7 @@ class HomeController extends ControllerBase
 
         $this->render("Home/home.php",
             params:["posts" => $posts],
-            js:["create-post"]);
+            js:["create-post.js"]);
     }
 
     #[Route("/", name: "Home bis")]
@@ -47,7 +47,8 @@ class HomeController extends ControllerBase
 
     #[Route("/profile", name:"Profile")]
     public function profile()
-    {
+    { 
+        $user = 
         $this->render("Home/profile.php");
     }
 }
