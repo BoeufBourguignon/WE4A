@@ -29,6 +29,7 @@
     ?>
 </div>
 
+<script src="/PublicAssets/Js/common.js"></script>
 <script src="/PublicAssets/Js/navbar.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="/PublicAssets/Js/axios-config.js"></script>

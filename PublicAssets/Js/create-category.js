@@ -3,12 +3,57 @@ let divCategoryList = document.getElementById("category-list")
 let categoryId = document.getElementById("category-id")
 let newCateg = document.getElementById("new-category")
 let newCategName = document.getElementById("new-category-name")
+let title = document.getElementById("title")
 
 
 // Poster le message
 document.getElementById("send-post").addEventListener("click", () =>
 {
-    console.log(JSON.stringify(quill.getContents()))
+    // Vérifications
+    let verified = true
+    if(categoryId.value.length === "" || categoryInput.value === "")
+    {
+        alert("Erreur de choix de catégorie. Veuillez réessayer")
+        verified = false
+    }
+    if(title.value === "")
+    {
+        alert("Le titre ne doit pas être vide")
+        verified = false
+    }
+    if(title.value.length > 100)
+    {
+        alert("Le titre ne doit pas faire plus de 100 caractères")
+        verified = false
+    }
+    if(quill.getLength() < 2)
+    {
+        alert("Le message ne doit pas être vide")
+        verified = false
+    }
+    if(quill.getLength() > 500)
+    {
+        alert("Votre message est trop long")
+        verified = false
+    }
+
+    if(verified)
+    {
+        // Poster le message via AJAX
+        axios.post("/post/post", {
+                title: title.value,
+                categoryId: categoryId.value,
+                message: quill.getText()
+        })
+            .then(function(resp)
+            {
+                if(resp.data["response"] === true)
+                    location.reload()
+                else
+                    alert("Une erreur est survenue")
+            })
+            .catch(axiosCatchError)
+    }
 })
 
 
@@ -53,8 +98,6 @@ categoryInput.addEventListener("keyup", () =>
 
                 resp.data["categs"].forEach((el) =>
                 {
-                    console.log(el)
-
                     let newDiv = document.createElement("div")
                     newDiv.classList.add("category-list-option")
                     newDiv.classList.add("ajax-option")
@@ -84,11 +127,7 @@ categoryInput.addEventListener("keyup", () =>
                     newCateg.classList.add("d-none")
                 }
             })
-            .catch(function(e)
-            {
-                alert("Une erreur s'est produite")
-                console.log(e)
-            })
+            .catch(axiosCatchError)
     }
     else
     {
@@ -116,8 +155,5 @@ document.getElementById("new-category").addEventListener("click", () =>
                 newCateg.classList.add("d-none")
             }
         })
-        .catch(function()
-        {
-            alert("Une erreur s'est produite")
-        })
+        .catch(axiosCatchError)
 })
