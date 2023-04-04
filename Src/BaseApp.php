@@ -1,33 +1,42 @@
 <?php
-// Cette classe a pour objectif de charger trois composantes de l'application :
-// - L'auto-loader, fait grâce aux namespaces
-// - Les routes, se basants sur l'URL et servant à afficher la bonne page (associée à une fonction d'un controlleur)
-// - L'auto-wiring, permettant de charger facilement des classes dans les controlleurs
-
-// N.B.: Les routes et l'auto-wiring sont très largement inspirées du framework Symfony 6
-// Les codes ont été faits sans copier pour autant les sources de Symfony, tout a été refait en s'inspirant
-// uniquement de l'utilisation de ces composants, et non de leur implémentation.
 
 namespace Src;
 
 use Src\Routing\RouteCollection;
 
 /**
- * Classe noyau de l'application
+ *  Cette classe a pour objectif de charger trois composantes de l'application :
+ * - L'auto-loader, fait grâce aux namespaces
+ * - Les routes, se basants sur l'URL et servant à afficher la bonne page (associée à une fonction d'un controlleur)
+ * - L'auto-wiring, permettant de charger facilement des classes dans les controlleurs
+ *
+ * N.B.: Les routes et l'auto-wiring sont très largement inspirées du framework Symfony 6
+ * Les codes ont été faits sans copier pour autant les sources de Symfony, tout a été refait en s'inspirant
+ * uniquement de l'utilisation de ces composants, et non de leur implémentation.
  */
 class BaseApp
 {
     private RouteCollection $routeCollection;
-    private AutoWiring $autoWiring;
 
+    /**
+     * Classe noyau de l'application. Associe la route et son action,
+     */
     public function __construct()
     {
+        // Permet, lorsqu'une classe est utilisée, d'inclure automatiquement son fichier
+        // Le namespace de chaque classe doit correspondre à son répertoire
+        // Le nom de la classe doit correspondre au nom de son fichier
         $this->doAutoLoad();
 
+        // Récupère toutes les routes de tous les controlleurs contenus dans le dossier "Controller"
         $this->routeCollection = new RouteCollection();
-        $this->autoWiring = new AutoWiring();
     }
 
+    /**
+     * Met en place l'auto-loading des classes
+     *
+     * @return void
+     */
     private function doAutoLoad(): void
     {
         require_once ROOT . "/Src/AutoLoader.php";
@@ -51,7 +60,7 @@ class BaseApp
         // On vérifie tout d'abord si la Route spécifiée existe
         if(($route = $this->routeCollection->getRoute($url)) !== false)
         {
-            $params = $this->autoWiring->doAutoWiring($route);
+            $params = AutoWiring::doAutoWiring($route);
 
             // On récupère le controlleur contenant l'action de la route voulue
             $controlleur = ($route->getMethod()->class);
@@ -63,7 +72,7 @@ class BaseApp
             }
 
             // Les requêtes AJAX sont envoyées avec un paramètre d'en-tête particulier
-            // Lorsque l'on cherche à afficher une page AJAX, si la requête n'a pas ce paramètre, il y a une erreur
+            // Lorsque l'on veut accéder à une page AJAX, si la requête n'a pas ce paramètre, il y a une erreur
             if(
                 $route->isAjax()
                 && (
@@ -74,7 +83,8 @@ class BaseApp
                 throw new \Exception("Pas de l'AJAX");
             }
 
-            // On crée le controlleur et on appelle l'action demandée en y ajoutant les params trouvés par l'auto-wiring
+            // On instancie le controlleur
+            // et on appelle l'action demandée en lui donnant les params trouvés par l'auto-wiring
             $obj = new $controlleur($this->routeCollection, $route);
             call_user_func_array([$obj, $route->getMethod()->getName()], $params);
         }

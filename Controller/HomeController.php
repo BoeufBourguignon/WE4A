@@ -45,7 +45,7 @@ class HomeController extends ControllerBase
         $this->render("Auth/register.php", css:["login.css"], js:["register.js"]);
     }
 
-    #[Route("/profile", name:"Profile")]
+    #[Route("/", name:"Profile")]
     public function profile()
     {
         $this->render("Home/profile.php");

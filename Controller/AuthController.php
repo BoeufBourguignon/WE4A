@@ -68,14 +68,23 @@ class AuthController extends ControllerBase
             }
             else
             {
-                if($userManager->addUser($username, password_hash($password, PASSWORD_BCRYPT)))
+                if(!preg_match("^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#\/\\])[A-Za-z\d@$!%*?&#\/\\]{8,}$", $password))
                 {
-                    $redirect = "/login";
-                    $_SESSION["register_success"] = "Le compte a bien été créé";
+                    $_SESSION["register_error"] = "Le mot de passe n'est pas au bon format";
                 }
                 else
                 {
-                    $_SESSION["register_error"] = "Une erreur est survenue";
+                    if($password)
+
+                    if($userManager->addUser($username, password_hash($password, PASSWORD_BCRYPT)))
+                    {
+                        $redirect = "/login";
+                        $_SESSION["register_success"] = "Le compte a bien été créé";
+                    }
+                    else
+                    {
+                        $_SESSION["register_error"] = "Une erreur est survenue";
+                    }
                 }
             }
         }

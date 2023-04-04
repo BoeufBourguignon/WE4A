@@ -5,20 +5,25 @@ namespace Src;
 class AutoLoader
 {
     /**
-     * @throws \Exception La classe n'est pas dans le même dossier que son namespace
+     * A chaque fois qu'une nouvelle classe est utilisée, son fichier est automatiquement inclus
+     *
+     * @throws \Exception La classe n'est pas située au bon endroit/n'a pas un bon namespace
      */
-    public static function loadClass(string $class): void
+    private static function loadClass(string $class): void
     {
         $file = ROOT."\\".$class.".php";
 
         if(!file_exists($file))
         {
-            throw new \Exception("La classe ".$class." n'est pas dans le même dossier que son namespace");
+            throw new \Exception("La classe ".$class." n'a pas ".$file." comment chemin d'accès");
         }
 
         require_once $file;
     }
 
+    /**
+     * Implémente l'auto-loading des classes
+     */
     public function __construct()
     {
         spl_autoload_register("Src\AutoLoader::loadClass");

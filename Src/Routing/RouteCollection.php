@@ -9,6 +9,8 @@ class RouteCollection
     private array $routes = [];
 
     /**
+     * Gère toutes les Routes contenus dans des controleurs dans le dossier /Controller
+     *
      * @throws \ReflectionException
      * @throws \Exception Le répertoire de base des controllers n'existe pas
      */
@@ -90,31 +92,46 @@ class RouteCollection
     }
 
     /**
+     * Charge toutes les routes existantes, en leur associant leur action
+     *
      * @throws \ReflectionException
      * @throws \Exception Le répertoire de base des controllers n'existe pas
      */
     private function loadRoutes(): void
     {
+        // Vérifie que le dossier des controleurs existe
         if(!is_dir(self::CONTROLLERS))
         {
             throw new \Exception("Le répertoire de base des controllers n'existe pas");
         }
 
+        // Variables servant à vérifier qu'une route ou qu'un nom de route ne soit pas présent en double
         $all_paths = array();
         $all_names = array();
 
+        // Récupère tous les fichiers présents dans le dossier /Controller
         $files = array_diff(scandir(self::CONTROLLERS), array('..', '.'));
         foreach($files as $file)
         {
+            // Le nom de la classe du controleur correspond au nom du fichier (sans l'extension)
             $class = pathinfo($file, PATHINFO_FILENAME);
 
-            // La on fait la reflection sur la fichier
+            // On recupere les informations du controleur
             $r = new \ReflectionClass("Controller\\" . $class);
+
+            //Chaque méthode du controleur peut éventuellement être une action liée à une route
             foreach($r->getMethods() as $method)
             {
+                // Pour chaque méthode du controleur
+                // On récupère l'attribut Route. Si l'attribut est en double, il y aura une erreur (l'attribut n'est pas
+                // déclaré comme répétable)
+                // On obtient forcément un array d'un seul élément, ou un array vide
                 $attrs = $method->getAttributes(Route::class, \ReflectionAttribute::IS_INSTANCEOF);
+
+
                 if($method->isPublic() && count($attrs))
-                {/** @var Route $route */
+                {
+                    /** @var Route $route */
                     $route = $attrs[0]->newInstance();
 
                     if(in_array($route->getPath(), $all_paths))

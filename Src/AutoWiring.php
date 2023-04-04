@@ -6,13 +6,10 @@ use Src\Routing\Route;
 
 class AutoWiring
 {
-
-
     /**
-     * @throws \ReflectionException
      * @throws \Exception
      */
-    public function doAutoWiring(Route $route): array
+    public static function doAutoWiring(Route $route): array
     {
         $params = array();
         foreach($route->getMethod()->getParameters() as $param)
