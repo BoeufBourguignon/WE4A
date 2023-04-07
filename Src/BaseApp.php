@@ -45,7 +45,7 @@ class BaseApp
 
 
     /**
-     * @throws \Exception
+     * @throws \Exception Toutes les erreurs générées par l'application
      */
     public function launchApp(): void
     {
@@ -57,9 +57,13 @@ class BaseApp
         // TODO vérifier ce string pour éviter les attaques
         $url = $_GET["url"];
 
-        // On vérifie tout d'abord si la Route spécifiée existe
+        // On vérifie si la Route existe
         if(($route = $this->routeCollection->getRoute($url)) !== false)
         {
+            // On récupère les paramètres via auto-wiring, c'est à dire :
+            // On récupère les paramètres de la méthode liée à la Route
+            // Si le paramètre de la méthode est un objet instanciable, on l'instancie
+            // Si le paramètre de la méthode est un paramètre de la route, on l'associe à la valeur liée dans l'url
             $params = AutoWiring::doAutoWiring($route);
 
             // On récupère le controlleur contenant l'action de la route voulue
@@ -67,9 +71,7 @@ class BaseApp
 
             // On vérifie que l'action voulue est dans un Controlleur qui hérite de la classe de base des controlleurs
             if(!is_subclass_of($controlleur, "Src\\ControllerBase"))
-            {
                 throw new \Exception("L'action ".$route->getMethod()->getName()." n'est pas un controller");
-            }
 
             // Les requêtes AJAX sont envoyées avec un paramètre d'en-tête particulier
             // Lorsque l'on veut accéder à une page AJAX, si la requête n'a pas ce paramètre, il y a une erreur
@@ -79,9 +81,8 @@ class BaseApp
                     empty($_SERVER['HTTP_X_REQUESTED_WITH'])
                     || strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) != 'xmlhttprequest'
                 )
-            ) {
+            )
                 throw new \Exception("Pas de l'AJAX");
-            }
 
             // On instancie le controlleur
             // et on appelle l'action demandée en lui donnant les params trouvés par l'auto-wiring
