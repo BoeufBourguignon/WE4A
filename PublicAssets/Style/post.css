@@ -7,3 +7,18 @@
 {
     margin: 0;
 }
+
+.user-infos
+{
+    display: flex;
+    align-content: center;
+}
+.user-infos img
+{
+    max-height: 32px;
+    border-radius: 50%;
+    background-color: #272729;
+    padding: 4px;
+    border: 1px solid #343536;
+    margin-right: 4px;
+}

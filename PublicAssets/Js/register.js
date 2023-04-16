@@ -1,4 +1,4 @@
-window.onload = () =>
+doOnLoad(function()
 {
     // Vérification dynamiques lors de la création de compte
 
@@ -29,4 +29,4 @@ window.onload = () =>
         else
             passwordVerify.classList.remove("input-danger")
     })
-}
+})

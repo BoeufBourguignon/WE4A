@@ -1,4 +1,4 @@
-window.onload = () =>
+doOnLoad(() =>
 {
 // Variables
     let categoryInput = document.getElementById("category")
@@ -138,4 +138,4 @@ window.onload = () =>
             })
             .catch(axiosCatchError)
     })
-}
+})

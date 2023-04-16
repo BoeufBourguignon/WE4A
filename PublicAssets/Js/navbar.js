@@ -1,4 +1,4 @@
-window.onload = () =>
+doOnLoad(() =>
 {
     // Animation du bouton + menu déroulant de l'utilisateur
 
@@ -12,4 +12,4 @@ window.onload = () =>
             userActions.ariaExpanded = userBtn.ariaExpanded = (userActions.ariaExpanded === "true" ? "false" : "true")
         })
     }
-}
+})

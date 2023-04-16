@@ -5,9 +5,12 @@
 ?>
 <div class="post">
     <div class="post-header">
-        <div>
-            <p>categ/<?php echo $post->getCategory()->getNameCategory() ?></p>
-            <p>user/<?php echo $post->getUser()->getUsername() ?></p>
+        <div class="user-infos">
+            <img alt="user pfp" src="<?php echo $post->getUser()->getAvatar() ?>">
+            <div>
+                <p>categ/<?php echo $post->getCategory()->getNameCategory() ?></p>
+                <p>user/<?php echo $post->getUser()->getUsername() ?></p>
+            </div>
         </div>
         <div>
             <p><?php echo date("d/m/Y H:i", strtotime($post->getDatePost())) ?></p>
