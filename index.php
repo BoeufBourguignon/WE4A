@@ -6,7 +6,7 @@ session_start();
 // On définie des variables globales constants, pouvant être réutilisées partout dans le code
 const ROOT = __DIR__; // Répertoire du fichier index.php
 const VIEWS = ROOT."/Vues"; // Répertoire où sont situées les vues
-const PFP = ROOT."/photo_de_profil";
+const PFP = ROOT."/photo_de_profil"; // Répertoire des photos de profil
 
 // L'application est composée de plusieurs composantes, devant être instanciées et configurées
 // Tout cela est fait grâce à une classe de base

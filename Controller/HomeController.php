@@ -33,6 +33,7 @@ class HomeController extends ControllerBase
 
         $this->render("Home/home.php",
             params:["posts" => $posts],
+            css:["post"],
             js:["create-post"]);
     }
 
