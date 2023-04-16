@@ -2,6 +2,9 @@
 
 namespace Model;
 
+/**
+ * Classe correspondante à la table Post de la BDD
+ */
 class Post
 {
     private int $idPost;

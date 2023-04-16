@@ -7,6 +7,16 @@ use Src\Database;
 
 class PostManager extends Database
 {
+    /**
+     * Publie un nouveau post dans la base de données
+     *
+     * @param int $idUser Id de l'utilisateur ayant créé le post
+     * @param int $categId Id de la catégorie du post
+     * @param string $title Titre du post
+     * @param string $msg Contenu du post
+     *
+     * @return bool false si erreur
+     */
     public function postPost(int $idUser, int $categId, string $title, string $msg): bool
     {
         $sql = "
@@ -23,6 +33,12 @@ class PostManager extends Database
         return $stmt->execute();
     }
 
+    /**
+     * Récupère les derniers posts
+     *
+     * @param int $idGreaterThan
+     * @return array Liste des posts
+     */
     public function getLastPosts(int $idGreaterThan = 0): array
     {
         $sql = "

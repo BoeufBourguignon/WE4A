@@ -3,12 +3,23 @@
 namespace Controller;
 
 use Managers\PostManager;
+use Src\ControllerBase;
 use Src\Routing\Route;
 
-class PostController extends \Src\ControllerBase
+class PostController extends ControllerBase
 {
-    #[Route("/post/post", name:"Post post")]
-    public function post_post(PostManager $postManager)
+    /**
+     * Poste un post via AJAX
+     * Paramètres POST :
+     *  - title
+     *  - categoryId
+     *  - message
+     *
+     * @param PostManager $postManager
+     * @return void
+     */
+    #[Route("/ajax/post/post", name:"Post post")]
+    public function post_post(PostManager $postManager): void
     {
         $response = array();
 

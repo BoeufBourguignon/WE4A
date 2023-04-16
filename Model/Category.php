@@ -2,6 +2,9 @@
 
 namespace Model;
 
+/**
+ * Classe correspondante à la table Category de la BDD
+ */
 class Category
 {
     private int $idCategory;

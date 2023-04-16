@@ -4,6 +4,10 @@ namespace Src;
 
 use PDO;
 
+/**
+ * Classe abstraite servant à l'héirate des managers
+ * Contient les infos de connexion à la base de données
+ */
 abstract class Database
 {
     private const HOST = "localhost";
@@ -13,8 +17,12 @@ abstract class Database
     private const PASS = "1P1rSOm2V&&w";
     private const DBNAME = "projet_we4a";
 
+    // Objet statique donc partagé entre toutes les classes
     protected static ?PDO $cnx = null;
 
+    /**
+     * A chaque instanciation, instancie un nouvel objet PDO si néecessaire (càd si pas instancié ou si erreur)
+     */
     public function __construct()
     {
         if(self::$cnx == null || self::$cnx->errorCode() != null)

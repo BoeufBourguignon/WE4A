@@ -7,6 +7,13 @@ use Src\Database;
 
 class CategoryManager extends Database
 {
+    /**
+     * Retourne une liste de catégories semblables à celle passée en paramètres
+     * Méthode utilisée pour faire de l'autocomplétion
+     *
+     * @param string $str Nom d'une catégorie
+     * @return array
+     */
     public function searchCategory(string $str): array
     {
         $sql = "
@@ -25,6 +32,12 @@ class CategoryManager extends Database
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Retourne un objet d'une catégorie si elle existe, sinon retourne false
+     *
+     * @param string $categoryName Nom exact d'une catégorie
+     * @return Category|false
+     */
     public function getCategoryByName(string $categoryName): Category|false
     {
         $sql = "SELECT idCategory, nameCategory FROM category WHERE LOWER(nameCategory) = :name";
@@ -37,6 +50,12 @@ class CategoryManager extends Database
         return $stmt->fetch();
     }
 
+    /**
+     * Retourne un objet d'une catégorie si elle existe, sinon retourne false
+     *
+     * @param int $id Id de la catégorie
+     * @return Category|false
+     */
     public function getCategoryById(int $id): Category|false
     {
         $sql = "SELECT idCategory, nameCategory FROM category WHERE idCategory = :id";
@@ -49,6 +68,12 @@ class CategoryManager extends Database
         return $stmt->fetch();
     }
 
+    /**
+     * Ajoute une catégorie à la base de données
+     *
+     * @param string $categName
+     * @return bool false si erreur
+     */
     public function addCategory(string $categName): bool
     {
         $sql = "

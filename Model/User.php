@@ -2,6 +2,9 @@
 
 namespace Model;
 
+/**
+ * Classe correspondante à la table User de la BDD
+ */
 class User
 {
     private int $idUser;
@@ -9,6 +12,15 @@ class User
     private string $passwd;
     private int $idRole;
 
+    /**
+     * Crée une nouvelle instance d'User à partir des paramètres
+     *
+     * @param int $idUser
+     * @param string $username
+     * @param string $passwd
+     * @param int $idRole
+     * @return User
+     */
     public static function newUser(int $idUser, string $username, string $passwd, int $idRole): User
     {
         $user = new User();
