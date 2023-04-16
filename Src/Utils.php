@@ -47,11 +47,4 @@ class Utils
         if($deleteAfter) unset($_SESSION[$sessionName]);
         return $msg;
     }
-
-    // TODO mettre cette méthode dans la classe user
-    // Il faut aussi vérifie que la pdp existe dans le dossier des pdp, sinon afficher celle par défaut
-    public static function getAvatar(\Model\User $user): string
-    {
-        return $user->getAvatar() ?? "/PublicAssets/Images/basic-pfp.png";
-    }
 }

@@ -3,12 +3,13 @@
 namespace Managers;
 
 use Model\User;
+use Src\Database;
 
 class UserManager extends Database
 {
     public function getUserById(int $id): ?User
     {
-        $sql = "SELECT idUser, username, passwd, idRole, avatar FROM user WHERE idUser = :id";
+        $sql = "SELECT idUser, username, passwd, idRole FROM user WHERE idUser = :id";
 
         $stmt = self::$cnx->prepare($sql);
         $stmt->bindParam("id", $id);
@@ -21,7 +22,7 @@ class UserManager extends Database
 
     public function getUserByUsername(string $username): ?User
     {
-        $sql = "SELECT idUser, username, passwd, idRole, avatar FROM user WHERE username = :username";
+        $sql = "SELECT idUser, username, passwd, idRole FROM user WHERE username = :username";
 
         $stmt = self::$cnx->prepare($sql);
         $stmt->bindParam("username", $username);

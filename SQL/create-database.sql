@@ -10,7 +10,6 @@ CREATE TABLE IF NOT EXISTS user
     username  VARCHAR(20)  NOT NULL,
     passwd VARCHAR(100) NOT NULL,
     idRole INT          DEFAULT 1,
-    avatar VARCHAR(50) DEFAULT NULL,
     PRIMARY KEY (idUser)
 ) ENGINE = InnoDB;
 

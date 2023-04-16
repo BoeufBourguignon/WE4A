@@ -3,6 +3,7 @@
 namespace Managers;
 
 use Model\Post;
+use Src\Database;
 
 class PostManager extends Database
 {

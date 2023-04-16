@@ -68,7 +68,7 @@ class AuthController extends ControllerBase
             }
             else
             {
-                if(!preg_match("^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#\/\\])[A-Za-z\d@$!%*?&#\/\\]{8,}$", $password))
+                if(!preg_match("/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/", $password))
                 {
                     $_SESSION["register_error"] = "Le mot de passe n'est pas au bon format";
                 }

@@ -6,8 +6,8 @@
                 <label for="username" class="d-inblock">Nom d'utilisateur</label>
                 <input id="username" type="text" name="username" class="d-inblock" required>
                 <label for="password" class="d-inblock">Mot de passe</label>
-                <input id="password" type="password" name="password" class="d-inblock" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#\/\\])[A-Za-z\d@$!%*?&#\/\\]{8,}$" required>
-                <p id="password-indication" class="no-margin muted">Le mot de passe doit contenir au moins une lettre majuscule, une lettre minuscule, un chiffre et doit être d'au moins 8 caractères</p>
+                <input id="password" type="password" name="password" class="d-inblock" pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$" required>
+                <p id="password-indication" class="no-margin muted">Le mot de passe doit contenir au moins une lettre majuscule, une lettre minuscule, un chiffre, un caractère spécial (#?!@$%^&*-) et doit être d'au moins 8 caractères</p>
                 <label for="password-verify" class="d-inblock">Vérifier le mot de passe</label>
                 <input id="password-verify" type="password" name="password-verify" class="d-inblock" required>
             </div>

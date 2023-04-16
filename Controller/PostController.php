@@ -16,7 +16,7 @@ class PostController extends \Src\ControllerBase
 
         $title = htmlspecialchars($data->title);
         $categ = htmlspecialchars($data->categoryId);
-        $msg = htmlspecialchars($data->message);
+        $msg = $data->message;
 
         // Vérification paramètres
         if(

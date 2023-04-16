@@ -4,7 +4,7 @@
     <?php if ($this->auth->getUser()) { ?>
         <div id="user-profile">
             <button id="user-btn" aria-expanded="false">
-                <img alt="user profile picture" src="<?php echo \Src\Utils::getAvatar($this->auth->getUser()) ?>">
+                <img alt="user profile picture" src="<?php echo $this->auth->getUser()->getAvatar() ?>">
                 <?php echo $this->auth->getUser()->getUsername() ?>
             </button>
             <div id="user-actions" aria-expanded="false">

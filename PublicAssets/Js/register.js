@@ -3,7 +3,7 @@ window.onload = () => {
     let password = document.getElementById("password")
     let passwordVerify = document.getElementById("password-verify")
 
-    let passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$/
+    let passwordRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
 
     password.addEventListener("keyup", () => {
         if(!password.value.match(passwordRegex))

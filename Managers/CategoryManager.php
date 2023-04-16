@@ -3,6 +3,7 @@
 namespace Managers;
 
 use Model\Category;
+use Src\Database;
 
 class CategoryManager extends Database
 {
