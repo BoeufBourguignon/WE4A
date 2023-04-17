@@ -3,6 +3,9 @@
 // Nous initialisons donc la SESSION pour toutes les pages du site
 session_start();
 
+// Met la timzeone par défaut sur l UTC+01 Paris
+date_default_timezone_set('Europe/Paris');
+
 // On définie des variables globales constants, pouvant être réutilisées partout dans le code
 const ROOT = __DIR__; // Répertoire du fichier index.php
 const VIEWS = ROOT."/Vues"; // Répertoire où sont situées les vues

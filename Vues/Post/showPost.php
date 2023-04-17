@@ -17,7 +17,21 @@
             </div>
         </div>
         <div>
-            <p><?php echo date("d/m/Y H:i", strtotime($post->getDatePost())) ?></p>
+            <div class="tooltip">
+                <p class="muted txt-small">Posté il y a <?php
+                    $dateDiff = (new \DateTime())->diff(new \DateTime($post->getDatePost()));
+                    echo $dateDiff->y > 0
+                        ? $dateDiff->y . " an(s)"
+                        : ( $dateDiff->m > 0
+                            ? $dateDiff->m . " mois"
+                            : ( $dateDiff->d > 0
+                                ? $dateDiff->d . " jour(s)"
+                                : $dateDiff->h . " heure(s)"
+                            )
+                        );
+                    ?></p>
+                <span class="tooltiptext txt-small"><?php echo "Le ".(new \DateTime($post->getDatePost()))->format("d/m/Y à H:i") ?></span>
+            </div>
         </div>
     </div>
     <h1><?php echo $post->getTitle() ?></h1>
