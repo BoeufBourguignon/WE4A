@@ -6,10 +6,14 @@
 <div class="post">
     <div class="post-header">
         <div class="user-infos">
-            <img alt="user pfp" src="<?php echo $post->getUser()->getAvatar() ?>">
+            <a href="/user/<?php echo $post->getUser()->getUsername() ?>">
+                <img alt="user pfp" src="<?php echo $post->getUser()->getAvatar() ?>">
+            </a>
             <div>
-                <p>categ/<?php echo $post->getCategory()->getNameCategory() ?></p>
-                <p>user/<?php echo $post->getUser()->getUsername() ?></p>
+                <p class="txt-orange"><a href="/categ/<?php echo $post->getCategory()->getNameCategory() ?>">
+                        categ/<?php echo $post->getCategory()->getNameCategory() ?></a></p>
+                <p class="muted"><a href="/user/<?php echo $post->getUser()->getUsername() ?>">
+                        user/<?php echo $post->getUser()->getUsername() ?></a></p>
             </div>
         </div>
         <div>

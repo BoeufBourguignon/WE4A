@@ -3,11 +3,49 @@
 namespace Controller;
 
 use Managers\CategoryManager;
+use Managers\PostManager;
+use Managers\UserManager;
 use Src\ControllerBase;
 use Src\Routing\Route;
 
 class CategoryController extends ControllerBase
 {
+    /**
+     * Affiche tous les posts d'une certaine catégorie
+     *
+     * @param CategoryManager $categoryManager
+     * @param PostManager $postManager
+     * @param UserManager $userManager
+     * @param CategoryManager $categManager
+     * @param string $categName
+     *
+     * @return void
+     *
+     * @throws \Exception
+     */
+    #[Route("categ/{categName}")]
+    public function drawCategPage(
+        CategoryManager $categoryManager,
+        PostManager $postManager,
+        UserManager $userManager,
+        CategoryManager $categManager,
+        string $categName
+    ): void
+    {
+        $categ = $categoryManager->getCategoryByName($categName);
+
+        $posts = $postManager->getLastPostsOfCateg($categName);
+        $postManager->doNavigability($posts, $userManager, $categManager);
+
+        $this->render("Category/categPage.php",
+            params:[
+                "categ" => $categ,
+                "categName" => $categName,
+                "posts" => $posts],
+            css:["post"]
+        );
+    }
+
     /**
      * Recherche de la catégorie $nomCateg
      * "categ_exists" indique si la catégorie existe

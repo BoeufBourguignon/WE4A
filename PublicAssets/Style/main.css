@@ -78,7 +78,9 @@ body
     cursor: pointer;
 }
 
-.txt-orange
+.txt-orange,
+.txt-orange > span,
+.txt-orange > a
 {
     color: #ff9933;
 }

@@ -21,15 +21,13 @@ class HomeController extends ControllerBase
      * @throws \Exception
      */
     #[Route("/home", name: "Home")]
-    public function home(UserManager $userManager, PostManager $postManager, CategoryManager $categManager): void
+    public function home(
+        PostManager $postManager,
+        UserManager $userManager,
+        CategoryManager $categManager): void
     {
         $posts = $postManager->getLastPosts();
-        /** @var Post $post */
-        foreach($posts as $post)
-        {
-            $post->setUser($userManager->getUserById($post->getIdUser()));
-            $post->setCategory($categManager->getCategoryById($post->getIdCategory()));
-        }
+        $postManager->doNavigability($posts, $userManager, $categManager);
 
         $this->render("Home/home.php",
             params:["posts" => $posts],

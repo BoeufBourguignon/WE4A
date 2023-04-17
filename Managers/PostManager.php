@@ -34,9 +34,28 @@ class PostManager extends Database
     }
 
     /**
+     * Instancie les attributs user et category de chaques posts de $posts
+     *
+     * @param array $posts
+     * @param UserManager $userManager
+     * @param CategoryManager $categManager
+     *
+     * @return void
+     */
+    public function doNavigability(array $posts, UserManager $userManager, CategoryManager $categManager): void
+    {
+        foreach($posts as $post)
+        {
+            $post->setUser($userManager->getUserById($post->getIdUser()));
+            $post->setCategory($categManager->getCategoryById($post->getIdCategory()));
+        }
+    }
+
+    /**
      * Récupère les derniers posts
      *
      * @param int $idGreaterThan
+     *
      * @return array Liste des posts
      */
     public function getLastPosts(int $idGreaterThan = 0): array
@@ -50,6 +69,62 @@ class PostManager extends Database
 
         $stmt = self::$cnx->prepare($sql);
         $stmt->bindParam("id", $idGreaterThan);
+        $stmt->setFetchMode(\PDO::FETCH_CLASS, Post::class);
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+    }
+
+    /**
+     * Récupère les derniers posts d'une certaine catégorie
+     *
+     * @param string $categName
+     * @param int $idGreaterThan
+     *
+     * @return array
+     */
+    public function getLastPostsOfCateg(string $categName, int $idGreaterThan = 0): array
+    {
+        $sql = "
+            SELECT idPost, title, content, datePost, idUser, p.idCategory
+            FROM post p 
+                JOIN category c on p.idCategory = c.idCategory
+            WHERE idPost > :id
+            AND nameCategory = :categName
+            ORDER BY datePost DESC 
+        ";
+
+        $stmt = self::$cnx->prepare($sql);
+        $stmt->bindParam("id", $idGreaterThan);
+        $stmt->bindParam("categName", $categName);
+        $stmt->setFetchMode(\PDO::FETCH_CLASS, Post::class);
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+    }
+
+    /**
+     * Récupère le derniers posts d'un certain utilisateur
+     *
+     * @param string $username
+     * @param int $idGreaterThan
+     *
+     * @return array
+     */
+    public function getLastPostsOfUser(string $username, int $idGreaterThan = 0): array
+    {
+        $sql = "
+            SELECT idPost, title, content, datePost, p.idUser, idCategory
+            FROM post p 
+                JOIN user u on p.idUser = u.idUser
+            WHERE idPost > :id
+            AND username = :username
+            ORDER BY datePost DESC 
+        ";
+
+        $stmt = self::$cnx->prepare($sql);
+        $stmt->bindParam("id", $idGreaterThan);
+        $stmt->bindParam("username", $username);
         $stmt->setFetchMode(\PDO::FETCH_CLASS, Post::class);
         $stmt->execute();
 
