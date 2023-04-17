@@ -82,4 +82,16 @@ class HomeController extends ControllerBase
     {
         $this->render("Home/profile.php");
     }
+
+    #[Route("/test")]
+    public function test()
+    {
+        $mtn = new \DateTime();
+        $tantot = new \DateTime("2023-04-16 11:52:25");
+
+        var_dump(date_diff(new \DateTime(), new \DateTime("2023-04-16 11:52:25")));
+
+
+        //$this->render("test.php");
+    }
 }
