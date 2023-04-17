@@ -9,6 +9,7 @@
             </button>
             <div id="user-actions" aria-expanded="false">
                 <a href="/profile">Profile</a>
+                <a href="/user/<?php echo $this->auth->getUser()->getUsername() ?>">Mes posts</a>
                 <a href="/logout" class="txt-danger">Se déconnecter</a>
             </div>
         </div>
