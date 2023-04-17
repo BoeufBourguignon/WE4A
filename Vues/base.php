@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/PublicAssets/Style/navbar.css">
     <link rel="stylesheet" href="/PublicAssets/Style/main.css">
     <?php
+    // Charge les scripts CSS inclus depuis les controleurs
     if(isset($css))
     {
         foreach($css as $line)
@@ -34,6 +35,7 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="/PublicAssets/Js/axios-config.js"></script>
 <?php
+// Charge les scripts JS inclus dans les controleurs
 if(isset($js))
 {
     foreach($js as $line)
