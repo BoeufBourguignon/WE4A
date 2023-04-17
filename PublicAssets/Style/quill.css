@@ -8,54 +8,54 @@
 .ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-label,
 .ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-options
 {
-    border-color: #343536;
+    border-color: var(--primary-border-color);
 }
 .ql-editor.ql-blank::before
 {
-    color: gainsboro;
+    color: var(--primary-txt-color);
     opacity: .6;
     font-size: 1rem;
 }
 .ql-snow .ql-stroke
 {
-    stroke: gainsboro;
+    stroke: var(--primary-txt-color);
 }
 .ql-snow .ql-fill
 {
-    fill: gainsboro;
+    fill: var(--primary-txt-color);
 }
 .ql-snow .ql-picker
 {
-    color: gainsboro;
+    color: var(--primary-txt-color);
 }
 .ql-snow .ql-picker-options
 {
-    background-color: #1A1A1B;
+    background-color: var(--primary-bg-color);
 }
 .ql-snow.ql-toolbar button.ql-active .ql-stroke,
 .ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke
 {
-    stroke: #ff9933;
+    stroke: var(--orange-color);
 }
 .ql-snow.ql-toolbar button.ql-active .ql-fill
 {
-    fill: #ff9933;
+    fill: var(--orange-color);
 }
 .ql-snow.ql-toolbar .ql-picker-label:hover,
 .ql-snow.ql-toolbar button:hover,
 .ql-snow.ql-toolbar .ql-picker-item:hover,
 .ql-snow.ql-toolbar .ql-picker-item.ql-selected
 {
-    color: #ff9933;
+    color: var(--orange-color);
 }
 .ql-snow.ql-toolbar button:hover .ql-stroke,
 .ql-snow.ql-toolbar .ql-picker-label:hover .ql-stroke
 {
-    stroke: #ff9933;
+    stroke: var(--orange-color);
 }
 .ql-snow.ql-toolbar button:hover .ql-fill
 {
-    fill: #ff9933;
+    fill: var(--orange-color);
 }
 
 
@@ -89,16 +89,16 @@
 {
     border-bottom-left-radius: unset;
     border-bottom-right-radius: unset;
-    border: 1px solid lightgray;
-    border-bottom: #bebebe;
+    border: 1px solid var(--input-focus-border-color);
+    border-bottom: var(--input-focus-border-color);
 }
 #category-group #category-list
 {
     position: absolute;
     width: calc(100% - 2px);
-    background-color: #272729;
-    border: 1px solid lightgray;
-    border-top: 1px solid #484848;
+    background-color: var(--input-bg-color);
+    border: 1px solid var(--input-focus-border-color);
+    border-top: 1px solid var(--primary-border-color);
     z-index: 80;
     border-bottom-left-radius: 12px;
     border-bottom-right-radius: 12px;
@@ -116,12 +116,5 @@
 }
 #category-group #category-list .category-list-option:hover
 {
-    background-color: #1A1A1B;
-}
-#category-list-close
-{
-    border-bottom: 1px solid #484848;
-    padding: 4px;
-    cursor: pointer;
-    text-align: center;
+    background-color: var(--primary-bg-color);
 }
