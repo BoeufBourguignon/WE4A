@@ -34,5 +34,7 @@
         </div>
     </div>
 </div>
-<h1><?php echo $post->getTitle() ?></h1>
-<p><?php echo $post->getContent() ?></p>
+<h1 class="pointer" onclick="window.location='/post/<?php echo $post->getIdPost() ?>'"><?php echo $post->getTitle() ?></h1>
+<div class="post-content">
+    <?php echo $post->getContent() ?>
+</div>

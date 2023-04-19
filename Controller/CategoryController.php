@@ -42,7 +42,8 @@ class CategoryController extends ControllerBase
                 "categ" => $categ,
                 "categName" => $categName,
                 "posts" => $posts],
-            css:["post"]
+            css:["post"],
+            js:["delete-post"]
         );
     }
 

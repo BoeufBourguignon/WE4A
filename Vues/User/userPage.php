@@ -41,10 +41,7 @@
                     <?php
                     include(VIEWS."/Post/includes/incPost.php");
 
-                    if($this->auth->getUser() !== null)
-                    {
-                        include(VIEWS."/Post/includes/postFooter.php");
-                    }
+                    include(VIEWS."/Post/includes/postFooter.php");
                     ?>
                 </div>
                 <?php

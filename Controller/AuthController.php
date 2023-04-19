@@ -46,7 +46,7 @@ class AuthController extends ControllerBase
             else
             {
                 $this->auth->logUser($user);
-                $redirect = "/profile";
+                $redirect = "/user/".$this->auth->getUser()->getIdUser();
             }
         }
 

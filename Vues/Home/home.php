@@ -12,14 +12,11 @@
     foreach($posts as $post)
     {
         ?>
-        <div class="post pointer" onclick="window.location='/post/<?php echo $post->getIdPost() ?>'">
+        <div class="post">
             <?php
             include(VIEWS."/Post/includes/incPost.php");
 
-            if($this->auth->getUser() !== null)
-            {
-                include(VIEWS."/Post/includes/postFooter.php");
-            }
+            include(VIEWS."/Post/includes/postFooter.php");
             ?>
         </div>
         <?php

@@ -23,13 +23,13 @@ class PostController extends ControllerBase
     {
         $post = $postManager->getPostById($idPost);
 
-        if($this->auth->getUser() == null || $this->auth->getUser()->getIdUser() != $post->getIdUser())
-            $this->redirect("/post/".$idPost);
+        if ($this->auth->getUser() == null || $this->auth->getUser()->getIdUser() != $post->getIdUser())
+            $this->redirect("/post/" . $idPost);
 
 
         $this->render("/Post/editPost.php",
-            params:["post" => $post],
-            js:["edit-post"]
+            params: ["post" => $post],
+            js: ["edit-post"]
         );
     }
 
@@ -49,7 +49,7 @@ class PostController extends ControllerBase
         $post = $postManager->getPostById($idPost);
 
         $this->render("Post/showPost.php",
-            params:["post" => $post]
+            params: ["post" => $post]
         );
     }
 
@@ -63,12 +63,12 @@ class PostController extends ControllerBase
      * @param PostManager $postManager
      * @return void
      */
-    #[Route("/ajax/post/post", name:"Post post")]
+    #[Route("/ajax/post/post", name: "Post post")]
     public function ajaxCreatePost(PostManager $postManager): void
     {
         $response = array();
 
-        if($this->auth->getUser() == null)
+        if ($this->auth->getUser() == null)
         {
             $response["response"] = false;
         }
@@ -120,17 +120,68 @@ class PostController extends ControllerBase
         $msg = $data->message;
         $idPost = htmlspecialchars($data->idPost);
 
-        if(
-            $title == null || strlen($title) == 0 || strlen($title) > 100 ||
-            $msg == null || strlen($msg) < 2 || strlen($msg) > 500 ||
-            $idPost == null
-        ) {
+        // Un user peut éditer un post s'il est connecté et que le post lui appartient
+        if (
+            $this->auth->getUser() == null ||
+            $this->auth->getUser()->getIdUser() != $postManager->getPostById($idPost)->getIdUser()
+        )
+        {
             $response["response"] = false;
-            $response["debug"] = $msg;
         }
         else
         {
-            $response["response"] = $postManager->editPost($idPost, $title, $msg);
+            if (
+                $title == null || strlen($title) == 0 || strlen($title) > 100 ||
+                $msg == null || strlen($msg) < 2 || strlen($msg) > 500 ||
+                $idPost == null
+            )
+            {
+                $response["response"] = false;
+                $response["debug"] = $msg;
+            }
+            else
+            {
+                $response["response"] = $postManager->editPost($idPost, $title, $msg);
+            }
+        }
+
+        $this->renderJSON($response);
+    }
+
+    /**
+     * Supprime un post via AJAX
+     * Paramètres POST :
+     *  - idPost
+     *
+     * @param PostManager $postManager
+     * @return void
+     */
+    #[Route("/ajax/post/delete")]
+    public function ajaxDeletePost(PostManager $postManager): void
+    {
+        $response = array();
+
+        $data = json_decode(file_get_contents("php://input"));
+
+        $idPost = htmlspecialchars($data->idPost);
+
+        if (
+            $this->auth->getUser() == null ||
+            $this->auth->getUser()->getIdUser() != $postManager->getPostById($idPost)->getIdUser()
+        )
+        {
+            $response["reponse"] = false;
+        }
+        else
+        {
+            if ($idPost == null)
+            {
+                $response["response"] = false;
+            }
+            else
+            {
+                $response["response"] = $postManager->deletePost($idPost);
+            }
         }
 
         $this->renderJSON($response);

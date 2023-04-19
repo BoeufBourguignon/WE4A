@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS comment_post
     idPost    INT NOT NULL,
     PRIMARY KEY (idComment),
     FOREIGN KEY (idComment) REFERENCES comment (idComment) ON DELETE CASCADE,
-    FOREIGN KEY (idPost) REFERENCES post (idPost)
+    FOREIGN KEY (idPost) REFERENCES post (idPost) ON DELETE CASCADE
 ) ENGINE = InnoDB;
 
 DROP TABLE IF EXISTS comment_thread;

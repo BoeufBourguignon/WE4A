@@ -59,6 +59,25 @@ class PostManager extends Database
     }
 
     /**
+     * Supprime un post
+     *
+     * @param int $idPost
+     * @return bool
+     */
+    public function deletePost(int $idPost): bool
+    {
+        $sql = "
+            DELETE FROM post
+            WHERE idPost = :idPost
+        ";
+
+        $stmt = self::$cnx->prepare($sql);
+        $stmt->bindParam("idPost", $idPost);
+
+        return $stmt->execute();
+    }
+
+    /**
      * Instancie les attributs user et category de chaques posts de $posts
      *
      * @param array $posts

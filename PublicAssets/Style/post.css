@@ -13,6 +13,11 @@
     margin-bottom: 4px;
 }
 
+.post-content
+{
+    margin-bottom: 24px;
+}
+
 .user-infos
 {
     display: flex;
