@@ -6,7 +6,7 @@
 <div class="post-header">
     <div class="user-infos">
         <a href="/user/<?php echo $post->getUser()->getUsername() ?>">
-            <img alt="user pfp" src="<?php echo $post->getUser()->getAvatar() ?>">
+            <img class="pfp" alt="user pfp" src="<?php echo $post->getUser()->getAvatar() ?>">
         </a>
         <div>
             <p class="txt-orange"><a href="/categ/<?php echo $post->getCategory()->getNameCategory() ?>">

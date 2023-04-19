@@ -19,8 +19,8 @@
             <div id="post-editor">
                 <div id="editor-container"></div>
             </div>
-            <button type="button" id="comment-post" class="btn btn-orange" value="<?php echo $post->getIdPost() ?>">
-                Commenter</button>
+            <button type="button" id="comment-post" class="btn btn-small btn-orange"
+                    value="<?php echo $post->getIdPost() ?>">Commenter</button>
         </div>
         <h2>Commentaires</h2>
         <?php

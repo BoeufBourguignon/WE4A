@@ -41,7 +41,8 @@ CREATE TABLE IF NOT EXISTS comment
     idComment   INT          NOT NULL AUTO_INCREMENT,
     idUser      INT          NOT NULL,
     content     VARCHAR(500) NOT NULL,
-    dateComment DATETIME DEFAULT NOW(),
+    dateComment DATETIME NOT NULL DEFAULT NOW(),
+    isDeleted   BOOLEAN NOT NULL DEFAULT FALSE,
     PRIMARY KEY (idComment),
     FOREIGN KEY (idUser) REFERENCES user (idUser)
 ) ENGINE = InnoDB;

@@ -81,6 +81,11 @@ body
     cursor: pointer;
     color: var(--primary-txt-color);
 }
+.btn-small
+{
+    padding: 3px 6px;
+    border-radius: 4px;
+}
 .btn-orange
 {
     background-color: var(--orange-color);
@@ -201,6 +206,15 @@ input[type=password]:focus, input[type=password]:focus-visible
     margin-top: 12px;
 }
 
+.pfp
+{
+    max-height: 32px;
+    border-radius: 50%;
+    background-color: #272729;
+    padding: 2px;
+    border: 1px solid #343536;
+    margin-right: 4px;
+}
 
 /* CSS pour un tooltip trouvé en ligne */
 /* Tooltip container */

@@ -7,11 +7,19 @@ use Src\Routing\Route;
 
 class CommentController extends \Src\ControllerBase
 {
+    /**
+     * Commenter un post
+     * Nécessaire : être connecté
+     *
+     * @param CommentManager $commentManager
+     * @return void
+     */
     #[Route("/ajax/commentPost/add")]
     public function ajaxCommentPost(CommentManager $commentManager): void
     {
         $response = array();
 
+        // Vérifions si l'utilisateur est connecté
         if ($this->auth->getUser() == null)
         {
             $response["response"] = false;

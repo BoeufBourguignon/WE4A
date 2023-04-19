@@ -17,8 +17,8 @@
     {
         ?>
         <div>
-            <a id="modify-post" href="/post/edit/<?php echo $post->getIdPost() ?>" class="btn btn-clear">Modifier</a>
-            <button class="btn btn-danger delete-post" value="<?php echo $post->getIdPost() ?>">Supprimer</button>
+            <a id="modify-post" href="/post/edit/<?php echo $post->getIdPost() ?>" class="btn btn-small btn-clear">Modifier</a>
+            <button class="btn btn-small btn-danger delete-post" value="<?php echo $post->getIdPost() ?>">Supprimer</button>
         </div>
         <?php
     }

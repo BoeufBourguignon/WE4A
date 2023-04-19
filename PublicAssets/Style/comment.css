@@ -10,12 +10,14 @@
     align-items: center;
 }
 
-.comment .comment-header img
+
+.comment
 {
-    max-height: 32px;
-    border-radius: 50%;
-    background-color: #272729;
-    padding: 4px;
-    border: 1px solid #343536;
-    margin-right: 4px;
+    margin-bottom: 16px;
+}
+
+.comment .comment-footer
+{
+    display: flex;
+    justify-content: space-between;
 }

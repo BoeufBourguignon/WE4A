@@ -13,6 +13,10 @@ class PostController extends ControllerBase
 {
     /**
      * Permet la modification d'un post
+     * Nécessaire :
+     *  - être connecté
+     *  - le post existe
+     *  - être l'auteur du post
      *
      * @param PostManager $postManager
      * @param int $idPost
@@ -26,7 +30,11 @@ class PostController extends ControllerBase
     {
         $post = $postManager->getPostById($idPost);
 
-        if ($this->auth->getUser() == null || $this->auth->getUser()->getIdUser() != $post->getIdUser())
+        // Vérifie si l'utilisateur est connecté et s'il est l'auteur du post
+        if (    $this->auth->getUser() == null
+             || $post == null
+             || $this->auth->getUser()->getIdUser() != $post->getIdUser()
+        )
             $this->redirect("/post/" . $idPost);
 
 
@@ -38,8 +46,8 @@ class PostController extends ControllerBase
 
     /**
      * Affiche un post et ses commentaires
-     * Quelqu'un qui n'est pas connecté peut voir le post
-     * Il faut vérifier que le post existe
+     * Nécessaire :
+     *  - le post existe
      *
      * @param PostManager $postManager
      * @param UserManager $userManager
