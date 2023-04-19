@@ -1,5 +1,6 @@
 <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-<link href="/PublicAssets/Style/quill.css" rel="stylesheet">
+<link href="/PublicAssets/Style/quill/quill-global.css" rel="stylesheet">
+<link href="/PublicAssets/Style/quill/quill-create.css" rel="stylesheet">
 
 <div class="post">
     <div id="post-header">

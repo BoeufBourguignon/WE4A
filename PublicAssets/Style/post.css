@@ -8,6 +8,11 @@
     margin: 0;
 }
 
+.post-footer
+{
+    margin-bottom: 4px;
+}
+
 .user-infos
 {
     display: flex;

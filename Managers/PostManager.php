@@ -34,6 +34,31 @@ class PostManager extends Database
     }
 
     /**
+     * Modifie le titre et le contenu d'un post existant
+     *
+     * @param int $idPost
+     * @param string $title
+     * @param string $msg
+     *
+     * @return bool
+     */
+    public function editPost(int $idPost, string $title, string $msg): bool
+    {
+        $sql = "
+            UPDATE post
+            SET title = :title, content = :msg
+            WHERE idPost = :idPost
+        ";
+
+        $stmt = self::$cnx->prepare($sql);
+        $stmt->bindParam("title", $title);
+        $stmt->bindParam("msg", $msg);
+        $stmt->bindParam("idPost", $idPost);
+
+        return $stmt->execute();
+    }
+
+    /**
      * Instancie les attributs user et category de chaques posts de $posts
      *
      * @param array $posts
@@ -44,11 +69,35 @@ class PostManager extends Database
      */
     public function doNavigability(array $posts, UserManager $userManager, CategoryManager $categManager): void
     {
+        /** @var Post $post */
         foreach($posts as $post)
         {
             $post->setUser($userManager->getUserById($post->getIdUser()));
             $post->setCategory($categManager->getCategoryById($post->getIdCategory()));
+            $post->setNbComment($this->getNbComment($post->getIdPost()));
         }
+    }
+
+    /**
+     * Récupère le nombre de commentaires directs d'un post
+     *
+     * @param int $idPost
+     *
+     * @return int
+     */
+    public function getNbComment(int $idPost): int
+    {
+        $sql = "
+            SELECT count(*)
+            FROM comment_post
+            WHERE idPost = :idPost
+        ";
+
+        $stmt = self::$cnx->prepare($sql);
+        $stmt->bindParam("idPost", $idPost);
+        $stmt->execute();
+
+        return $stmt->fetchColumn();
     }
 
     /**
@@ -129,5 +178,27 @@ class PostManager extends Database
         $stmt->execute();
 
         return $stmt->fetchAll();
+    }
+
+    /**
+     * @param int $idPost
+     *
+     * @return Post|null
+     */
+    public function getPostById(int $idPost): ?Post
+    {
+        $sql = "
+            SELECT idPost, title, content, datePost, idUser, idCategory
+            FROM post
+            WHERE idPost = :idPost
+        ";
+
+        $stmt = self::$cnx->prepare($sql);
+        $stmt->bindParam("idPost", $idPost);
+        $stmt->setFetchMode(\PDO::FETCH_CLASS, Post::class);
+        $stmt->execute();
+
+        $post = $stmt->fetch();
+        return $post !== false ? $post : null;
     }
 }

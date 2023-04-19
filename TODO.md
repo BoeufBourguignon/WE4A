@@ -6,3 +6,6 @@
   - <span style="color:green">&check; Du plus récent au plus vieux
   - 10 messages par pages, quand on arrive en bas ça en charge d'autres
 - Affichage propre des erreurs
+
+# Idées
+- Ajout dernière date modification post

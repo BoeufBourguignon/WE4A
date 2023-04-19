@@ -5,10 +5,24 @@
     ?>
 
     <?php
-    /** @var array $posts */
+    /**
+     * @var array $posts
+     * @var Model\Post $post
+     */
     foreach($posts as $post)
     {
-        include(VIEWS."/Post/showPost.php");
+        ?>
+        <div class="post pointer" onclick="window.location='/post/<?php echo $post->getIdPost() ?>'">
+            <?php
+            include(VIEWS."/Post/includes/incPost.php");
+
+            if($this->auth->getUser() !== null)
+            {
+                include(VIEWS."/Post/includes/postFooter.php");
+            }
+            ?>
+        </div>
+        <?php
     }
     ?>
 </div>

@@ -13,6 +13,7 @@ class Post
     private string $datePost;
     private int $idUser;
     private int $idCategory;
+    private int $nbComment; // Donnée calculée. Nombre de commentaires
 
     // On offre la possiblité de faire de la navigabilité, en instanciant des objets si nécessaire
     private ?User $user = null;
@@ -144,5 +145,21 @@ class Post
     public function setCategory(?Category $category): void
     {
         $this->category = $category;
+    }
+
+    /**
+     * @return int
+     */
+    public function getNbComment(): int
+    {
+        return $this->nbComment;
+    }
+
+    /**
+     * @param int $nbComment
+     */
+    public function setNbComment(int $nbComment): void
+    {
+        $this->nbComment = $nbComment;
     }
 }

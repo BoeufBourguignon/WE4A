@@ -1,0 +1,9 @@
+.post .post-header .post-edit-title
+{
+    margin-bottom: 8px;
+}
+
+.post .post-header .post-edit-title #title
+{
+    width: calc(100% - 18px);
+}
