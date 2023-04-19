@@ -2,7 +2,10 @@
 
 namespace Controller;
 
+use Managers\CategoryManager;
+use Managers\CommentManager;
 use Managers\PostManager;
+use Managers\UserManager;
 use Src\ControllerBase;
 use Src\Routing\Route;
 
@@ -35,8 +38,13 @@ class PostController extends ControllerBase
 
     /**
      * Affiche un post et ses commentaires
+     * Quelqu'un qui n'est pas connecté peut voir le post
+     * Il faut vérifier que le post existe
      *
      * @param PostManager $postManager
+     * @param UserManager $userManager
+     * @param CategoryManager $categManager
+     * @param CommentManager $commentManager
      * @param int $idPost
      *
      * @return void
@@ -44,12 +52,29 @@ class PostController extends ControllerBase
      * @throws \Exception
      */
     #[Route("/post/{idPost}")]
-    public function showPost(PostManager $postManager, int $idPost): void
+    public function showPost(
+        PostManager $postManager,
+        UserManager $userManager,
+        CategoryManager $categManager,
+        CommentManager $commentManager,
+        int $idPost
+    ): void
     {
         $post = $postManager->getPostById($idPost);
+        if($post == null)
+            $this->redirect("/home");
+        $postManager->doNavigability([$post], $userManager, $categManager);
+
+        $comments = $commentManager->getCommentsOfPost($idPost);
+        foreach($comments as $comment)
+        {
+            $comment->setUser($userManager->getUserById($comment->getIdUser()));
+        }
 
         $this->render("Post/showPost.php",
-            params: ["post" => $post]
+            params: ["post" => $post, "comments" => $comments],
+            css:["post", "comment"],
+            js:["create-comment"]
         );
     }
 

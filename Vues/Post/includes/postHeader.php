@@ -1,8 +1,7 @@
 <?php
 /**
-* @var Src\ControllerBase $this
-* @var Model\Post $post
-*/
+ * @var Model\Post $post
+ */
 ?>
 <div class="post-header">
     <div class="user-infos">
@@ -19,22 +18,9 @@
     <div>
         <div class="tooltip">
             <p class="muted txt-small">Posté il y a <?php
-                $dateDiff = (new \DateTime())->diff(new \DateTime($post->getDatePost()));
-                echo $dateDiff->y > 0
-                    ? $dateDiff->y . " an(s)"
-                    : ( $dateDiff->m > 0
-                        ? $dateDiff->m . " mois"
-                        : ( $dateDiff->d > 0
-                            ? $dateDiff->d . " jour(s)"
-                            : $dateDiff->h . " heure(s)"
-                        )
-                    );
+                echo Src\Utils::getDateInterval($post->getDatePost())
                 ?></p>
             <span class="tooltiptext txt-small"><?php echo "Le ".(new \DateTime($post->getDatePost()))->format("d/m/Y à H:i") ?></span>
         </div>
     </div>
-</div>
-<h1 class="pointer" onclick="window.location='/post/<?php echo $post->getIdPost() ?>'"><?php echo $post->getTitle() ?></h1>
-<div class="post-content">
-    <?php echo $post->getContent() ?>
 </div>

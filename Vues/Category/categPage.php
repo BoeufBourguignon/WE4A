@@ -36,15 +36,7 @@
             /** @var Model\Post $post */
             foreach ($posts as $post)
             {
-                ?>
-                <div class="post pointer" onclick="window.location='/post/<?php echo $post->getIdPost() ?>'">
-                    <?php
-                    include(VIEWS."/Post/includes/incPost.php");
-
-                    include(VIEWS."/Post/includes/postFooter.php");
-                    ?>
-                </div>
-                <?php
+                include(VIEWS."/Post/includes/postFull.php");
             }
         }
     }

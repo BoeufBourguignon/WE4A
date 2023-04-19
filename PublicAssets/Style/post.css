@@ -11,6 +11,8 @@
 .post-footer
 {
     margin-bottom: 4px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .post-content

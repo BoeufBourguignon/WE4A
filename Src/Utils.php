@@ -47,4 +47,24 @@ class Utils
         if($deleteAfter) unset($_SESSION[$sessionName]);
         return $msg;
     }
+
+    public static function getDateInterval(string $date): string
+    {
+        $dateDiff = (new \DateTime())->diff(new \DateTime($date));
+        return $dateDiff->y > 0
+            ? $dateDiff->y . " an(s)"
+            : ( $dateDiff->m > 0
+                ? $dateDiff->m . " mois"
+                : ( $dateDiff->d > 0
+                    ? $dateDiff->d . " jour(s)"
+                    : ( $dateDiff->h > 0
+                        ? $dateDiff->h . " heures"
+                        : ( $dateDiff->i > 0
+                            ? $dateDiff->i . " minutes"
+                            : $dateDiff->s . " secondes"
+                        )
+                    )
+                )
+            );
+    }
 }

@@ -7,19 +7,21 @@
     <?php
     /**
      * @var array $posts
-     * @var Model\Post $post
      */
-    foreach($posts as $post)
+    if(count($posts) == 0)
     {
         ?>
         <div class="post">
-            <?php
-            include(VIEWS."/Post/includes/incPost.php");
-
-            include(VIEWS."/Post/includes/postFooter.php");
-            ?>
+            <p>Il n'y a pas de posts pour le moment.</p>
         </div>
         <?php
+    }
+    else
+    {
+        foreach($posts as $post)
+        {
+            include(VIEWS."/Post/includes/postFull.php");
+        }
     }
     ?>
 </div>

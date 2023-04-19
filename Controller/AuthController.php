@@ -23,7 +23,7 @@ class AuthController extends ControllerBase
     {
         // Si l'utilisateur est déjà connecté, il n'y a rien à faire
         if($this->auth->getUser() !== null)
-            $this->redirect("/profile");
+            $this->redirect("/user/".$this->auth->getUser()->getUsername());
 
         // Récupère les paramètres POST
         $username = filter_input(INPUT_POST, "username");
@@ -46,7 +46,7 @@ class AuthController extends ControllerBase
             else
             {
                 $this->auth->logUser($user);
-                $redirect = "/user/".$this->auth->getUser()->getIdUser();
+                $redirect = "/user/".$user->getUsername();
             }
         }
 

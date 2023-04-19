@@ -86,10 +86,10 @@ class HomeController extends ControllerBase
     #[Route("/test")]
     public function test()
     {
-        $mtn = new \DateTime();
-        $tantot = new \DateTime("2023-04-16 11:52:25");
+        $str = urlencode("salut comment ça va ?[]#|#[`@'");
 
-        var_dump(date_diff(new \DateTime(), new \DateTime("2023-04-16 11:52:25")));
+        echo $str."<br>";
+        echo urldecode($str)."<br>";
 
 
         //$this->render("test.php");
