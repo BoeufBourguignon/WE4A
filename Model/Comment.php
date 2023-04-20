@@ -6,6 +6,7 @@ class Comment
 {
     private int $idComment;
     private int $idUser;
+    private int $idPost;
     private string $content;
     private string $dateComment;
     private bool $isDeleted;
@@ -41,6 +42,22 @@ class Comment
     public function setIdUser(int $idUser): void
     {
         $this->idUser = $idUser;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIdPost(): int
+    {
+        return $this->idPost;
+    }
+
+    /**
+     * @param int $idPost
+     */
+    public function setIdPost(int $idPost): void
+    {
+        $this->idPost = $idPost;
     }
 
     /**

@@ -17,7 +17,7 @@ class CommentManager extends Database
     public function getCommentById(int $idComment): ?Comment
     {
         $sql = "
-            SELECT idComment, idUser, content, dateComment, isDeleted
+            SELECT idComment, idUser, idPost, content, dateComment, isDeleted
             FROM comment
             WHERE idComment = :idComment
         ";
@@ -41,9 +41,8 @@ class CommentManager extends Database
     public function getCommentsOfPost(int $idPost): array
     {
         $sql = "
-            SELECT c.idComment, idUser, content, dateComment, isDeleted
-            FROM comment c 
-                JOIN comment_post cp on c.idComment = cp.idComment
+            SELECT idComment, idUser, idPost, content, dateComment, isDeleted
+            FROM comment
             WHERE idPost = :idPost
             ORDER BY dateComment DESC
         ";
@@ -67,33 +66,17 @@ class CommentManager extends Database
      */
     public function addCommentToPost(int $idUser, int $idPost, string $content): bool
     {
-        $sqlComment = "
-            INSERT INTO comment (idUser, content)
-            VALUE (:idUser, :content)
+        $sql = "
+            INSERT INTO comment (idUser, content, idPost)
+            VALUE (:idUser, :content, :idPost)
         ";
 
-        $stmtComment = self::$cnx->prepare($sqlComment);
-        $stmtComment->bindParam("idUser", $idUser);
-        $stmtComment->bindParam("content", $content);
+        $stmt = self::$cnx->prepare($sql);
+        $stmt->bindParam("idUser", $idUser);
+        $stmt->bindParam("content", $content);
+        $stmt->bindParam("idPost", $idPost);
 
-        $successComment = $stmtComment->execute();
-
-        if($successComment)
-        {
-            $idComment = self::$cnx->lastInsertId();
-            $sqlCommentPost = "
-                INSERT INTO comment_post (idComment, idPost) 
-                VALUE (:idComment, :idPost)
-            ";
-
-            $stmtCommentPost = self::$cnx->prepare($sqlCommentPost);
-            $stmtCommentPost->bindParam("idComment", $idComment);
-            $stmtCommentPost->bindParam("idPost", $idPost);
-
-            $successComment = $stmtCommentPost->execute();
-        }
-
-        return $successComment;
+        return $stmt->execute();
     }
 
     /**

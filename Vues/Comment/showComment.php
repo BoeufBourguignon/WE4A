@@ -36,7 +36,6 @@
     {
         ?>
         <div class="comment-footer">
-            <a class="btn btn-clear btn-small">Répondre</a>
             <?php
             if($this->auth->getUser() != null && $this->auth->getUser()->getIdUser() == $comment->getIdUser())
             {

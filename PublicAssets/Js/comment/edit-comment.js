@@ -1,9 +1,10 @@
 doOnLoad(() =>
 {
-    let idComment = document.getElementById("idComment").value
-
     document.getElementById("edit-comment").addEventListener("click", () =>
     {
+        let idComment = document.getElementById("edit-comment").value
+        let idPost = document.getElementById("idPost").value
+
         let verified = true
         if (quill.getContents().length < 2)
         {
@@ -25,7 +26,7 @@ doOnLoad(() =>
                 .then(function (resp)
                 {
                     if (resp.data["response"] === true)
-                        location.reload()
+                        window.location = "/post/"+idPost
                     else
                     {
                         alert("Une erreur est survenue")

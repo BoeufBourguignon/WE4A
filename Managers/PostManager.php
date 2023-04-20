@@ -109,7 +109,6 @@ class PostManager extends Database
         $sql = "
             SELECT count(*)
             FROM comment c
-                JOIN comment_post cp ON cp.idComment = c.idComment
             WHERE idPost = :idPost
             AND c.isDeleted = FALSE
         ";
