@@ -115,4 +115,26 @@ class CommentManager extends Database
 
         return $stmt->execute();
     }
+
+    /**
+     * Met à jour un commentaire
+     *
+     * @param int $idComment
+     * @param string $content
+     * @return bool
+     */
+    public function updateComment(int $idComment, string $content): bool
+    {
+        $sql = "
+            UPDATE comment
+            SET content = :content
+            WHERE idComment = :idComment
+        ";
+
+        $stmt = self::$cnx->prepare($sql);
+        $stmt->bindParam("content", $content);
+        $stmt->bindParam("idComment", $idComment);
+
+        return $stmt->execute();
+    }
 }

@@ -20,6 +20,7 @@
             <div id="editor-container"></div>
         </div>
         <button type="button" id="edit-post" class="btn btn-orange">Enregistrer les modifications</button>
+        <a class="btn btn-clear" href="/post/<?php echo $post->getIdPost() ?>">Annuler</a>
     </div>
 </div>
 

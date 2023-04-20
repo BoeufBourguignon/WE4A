@@ -15,3 +15,4 @@
 
 # Idées
 - Ajout dernière date modification post
+- Ne pas faire de comment à un comment (compliqué niveau conceptuel) mais que comment à un post (donc lier BDD comment avec comment_post)

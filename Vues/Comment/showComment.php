@@ -20,7 +20,7 @@
             </div>
         </div>
     </div>
-    <div class="comment-content">
+    <div class="comment-content" data-is-deleted="<?php echo $comment->isDeleted() ?>">
         <?php
         if($comment->isDeleted())
         {
@@ -31,18 +31,27 @@
         echo $comment->getContent()
         ?>
     </div>
-    <div class="comment-footer">
-        <a class="btn btn-clear btn-small">Répondre</a>
-        <?php
-        if($this->auth->getUser() != null && $this->auth->getUser()->getIdUser() == $comment->getIdUser())
-        {
-            ?>
-            <div>
-                <a id="modify-post" <?php /* ?>href="/post/edit/<?php echo $post->getIdPost() ?>" <?php */ ?> class="btn btn-small btn-clear">Modifier</a>
-                <button class="btn btn-small btn-danger delete-comment" value="<?php echo $comment->getIdComment() ?>">Supprimer</button>
-            </div>
-            <?php
-        }
+    <?php
+    if(!$comment->isDeleted())
+    {
         ?>
-    </div>
+        <div class="comment-footer">
+            <a class="btn btn-clear btn-small">Répondre</a>
+            <?php
+            if($this->auth->getUser() != null && $this->auth->getUser()->getIdUser() == $comment->getIdUser())
+            {
+                ?>
+                <div>
+                    <a class="btn btn-small btn-clear" href="/comment/edit/<?php echo $comment->getIdComment() ?>">
+                        Modifier</a>
+                    <button class="btn btn-small btn-danger delete-comment"
+                            value="<?php echo $comment->getIdComment() ?>">Supprimer</button>
+                </div>
+                <?php
+            }
+            ?>
+        </div>
+        <?php
+    }
+    ?>
 </div>

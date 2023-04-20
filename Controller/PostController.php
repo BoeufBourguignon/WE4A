@@ -12,39 +12,6 @@ use Src\Routing\Route;
 class PostController extends ControllerBase
 {
     /**
-     * Permet la modification d'un post
-     * Nécessaire :
-     *  - être connecté
-     *  - le post existe
-     *  - être l'auteur du post
-     *
-     * @param PostManager $postManager
-     * @param int $idPost
-     *
-     * @return void
-     *
-     * @throws \Exception
-     */
-    #[Route("/post/edit/{idPost}")]
-    public function editPost(PostManager $postManager, int $idPost): void
-    {
-        $post = $postManager->getPostById($idPost);
-
-        // Vérifie si l'utilisateur est connecté et s'il est l'auteur du post
-        if (    $this->auth->getUser() == null
-             || $post == null
-             || $this->auth->getUser()->getIdUser() != $post->getIdUser()
-        )
-            $this->redirect("/post/" . $idPost);
-
-
-        $this->render("/Post/editPost.php",
-            params: ["post" => $post],
-            js: ["edit-post"]
-        );
-    }
-
-    /**
      * Affiche un post et ses commentaires
      * Nécessaire :
      *  - le post existe
@@ -82,7 +49,40 @@ class PostController extends ControllerBase
         $this->render("Post/showPost.php",
             params: ["post" => $post, "comments" => $comments],
             css:["post", "comment"],
-            js:["create-comment", "delete-comment"]
+            js:["comment/create-comment", "comment/delete-comment"]
+        );
+    }
+
+    /**
+     * Permet la modification d'un post
+     * Nécessaire :
+     *  - être connecté
+     *  - le post existe
+     *  - être l'auteur du post
+     *
+     * @param PostManager $postManager
+     * @param int $idPost
+     *
+     * @return void
+     *
+     * @throws \Exception
+     */
+    #[Route("/post/edit/{idPost}")]
+    public function editPost(PostManager $postManager, int $idPost): void
+    {
+        $post = $postManager->getPostById($idPost);
+
+        // Vérifie si l'utilisateur est connecté et s'il est l'auteur du post
+        if (    $this->auth->getUser() == null
+            || $post == null
+            || $this->auth->getUser()->getIdUser() != $post->getIdUser()
+        )
+            $this->redirect("/post/" . $idPost);
+
+
+        $this->render("/Post/editPost.php",
+            params: ["post" => $post],
+            js: ["post/edit-post"]
         );
     }
 
@@ -148,36 +148,44 @@ class PostController extends ControllerBase
         $response = array();
 
         $data = json_decode(file_get_contents("php://input"));
-
-        $title = htmlspecialchars($data->title);
-        $msg = $data->message;
-        $idPost = htmlspecialchars($data->idPost);
-
-        // Un user peut éditer un post s'il est connecté et que le post lui appartient
-        // et que le post existe
-        $post = $postManager->getPostById($idPost);
-        if (
-            $this->auth->getUser() == null ||
-            $post == null ||
-            $this->auth->getUser()->getIdUser() != $post->getIdUser()
-        )
+        if ($data == null ||
+            !isset($data->title) ||
+            !isset($data->message) ||
+            !isset($data->idPost) ||
+            $this->auth->getUser() == null)
         {
             $response["response"] = false;
         }
         else
         {
+            $title = htmlspecialchars($data->title);
+            $msg = $data->message;
+            $idPost = htmlspecialchars($data->idPost);
+
+            // Un user peut éditer un post si le post lui appartient et que le post existe
+            $post = $postManager->getPostById($idPost);
             if (
-                $title == null || strlen($title) == 0 || strlen($title) > 100 ||
-                $msg == null || strlen($msg) < 2 || strlen($msg) > 500 ||
-                $idPost == null
+                $post == null ||
+                $this->auth->getUser()->getIdUser() != $post->getIdUser()
             )
             {
                 $response["response"] = false;
-                $response["debug"] = $msg;
             }
             else
             {
-                $response["response"] = $postManager->editPost($idPost, $title, $msg);
+                if (
+                    $title == null || strlen($title) == 0 || strlen($title) > 100 ||
+                    $msg == null || strlen($msg) < 2 || strlen($msg) > 500 ||
+                    $idPost == null
+                )
+                {
+                    $response["response"] = false;
+                    $response["debug"] = $msg;
+                }
+                else
+                {
+                    $response["response"] = $postManager->editPost($idPost, $title, $msg);
+                }
             }
         }
 
