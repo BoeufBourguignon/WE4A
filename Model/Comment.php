@@ -9,6 +9,7 @@ class Comment
     private int $idPost;
     private string $content;
     private string $dateComment;
+    private ?string $dateModification;
     private bool $isDeleted;
     private User $user;
 
@@ -90,6 +91,22 @@ class Comment
     public function setDateComment(string $dateComment): void
     {
         $this->dateComment = $dateComment;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getDateModification(): ?string
+    {
+        return $this->dateModification;
+    }
+
+    /**
+     * @param string|null $dateModification
+     */
+    public function setDateModification(?string $dateModification): void
+    {
+        $this->dateModification = $dateModification;
     }
 
     /**

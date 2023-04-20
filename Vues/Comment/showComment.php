@@ -12,11 +12,19 @@
             <a href="/user/<?php echo $comment->getUser()->getUsername() ?>">
                 <?php echo $comment->getUser()->getUsername() ?></a>
             <div class="tooltip">
-                <p class="muted txt-small">· Posté il y a <?php
-                    echo Src\Utils::getDateInterval($comment->getDateComment())
+                <?php
+                $date = $comment->getDateModification() == null
+                    ? $comment->getDateComment()
+                    : $comment->getDateModification();
+                $str = $comment->getDateModification() == null
+                    ? "Posté"
+                    : "Modifié";
+                ?>
+                <p class="muted txt-small">· <?php echo $str ?> il y a <?php
+                    echo Src\Utils::getDateInterval($date)
                     ?></p>
                 <span class="tooltiptext txt-small"><?php echo "Le ".
-                        (new \DateTime($comment->getDateComment()))->format("d/m/Y à H:i") ?></span>
+                        (new \DateTime($date))->format("d/m/Y à H:i") ?></span>
             </div>
         </div>
     </div>

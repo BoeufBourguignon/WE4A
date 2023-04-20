@@ -56,7 +56,7 @@ class HomeController extends ControllerBase
     #[Route("/login", name:"Login")]
     public function login(): void
     {
-        $this->render("Auth/login.php", css:["login.css"]);
+        $this->render("Auth/login.php", css:["login"]);
     }
 
     /**
@@ -68,7 +68,7 @@ class HomeController extends ControllerBase
     #[Route("/register", name:"Register")]
     public function register(): void
     {
-        $this->render("Auth/register.php", css:["login.css"], js:["register.js"]);
+        $this->render("Auth/register.php", css:["login"], js:["register"]);
     }
 
     /**

@@ -17,7 +17,7 @@ class CommentManager extends Database
     public function getCommentById(int $idComment): ?Comment
     {
         $sql = "
-            SELECT idComment, idUser, idPost, content, dateComment, isDeleted
+            SELECT idComment, idUser, idPost, content, dateComment, dateModification, isDeleted
             FROM comment
             WHERE idComment = :idComment
         ";
@@ -41,7 +41,7 @@ class CommentManager extends Database
     public function getCommentsOfPost(int $idPost): array
     {
         $sql = "
-            SELECT idComment, idUser, idPost, content, dateComment, isDeleted
+            SELECT idComment, idUser, idPost, content, dateComment, dateModification, isDeleted
             FROM comment
             WHERE idPost = :idPost
             ORDER BY dateComment DESC
@@ -110,7 +110,7 @@ class CommentManager extends Database
     {
         $sql = "
             UPDATE comment
-            SET content = :content
+            SET content = :content, dateModification = NOW()
             WHERE idComment = :idComment
         ";
 

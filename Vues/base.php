@@ -13,7 +13,7 @@
         foreach($css as $line)
         {
             ?>
-            <link rel="stylesheet" href="/PublicAssets/Style/<?php echo $line ?>">
+            <link rel="stylesheet" href="/PublicAssets/Style/<?php echo $line ?>.css">
             <?php
         }
     }
@@ -41,7 +41,7 @@ if(isset($js))
     foreach($js as $line)
     {
         ?>
-        <script src="/PublicAssets/Js/<?php echo $line ?>"></script>
+        <script src="/PublicAssets/Js/<?php echo $line ?>.js"></script>
         <?php
     }
 }

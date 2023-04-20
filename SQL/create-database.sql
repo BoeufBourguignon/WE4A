@@ -37,12 +37,13 @@ CREATE TABLE IF NOT EXISTS post
 DROP TABLE IF EXISTS comment;
 CREATE TABLE IF NOT EXISTS comment
 (
-    idComment   INT          NOT NULL AUTO_INCREMENT,
-    idUser      INT          NOT NULL,
-    idPost      INT          NOT NULL,
-    content     VARCHAR(500) NOT NULL,
-    dateComment DATETIME     NOT NULL DEFAULT NOW(),
-    isDeleted   BOOLEAN      NOT NULL DEFAULT FALSE,
+    idComment        INT          NOT NULL AUTO_INCREMENT,
+    idUser           INT          NOT NULL,
+    idPost           INT          NOT NULL,
+    content          VARCHAR(500) NOT NULL,
+    dateComment      DATETIME     NOT NULL DEFAULT NOW(),
+    dateModification DATETIME     NULL,
+    isDeleted        BOOLEAN      NOT NULL DEFAULT FALSE,
     PRIMARY KEY (idComment),
     FOREIGN KEY (idUser) REFERENCES user (idUser),
     FOREIGN KEY (idPost) REFERENCES post (idPost) ON DELETE CASCADE
