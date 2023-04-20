@@ -23,12 +23,13 @@ CREATE TABLE IF NOT EXISTS category
 DROP TABLE IF EXISTS post;
 CREATE TABLE IF NOT EXISTS post
 (
-    idPost     INT          NOT NULL AUTO_INCREMENT,
-    title      VARCHAR(100) NOT NULL,
-    content    VARCHAR(500) NOT NULL,
-    datePost   DATETIME DEFAULT NOW(),
-    idUser     INT          NOT NULL,
-    idCategory INT          NOT NULL,
+    idPost           INT          NOT NULL AUTO_INCREMENT,
+    title            VARCHAR(100) NOT NULL,
+    content          VARCHAR(500) NOT NULL,
+    datePost         DATETIME DEFAULT NOW(),
+    dateModification DATETIME     NULL,
+    idUser           INT          NOT NULL,
+    idCategory       INT          NOT NULL,
     PRIMARY KEY (idPost),
     FOREIGN KEY (idUser) REFERENCES user (idUser),
     FOREIGN KEY (idCategory) REFERENCES category (idCategory)

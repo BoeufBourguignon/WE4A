@@ -17,10 +17,18 @@
     </div>
     <div>
         <div class="tooltip">
-            <p class="muted txt-small">Posté il y a <?php
-                echo Src\Utils::getDateInterval($post->getDatePost())
+            <?php
+            $date = $post->getDateModification() == null
+                ? $post->getDatePost()
+                : $post->getDateModification();
+            $str = $post->getDateModification() == null
+                ? "Posté"
+                : "Modifié";
+            ?>
+            <p class="muted txt-small"><?php echo $str ?> il y a <?php
+                echo Src\Utils::getDateInterval($date)
                 ?></p>
-            <span class="tooltiptext txt-small"><?php echo "Le ".(new \DateTime($post->getDatePost()))->format("d/m/Y à H:i") ?></span>
+            <span class="tooltiptext txt-small"><?php echo "Le ".(new \DateTime($date))->format("d/m/Y à H:i") ?></span>
         </div>
     </div>
 </div>

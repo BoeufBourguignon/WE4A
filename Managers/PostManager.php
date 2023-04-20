@@ -46,7 +46,7 @@ class PostManager extends Database
     {
         $sql = "
             UPDATE post
-            SET title = :title, content = :msg
+            SET title = :title, content = :msg, dateModification = NOW()
             WHERE idPost = :idPost
         ";
 
@@ -130,7 +130,7 @@ class PostManager extends Database
     public function getLastPosts(int $idGreaterThan = 0): array
     {
         $sql = "
-            SELECT idPost, title, content, datePost, idUser, idCategory
+            SELECT idPost, title, content, datePost, dateModification, idUser, idCategory
             FROM post
             WHERE idPost > :id
             ORDER BY datePost DESC
@@ -155,7 +155,7 @@ class PostManager extends Database
     public function getLastPostsOfCateg(string $categName, int $idGreaterThan = 0): array
     {
         $sql = "
-            SELECT idPost, title, content, datePost, idUser, p.idCategory
+            SELECT idPost, title, content, datePost, dateModification, idUser, p.idCategory
             FROM post p 
                 JOIN category c on p.idCategory = c.idCategory
             WHERE idPost > :id
@@ -183,7 +183,7 @@ class PostManager extends Database
     public function getLastPostsOfUser(string $username, int $idGreaterThan = 0): array
     {
         $sql = "
-            SELECT idPost, title, content, datePost, p.idUser, idCategory
+            SELECT idPost, title, content, datePost, dateModification, p.idUser, idCategory
             FROM post p 
                 JOIN user u on p.idUser = u.idUser
             WHERE idPost > :id
@@ -208,7 +208,7 @@ class PostManager extends Database
     public function getPostById(int $idPost): ?Post
     {
         $sql = "
-            SELECT idPost, title, content, datePost, idUser, idCategory
+            SELECT idPost, title, content, datePost, dateModification, idUser, idCategory
             FROM post
             WHERE idPost = :idPost
         ";

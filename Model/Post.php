@@ -11,6 +11,7 @@ class Post
     private string $title;
     private string $content;
     private string $datePost;
+    private string $dateModification;
     private int $idUser;
     private int $idCategory;
     private int $nbComment; // Donnée calculée. Nombre de commentaires
@@ -81,6 +82,22 @@ class Post
     public function setDatePost(string $datePost): void
     {
         $this->datePost = $datePost;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDateModification(): string
+    {
+        return $this->dateModification;
+    }
+
+    /**
+     * @param string $dateModification
+     */
+    public function setDateModification(string $dateModification): void
+    {
+        $this->dateModification = $dateModification;
     }
 
     /**
