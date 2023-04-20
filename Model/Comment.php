@@ -8,6 +8,7 @@ class Comment
     private int $idUser;
     private string $content;
     private string $dateComment;
+    private bool $isDeleted;
     private User $user;
 
     /**
@@ -72,6 +73,22 @@ class Comment
     public function setDateComment(string $dateComment): void
     {
         $this->dateComment = $dateComment;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDeleted(): bool
+    {
+        return $this->isDeleted;
+    }
+
+    /**
+     * @param bool $isDeleted
+     */
+    public function setIsDeleted(bool $isDeleted): void
+    {
+        $this->isDeleted = $isDeleted;
     }
 
     /**

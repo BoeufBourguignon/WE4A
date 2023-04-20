@@ -49,4 +49,40 @@ class CommentController extends \Src\ControllerBase
         $this->renderJSON($response);
     }
 
+    /**
+     * Supprimer un commentaire via AJAX
+     *
+     * @param CommentManager $commentManager
+     * @return void
+     */
+    #[Route("/ajax/comment/delete")]
+    public function ajaxDeleteComment(CommentManager $commentManager): void
+    {
+        $response = array();
+
+        $data = json_decode(file_get_contents("php://input"));
+        if($data == null || !isset($data->idComment) || $this->auth->getUser() == null)
+        {
+            $response["reponse"] = false;
+        }
+        else
+        {
+            $idComment = htmlspecialchars($data->idComment);
+            $comment = $commentManager->getCommentById($idComment);
+
+            if (
+                $comment == null ||
+                $this->auth->getUser()->getIdUser() != $comment->getIdUser()
+            )
+            {
+                $response["reponse"] = false;
+            }
+            else
+            {
+                $response["response"] = $commentManager->deleteComment($idComment);
+            }
+        }
+
+        $this->renderJSON($response);
+    }
 }

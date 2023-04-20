@@ -8,7 +8,7 @@
 - <span style="color:green">&check; Commentaire à un post
 - Commentaire à un commentaire
 - Modifier un commentaire
-- Supprimer un commentaire
+- <span style="color:green">&check; Supprimer un commentaire
 - Affichage propre des erreurs
 # Eventuel
 - Compte supprimé/post supprimé/commentaire supprimé : pas faire de delete cascade mais afficher "... supprimé" (comme Reddit)

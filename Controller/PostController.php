@@ -82,7 +82,7 @@ class PostController extends ControllerBase
         $this->render("Post/showPost.php",
             params: ["post" => $post, "comments" => $comments],
             css:["post", "comment"],
-            js:["create-comment"]
+            js:["create-comment", "delete-comment"]
         );
     }
 
@@ -154,9 +154,12 @@ class PostController extends ControllerBase
         $idPost = htmlspecialchars($data->idPost);
 
         // Un user peut éditer un post s'il est connecté et que le post lui appartient
+        // et que le post existe
+        $post = $postManager->getPostById($idPost);
         if (
             $this->auth->getUser() == null ||
-            $this->auth->getUser()->getIdUser() != $postManager->getPostById($idPost)->getIdUser()
+            $post == null ||
+            $this->auth->getUser()->getIdUser() != $post->getIdUser()
         )
         {
             $response["response"] = false;
@@ -198,9 +201,11 @@ class PostController extends ControllerBase
 
         $idPost = htmlspecialchars($data->idPost);
 
+        $post = $postManager->getPostById($idPost);
         if (
             $this->auth->getUser() == null ||
-            $this->auth->getUser()->getIdUser() != $postManager->getPostById($idPost)->getIdUser()
+            $post == null ||
+            $this->auth->getUser()->getIdUser() != $post->getIdUser()
         )
         {
             $response["reponse"] = false;

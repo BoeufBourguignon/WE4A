@@ -21,7 +21,15 @@
         </div>
     </div>
     <div class="comment-content">
-        <?php echo $comment->getContent() ?>
+        <?php
+        if($comment->isDeleted())
+        {
+            ?>
+            <p class="muted">[commentaire supprimé]</p>
+            <?php
+        }
+        echo $comment->getContent()
+        ?>
     </div>
     <div class="comment-footer">
         <a class="btn btn-clear btn-small">Répondre</a>
@@ -31,7 +39,7 @@
             ?>
             <div>
                 <a id="modify-post" <?php /* ?>href="/post/edit/<?php echo $post->getIdPost() ?>" <?php */ ?> class="btn btn-small btn-clear">Modifier</a>
-                <button class="btn btn-small btn-danger delete-post" value="<?php echo $comment->getIdComment() ?>">Supprimer</button>
+                <button class="btn btn-small btn-danger delete-comment" value="<?php echo $comment->getIdComment() ?>">Supprimer</button>
             </div>
             <?php
         }

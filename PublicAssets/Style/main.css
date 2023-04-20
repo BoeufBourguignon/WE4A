@@ -121,6 +121,10 @@ body
 {
     font-size: 12px;
 }
+.txt-italic
+{
+    font-style: italic;
+}
 
 .mb {
     margin-bottom: 8px;
