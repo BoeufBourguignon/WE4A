@@ -1,6 +1,13 @@
 <nav id='main-nav'>
     <a href="/home">Accueil</a>
-    <label for='search' class="d-none">Rechercher</label><input type='text' id='search' placeholder='Rechercher...'>
+    <div id="navbar-search-container">
+        <label for='search' hidden></label><input type='text' id='search' placeholder='Rechercher...'>
+        <div id="navbar-search-content" class="d-none">
+<!--            <a class="pointer" id="navbar-search-post">Rechercher '<span id="navbar-search-word"></span>'</a>-->
+            <div id="navbar-search-categ"></div>
+            <div id="navbar-search-user"></div>
+        </div>
+    </div>
     <?php if ($this->auth->getUser()) { ?>
         <div id="user-profile">
             <button id="user-btn" aria-expanded="false">

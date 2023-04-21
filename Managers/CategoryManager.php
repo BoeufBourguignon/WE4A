@@ -22,6 +22,7 @@ class CategoryManager extends Database
                 UNION
             SELECT idCategory, nameCategory FROM category
             WHERE nameCategory LIKE :anyMatch
+            LIMIT 6
         ";
 
         $stmt = self::$cnx->prepare($sql);

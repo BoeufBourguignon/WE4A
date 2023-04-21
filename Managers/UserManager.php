@@ -66,4 +66,25 @@ class UserManager extends Database
 
         return $stmt->execute();
     }
+
+    public function searchUser(string $str): array
+    {
+        $sql = "
+            SELECT idUser, username
+            FROM user
+            WHERE username LIKE :startMatch
+                UNION
+            SELECT idUser, username
+            FROM user
+            WHERE username LIKE :anyMatch
+            LIMIT 6
+        ";
+
+        $stmt = self::$cnx->prepare($sql);
+        $stmt->bindValue("startMatch", $str."%");
+        $stmt->bindValue("anyMatch", "%".$str."%");
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
 }

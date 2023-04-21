@@ -41,7 +41,7 @@ class UserController extends ControllerBase
                 "username" => $username,
                 "posts" => $posts],
             css:["post"],
-            js:["delete-post"]
+            js:["post/delete-post"]
         );
     }
 

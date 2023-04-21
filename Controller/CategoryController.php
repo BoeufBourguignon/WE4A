@@ -43,7 +43,7 @@ class CategoryController extends ControllerBase
                 "categName" => $categName,
                 "posts" => $posts],
             css:["post"],
-            js:["delete-post"]
+            js:["post/delete-post"]
         );
     }
 

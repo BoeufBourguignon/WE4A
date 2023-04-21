@@ -9,7 +9,8 @@
 - <span style="color:crimson">&cross; Commentaire à un commentaire
 - <span style="color:green">&check; Modifier un commentaire
 - <span style="color:green">&check; Supprimer un commentaire
-- Recherche de categ ou d'user ou de titre
+- <span style="color:green">&check; Recherche de categ ou d'user</span> ou de titre
+- Une image par post (création, édition)
 - Affichage propre des erreurs
 
 # Idées

@@ -83,6 +83,21 @@ class HomeController extends ControllerBase
         $this->render("Home/profile.php");
     }
 
+    #[Route("/ajax/search/{criteria}")]
+    public function ajaxSearch(
+        CategoryManager $categManager,
+        UserManager $userManager,
+        string $criteria
+    ): void
+    {
+        $response = array();
+
+        $response["categ"] = $categManager->searchCategory($criteria);
+        $response["user"] = $userManager->searchUser($criteria);
+
+        $this->renderJSON($response);
+    }
+
     #[Route("/test")]
     public function test()
     {
