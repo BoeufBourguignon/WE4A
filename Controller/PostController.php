@@ -109,7 +109,7 @@ class PostController extends ControllerBase
         {
             $title = filter_input(INPUT_POST, "title");
             $categ = filter_input(INPUT_POST, "categoryId");
-            $msg = $_POST["message"];
+            $msg = $_POST["message"] ?? null;
             $img = $_FILES["image"] ?? null;
 
             // Vérification paramètres
@@ -117,8 +117,8 @@ class PostController extends ControllerBase
                 $categ == null || $categ == 0 ||
                 $title == null || strlen($title) == 0 || strlen($title) > 100 ||
                 $msg == null || strlen($msg) < 2 || strlen($msg) > 500 ||
-                $img == null || !in_array($img["type"], ["image/jpeg", "image/png", "image/gif"]) ||
-                !file_exists($img["tmp_name"]) || filesize($img["tmp_name"]) > 50000000
+                ( $img != null && !in_array($img["type"], ["image/jpeg", "image/png", "image/gif"]) &&
+                !file_exists($img["tmp_name"]) && filesize($img["tmp_name"]) > 50000000 )
             )
             {
                 $response["response"] = false;
@@ -129,7 +129,7 @@ class PostController extends ControllerBase
                 $response["response"] =
                     $postManager->postPost($this->auth->getUser()->getIdUser(), $categ, $title, $msg);
 
-                if($response["response"])
+                if($response["response"] && $img != null)
                 {
                     $postId = $postManager->getConnection()->lastInsertId();
                     if(!move_uploaded_file($img["tmp_name"],
@@ -161,21 +161,22 @@ class PostController extends ControllerBase
     {
         $response = array();
 
-        $data = json_decode(file_get_contents("php://input"));
-        if ($data == null ||
-            !isset($data->title) ||
-            !isset($data->message) ||
-            !isset($data->idPost) ||
+        $title = filter_input(INPUT_POST, "title");
+        $msg = $_POST["message"] ?? null;
+        $idPost = filter_input(INPUT_POST, "idPost");
+        $img = $_FILES["image"] ?? null;
+
+        if ($idPost == null ||
+            $title == null || strlen($title) == 0 || strlen($title) > 100 ||
+            $msg == null || strlen($msg) < 2 || strlen($msg) > 500 ||
+            ( $img != null && !in_array($img["type"], ["image/jpeg", "image/png", "image/gif"]) &&
+                !file_exists($img["tmp_name"]) && filesize($img["tmp_name"]) > 50000000 ) ||
             $this->auth->getUser() == null)
         {
             $response["response"] = false;
         }
         else
         {
-            $title = htmlspecialchars($data->title);
-            $msg = $data->message;
-            $idPost = htmlspecialchars($data->idPost);
-
             // Un user peut éditer un post si le post lui appartient et que le post existe
             $post = $postManager->getPostById($idPost);
             if (
@@ -187,18 +188,21 @@ class PostController extends ControllerBase
             }
             else
             {
-                if (
-                    $title == null || strlen($title) == 0 || strlen($title) > 100 ||
-                    $msg == null || strlen($msg) < 2 || strlen($msg) > 500 ||
-                    $idPost == null
-                )
+                $response["response"] = $postManager->editPost($idPost, $title, $msg);
+
+                if($response["response"] && $img != null)
                 {
-                    $response["response"] = false;
-                    $response["debug"] = $msg;
-                }
-                else
-                {
-                    $response["response"] = $postManager->editPost($idPost, $title, $msg);
+                    // Supprime l'ancienne
+                    $files = glob(ROOT . "/PublicAssets/Images/Posts/".$idPost.".*");
+                    if($files !== false && count($files) > 0)
+                    {
+                        unlink($files[0]);
+                    }
+
+                    // Ajoute la nouvelle
+                    $response["response"] = move_uploaded_file($img["tmp_name"],
+                        ROOT."/PublicAssets/Images/Posts/".$idPost.".".pathinfo($img["full_path"],
+                            PATHINFO_EXTENSION));
                 }
             }
         }
