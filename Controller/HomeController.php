@@ -86,10 +86,8 @@ class HomeController extends ControllerBase
     #[Route("/test")]
     public function test()
     {
-        $date = new \DateTime("2023-04-19 16:40:41");
-        $ajd = new \DateTime();
-
-        var_dump($date, $ajd, $ajd->diff($date));
+        $files = glob(ROOT . "/PublicAssets/Images/Posts/5.*");
+        var_dump($files);
 
 
 

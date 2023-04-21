@@ -6,13 +6,12 @@
   - <span style="color:green">&check; Du plus récent au plus vieux
   - 10 messages par pages, quand on arrive en bas ça en charge d'autres (facultatif)
 - <span style="color:green">&check; Commentaire à un post
-- Commentaire à un commentaire
-- Modifier un commentaire
+- <span style="color:crimson">&cross; Commentaire à un commentaire
+- <span style="color:green">&check; Modifier un commentaire
 - <span style="color:green">&check; Supprimer un commentaire
+- Recherche de categ ou d'user ou de titre
 - Affichage propre des erreurs
-# Eventuel
-- Compte supprimé/post supprimé/commentaire supprimé : pas faire de delete cascade mais afficher "... supprimé" (comme Reddit)
 
 # Idées
-- Ajout dernière date modification post
-- Ne pas faire de comment à un comment (compliqué niveau conceptuel) mais que comment à un post (donc lier BDD comment avec comment_post)
+- <span style="color:green">&check; Ajout dernière date modification post
+- <span style="color:green">&check; Ne pas faire de comment à un comment (compliqué niveau conceptuel) mais que comment à un post (donc lier BDD comment avec comment_post)

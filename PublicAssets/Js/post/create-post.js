@@ -13,6 +13,8 @@ doOnLoad(() =>
         // Evennement "appuie sur le bouton envoyer post"
         document.getElementById("send-post").addEventListener("click", () =>
         {
+            let img = document.getElementById("image-upload").files[0]
+
             // Vérifications
             let verified = true
             if (categoryId.value.length === "" || categoryInput.value === "")
@@ -40,15 +42,27 @@ doOnLoad(() =>
                 alert("Votre message est trop long")
                 verified = false
             }
+            if(img !== undefined && !['image/jpeg','image/png','image/gif'].includes(img.type))
+            {
+                alert("L'image doit être de format JPEG/JPG, PNG ou GIF")
+                verified = false
+            }
+            if(img !== undefined && img.size > 50000000)
+            {
+                alert("La taille de l'image ne doit pas dépasser 50Mo")
+                verified = false
+            }
 
             if (verified)
             {
+                let data = new FormData();
+                data.append("title", title.value)
+                data.append("categoryId", categoryId.value)
+                data.append("message", quill.root.innerHTML)
+                data.append("image", img)
+
                 // Poster le message via AJAX
-                axios.post("/ajax/post/post", {
-                    title: title.value,
-                    categoryId: categoryId.value,
-                    message: quill.root.innerHTML
-                })
+                axios.post("/ajax/post/post", data)
                     .then(function (resp)
                     {
                         if (resp.data["response"] === true)

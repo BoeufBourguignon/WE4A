@@ -11,8 +11,16 @@
     if(count($posts) == 0)
     {
         ?>
-        <div class="post">
+        <div class="post text-center">
             <p>Il n'y a pas de posts pour le moment.</p>
+            <?php
+            if($this->auth->getUser() == null)
+            {
+                ?>
+                <p>Commencez à poster <a class="txt-orange" href="/login">en vous connectant</a></p>
+                <?php
+            }
+            ?>
         </div>
         <?php
     }

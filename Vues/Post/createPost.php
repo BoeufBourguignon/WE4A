@@ -20,6 +20,10 @@
     <div id="post-editor">
         <div id="editor-container"></div>
     </div>
+    <div id="input-image">
+        <input type="file" id="image-upload" accept="image/*" hidden>
+        <label for="image-upload" class="btn btn-clear" id="btn-upload-image">Ajouter une image</label>
+    </div>
     <button type="button" id="send-post" class="btn btn-orange">Poster le message</button>
 </div>
 

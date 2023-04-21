@@ -26,7 +26,7 @@
         if (count($posts) == 0)
         {
             ?>
-            <div class="post">
+            <div class="post text-center">
                 <p>Il n'y a pas de posts pour l'instant</p>
             </div>
             <?php

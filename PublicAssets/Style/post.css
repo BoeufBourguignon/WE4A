@@ -25,3 +25,8 @@
     display: flex;
     align-content: center;
 }
+
+#image-post
+{
+    max-height: 240px;
+}

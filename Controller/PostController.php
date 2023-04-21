@@ -49,7 +49,7 @@ class PostController extends ControllerBase
         $this->render("Post/showPost.php",
             params: ["post" => $post, "comments" => $comments],
             css:["post", "comment"],
-            js:["comment/create-comment", "comment/delete-comment"]
+            js:["post/delete-post", "comment/create-comment", "comment/delete-comment"]
         );
     }
 
@@ -107,17 +107,18 @@ class PostController extends ControllerBase
         }
         else
         {
-            $data = json_decode(file_get_contents('php://input'));
-
-            $title = htmlspecialchars($data->title);
-            $categ = htmlspecialchars($data->categoryId);
-            $msg = $data->message;
+            $title = filter_input(INPUT_POST, "title");
+            $categ = filter_input(INPUT_POST, "categoryId");
+            $msg = $_POST["message"];
+            $img = $_FILES["image"] ?? null;
 
             // Vérification paramètres
             if (
                 $categ == null || $categ == 0 ||
                 $title == null || strlen($title) == 0 || strlen($title) > 100 ||
-                $msg == null || strlen($msg) < 2 || strlen($msg) > 500
+                $msg == null || strlen($msg) < 2 || strlen($msg) > 500 ||
+                $img == null || !in_array($img["type"], ["image/jpeg", "image/png", "image/gif"]) ||
+                !file_exists($img["tmp_name"]) || filesize($img["tmp_name"]) > 50000000
             )
             {
                 $response["response"] = false;
@@ -125,7 +126,20 @@ class PostController extends ControllerBase
             }
             else
             {
-                $response["response"] = $postManager->postPost($this->auth->getUser()->getIdUser(), $categ, $title, $msg);
+                $response["response"] =
+                    $postManager->postPost($this->auth->getUser()->getIdUser(), $categ, $title, $msg);
+
+                if($response["response"])
+                {
+                    $postId = $postManager->getConnection()->lastInsertId();
+                    if(!move_uploaded_file($img["tmp_name"],
+                            ROOT."/PublicAssets/Images/Posts/".$postId.".".pathinfo($img["full_path"],
+                            PATHINFO_EXTENSION)))
+                    {
+                        $response["response"] = false;
+                        $postManager->deletePost($postId);
+                    }
+                }
             }
         }
 
@@ -227,6 +241,15 @@ class PostController extends ControllerBase
             else
             {
                 $response["response"] = $postManager->deletePost($idPost);
+                if($response["response"])
+                {
+                    $files = glob(ROOT . "/PublicAssets/Images/Posts/".$idPost.".*");
+                    if($files !== false && count($files) > 0)
+                    {
+                        unlink($files[0]);
+                    }
+                }
+
             }
         }
 
