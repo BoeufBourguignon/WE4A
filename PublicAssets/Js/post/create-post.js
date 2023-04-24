@@ -7,13 +7,39 @@ doOnLoad(() =>
     let newCateg = document.getElementById("new-category")
     let newCategName = document.getElementById("new-category-name")
     let title = document.getElementById("title")
+    let imgInput = document.getElementById("image-upload")
+    let imgPreviewGroup = document.getElementById("post-img-preview-group")
+    let imgPreview = document.getElementById("post-img-preview")
+
+    document.getElementById("img-preview-btn-delete").addEventListener("click", () =>
+    {
+        imgInput.value = ""
+        imgPreview.src = "data:,"
+        imgPreviewGroup.classList.add("d-none")
+    })
 
     if(document.getElementById("post-editor") !== null)
     {
+        imgInput.addEventListener("change", () =>
+        {
+            let img = imgInput.files
+            if(FileReader && img && img.length)
+            {
+                imgPreviewGroup.classList.remove("d-none")
+
+                let fr = new FileReader()
+                fr.onload = () =>
+                {
+                    imgPreview.src = fr.result
+                }
+                fr.readAsDataURL(img[0])
+            }
+        })
+
         // Evennement "appuie sur le bouton envoyer post"
         document.getElementById("send-post").addEventListener("click", () =>
         {
-            let img = document.getElementById("image-upload").files[0]
+            let img = imgInput.files[0]
 
             // Vérifications
             let verified = true

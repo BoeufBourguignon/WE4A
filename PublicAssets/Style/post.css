@@ -30,3 +30,9 @@
 {
     max-height: 240px;
 }
+
+#post-img-preview
+{
+    max-height: 120px;
+    margin-top: 16px;
+}

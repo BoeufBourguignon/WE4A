@@ -132,9 +132,12 @@ class PostController extends ControllerBase
                 if($response["response"] && $img != null)
                 {
                     $postId = $postManager->getConnection()->lastInsertId();
+                    if (!file_exists(POSTS_IMGS)) {
+                        mkdir(POSTS_IMGS, 0777, true);
+                    }
                     if(!move_uploaded_file($img["tmp_name"],
-                            ROOT."/PublicAssets/Images/Posts/".$postId.".".pathinfo($img["full_path"],
-                            PATHINFO_EXTENSION)))
+                            ROOT."/PublicAssets/Images/Posts/".$postId.".".
+                            ltrim(strrchr($img["type"], "/"), "/")))
                     {
                         $response["response"] = false;
                         $postManager->deletePost($postId);

@@ -23,6 +23,10 @@
     <div id="input-image">
         <input type="file" id="image-upload" accept="image/*" hidden>
         <label for="image-upload" class="btn btn-clear" id="btn-upload-image">Ajouter une image</label>
+        <div id="post-img-preview-group" class="d-none">
+            <div><img id="post-img-preview" alt="Preview" src="data:,"></div>
+            <button id="img-preview-btn-delete" class="btn btn-danger">Supprimer l'image</button>
+        </div>
     </div>
     <button type="button" id="send-post" class="btn btn-orange">Poster le message</button>
 </div>
