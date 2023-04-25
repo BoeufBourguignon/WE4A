@@ -5,9 +5,9 @@
     left: 0;
     right: 0;
     height: 49px;
-    background-color: #1A1A1B;
-    color: gainsboro;
-    border-bottom: 1px solid #343536;
+    background-color: var(--primary-bg-color);
+    color: var(--primary-txt-color);
+    border-bottom: 1px solid var(--primary-border-color);
 
     display: flex;
     flex-direction: row;
@@ -23,9 +23,65 @@
     margin: 0;
 }
 
-#main-nav #search
+#main-nav #navbar-search-container
 {
     width: 50%;
+    position: relative;
+}
+#main-nav #navbar-search-container #search
+{
+    width: calc(100% - 18px);
+}
+#main-nav #navbar-search-container #navbar-search-content
+{
+    position: absolute;
+    z-index: 90;
+    background-color: var(--primary-bg-color);
+    border: solid 1px var(--primary-border-color);
+    width: calc(100% - 2px);
+    border-radius: 12px;
+}
+#main-nav #navbar-search-container #navbar-search-content #navbar-search-categ::before
+{
+    content: "Catégories";
+    padding: 2px 8px;
+    display: block;
+    background-color: var(--input-bg-color);
+    border-top: solid 1px var(--primary-border-color);
+    border-bottom: solid 1px var(--primary-border-color);
+}
+#main-nav #navbar-search-container #navbar-search-content #navbar-search-user::before
+{
+    content: "Utilistaeurs";
+    padding: 2px 8px;
+    display: block;
+    background-color: var(--input-bg-color);
+    border-top: solid 1px var(--primary-border-color);
+    border-bottom: solid 1px var(--primary-border-color);
+}
+
+#main-nav #navbar-search-container #navbar-search-content #navbar-search-post
+{
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+#main-nav #navbar-search-container #navbar-search-content #navbar-search-user > *:last-child
+{
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+#main-nav #navbar-search-container #navbar-search-content #navbar-search-categ > *,
+#main-nav #navbar-search-container #navbar-search-content #navbar-search-user > *,
+#main-nav #navbar-search-container #navbar-search-content #navbar-search-post
+{
+    display: block;
+    padding: 8px;
+}
+#main-nav #navbar-search-container #navbar-search-content #navbar-search-categ > *:hover,
+#main-nav #navbar-search-container #navbar-search-content #navbar-search-user > *:hover,
+#main-nav #navbar-search-container #navbar-search-content #navbar-search-post:hover
+{
+    background-color: var(--input-bg-color);
 }
 
 #main-nav #user-profile
@@ -37,11 +93,11 @@
 #main-nav #user-btn
 {
     background-color: #272729;
-    border: 1px solid #343536;
+    border: 1px solid var(--primary-border-color);
     border-radius: 6px;
     height: 100%;
     width: 100%;
-    color: gainsboro;
+    color: var(--primary-txt-color);
     cursor: pointer;
     padding: 6px;
     text-decoration: none;
@@ -58,7 +114,7 @@
 }
 #main-nav #user-btn:hover
 {
-    background-color: #1A1A1B;
+    background-color: var(--primary-bg-color);
 }
 #main-nav #user-btn img
 {
@@ -73,8 +129,8 @@
 }
 #main-nav #user-actions
 {
-    background-color: #272729;
-    border: 1px solid #343536;
+    background-color: var(--input-bg-color);
+    border: 1px solid var(--primary-border-color);
     border-radius: 0 0 6px 6px;
 }
 #main-nav #user-actions a
@@ -84,9 +140,9 @@
 }
 #main-nav #user-actions a:hover
 {
-    background-color: #1A1A1B;
+    background-color: var(--primary-bg-color);
 }
 #main-nav #user-actions a:nth-last-child(n+2)
 {
-    border-bottom: 1px solid #343536;
+    border-bottom: 1px solid var(--primary-border-color);
 }

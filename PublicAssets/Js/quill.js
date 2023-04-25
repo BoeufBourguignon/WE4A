@@ -1,3 +1,5 @@
+// Editeur de texte formaté, utilisé pour la rédaction de posts
+
 let quill = new Quill('#editor-container', {
     theme: 'snow',
     placeholder: 'Poster un message',

@@ -2,22 +2,32 @@
 
 namespace Model;
 
+/**
+ * Classe correspondante à la table User de la BDD
+ */
 class User
 {
     private int $idUser;
     private string $username;
     private string $passwd;
     private int $idRole;
-    private ?string $avatar;
 
-    public static function newUser(int $idUser, string $username, string $passwd, int $idRole, ?string $avatar): User
+    /**
+     * Crée une nouvelle instance d'User à partir des paramètres
+     *
+     * @param int $idUser
+     * @param string $username
+     * @param string $passwd
+     * @param int $idRole
+     * @return User
+     */
+    public static function newUser(int $idUser, string $username, string $passwd, int $idRole): User
     {
         $user = new User();
         $user->idUser = $idUser;
         $user->username = $username;
         $user->passwd = $passwd;
         $user->idRole = $idRole;
-        $user->avatar = $avatar;
         return $user;
     }
 
@@ -90,14 +100,8 @@ class User
      */
     public function getAvatar(): ?string
     {
-        return $this->avatar;
-    }
-
-    /**
-     * @param ?string $avatar
-     */
-    public function setAvatar(?string $avatar): void
-    {
-        $this->avatar = $avatar;
+        return file_exists(PFP."/".$this->idUser.".png")
+            ? PFP."/".$this->idUser.".png"
+            : "/PublicAssets/Images/basic-pfp.png";
     }
 }

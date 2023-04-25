@@ -3,6 +3,8 @@
 <div id="canvas">
     <div class="post">
         <form id="login-form" method="post" action="/form_login">
+            <input name="typeFormulaire" value="changerUsername" type="hidden">
+
             <h1>Se connecter</h1>
             <div>
                 <label for="username" class="d-inblock">Nom d'utilisateur</label>

@@ -2,14 +2,19 @@
 
 namespace Model;
 
+/**
+ * Classe correspondante à la table Post de la BDD
+ */
 class Post
 {
     private int $idPost;
     private string $title;
     private string $content;
     private string $datePost;
+    private ?string $dateModification;
     private int $idUser;
     private int $idCategory;
+    private int $nbComment; // Donnée calculée. Nombre de commentaires
 
     // On offre la possiblité de faire de la navigabilité, en instanciant des objets si nécessaire
     private ?User $user = null;
@@ -80,6 +85,22 @@ class Post
     }
 
     /**
+     * @return string|null
+     */
+    public function getDateModification(): ?string
+    {
+        return $this->dateModification;
+    }
+
+    /**
+     * @param string|null $dateModification
+     */
+    public function setDateModification(?string $dateModification): void
+    {
+        $this->dateModification = $dateModification;
+    }
+
+    /**
      * @return int
      */
     public function getIdUser(): int
@@ -141,5 +162,21 @@ class Post
     public function setCategory(?Category $category): void
     {
         $this->category = $category;
+    }
+
+    /**
+     * @return int
+     */
+    public function getNbComment(): int
+    {
+        return $this->nbComment;
+    }
+
+    /**
+     * @param int $nbComment
+     */
+    public function setNbComment(int $nbComment): void
+    {
+        $this->nbComment = $nbComment;
     }
 }

@@ -3,12 +3,19 @@
 namespace Managers;
 
 use Model\User;
+use Src\Database;
 
 class UserManager extends Database
 {
+    /**
+     * Retourne un utilisateur
+     *
+     * @param int $id Id de l'utilisateur
+     * @return User|null null si l'utilisateur n'existe pas
+     */
     public function getUserById(int $id): ?User
     {
-        $sql = "SELECT idUser, username, passwd, idRole, avatar FROM user WHERE idUser = :id";
+        $sql = "SELECT idUser, username, passwd, idRole FROM user WHERE idUser = :id";
 
         $stmt = self::$cnx->prepare($sql);
         $stmt->bindParam("id", $id);
@@ -19,9 +26,15 @@ class UserManager extends Database
         return $ret === false ? null : $ret;
     }
 
+    /**
+     * Retourne un utilisateur
+     *
+     * @param string $username Nom de l'utilisateur
+     * @return User|null null si l'utilisateur n'existe pas
+     */
     public function getUserByUsername(string $username): ?User
     {
-        $sql = "SELECT idUser, username, passwd, idRole, avatar FROM user WHERE username = :username";
+        $sql = "SELECT idUser, username, passwd, idRole FROM user WHERE username = :username";
 
         $stmt = self::$cnx->prepare($sql);
         $stmt->bindParam("username", $username);
@@ -32,6 +45,14 @@ class UserManager extends Database
         return $ret === false ? null : $ret;
     }
 
+    /**
+     * Ajoute un nouvel utilisateur à la base de données
+     *
+     * @param string $username
+     * @param string $password
+     *
+     * @return bool false si erreur
+     */
     public function addUser(string $username, string $password): bool
     {
         $sql = "
@@ -44,5 +65,26 @@ class UserManager extends Database
         $stmt->bindParam("passwd", $password);
 
         return $stmt->execute();
+    }
+
+    public function searchUser(string $str): array
+    {
+        $sql = "
+            SELECT idUser, username
+            FROM user
+            WHERE username LIKE :startMatch
+                UNION
+            SELECT idUser, username
+            FROM user
+            WHERE username LIKE :anyMatch
+            LIMIT 6
+        ";
+
+        $stmt = self::$cnx->prepare($sql);
+        $stmt->bindValue("startMatch", $str."%");
+        $stmt->bindValue("anyMatch", "%".$str."%");
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 }

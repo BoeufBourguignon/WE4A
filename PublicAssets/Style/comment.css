@@ -1,0 +1,23 @@
+#comments #new-comment
+{
+    margin-bottom: 16px;
+}
+
+
+.comment .comment-header
+{
+    display: flex;
+    align-items: center;
+}
+
+
+.comment
+{
+    margin-bottom: 16px;
+}
+
+.comment .comment-footer
+{
+    display: flex;
+    justify-content: space-between;
+}

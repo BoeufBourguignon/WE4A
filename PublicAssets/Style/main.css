@@ -1,3 +1,19 @@
+/* Constantes */
+:root
+{
+    /* Couleurs */
+    --main-bg-color: #030303;
+    --primary-bg-color: #1A1A1B;
+    --orange-color: #F93;
+    --danger-color: crimson;
+    --success-color: limegreen;
+    --primary-txt-color: gainsboro;
+    --input-focus-border-color: lightgray;
+    --primary-border-color: #343536;
+    --input-bg-color: #272729;
+}
+
+
 *
 {
     font-family: Calibri, sans-serif;
@@ -9,34 +25,34 @@ p, input, a
 
 p,a
 {
-    color: gainsboro;
+    color: var(--primary-txt-color);
     text-decoration: none;
 }
 
 body
 {
     margin: 0;
-    background-color: gainsboro;
+    color: var(--primary-txt-color);
 }
 
 #main
 {
-    background-color: #030303;
-    color: gainsboro;
+    background-color: var(--main-bg-color);
+    color: var(--primary-txt-color);
     min-height: 100vh;
     padding-bottom: 8px;
 }
 #main.has-navbar
 {
     padding-top: 50px;
-    min-height: calc(100vh - 50px);
+    min-height: calc(100vh - 58px);
 }
 
 #canvas
 {
     width: 65%;
     margin: 0 auto;
-    color: gainsboro;
+    color: var(--primary-txt-color);
     padding-top: 20px;
 }
 @media (max-width: 1000px) {
@@ -48,8 +64,8 @@ body
 
 .post
 {
-    background-color: #1A1A1B;
-    border: 1px solid #343536;
+    background-color: var(--primary-bg-color);
+    border: 1px solid var(--primary-border-color);
     border-radius: 6px;
     padding: 8px;
     margin-bottom: 8px;
@@ -63,11 +79,24 @@ body
     border: none;
     font-size: 1rem;
     cursor: pointer;
-    color: gainsboro;
+    color: var(--primary-txt-color);
+}
+.btn-small
+{
+    padding: 3px 6px;
+    border-radius: 4px;
 }
 .btn-orange
 {
-    background-color: #ff9933;
+    background-color: var(--orange-color);
+}
+.btn-clear
+{
+    background-color: var(--input-bg-color);
+}
+.btn-danger
+{
+    background-color: var(--danger-color);
 }
 .btn:hover
 {
@@ -78,13 +107,23 @@ body
     cursor: pointer;
 }
 
-.txt-orange
+.txt-orange,
+.txt-orange > span,
+.txt-orange > a
 {
-    color: #ff9933;
+    color: var(--orange-color);
 }
 .muted
 {
     opacity: .6;
+}
+.txt-small
+{
+    font-size: 12px;
+}
+.txt-italic
+{
+    font-style: italic;
 }
 
 .mb {
@@ -93,26 +132,26 @@ body
 
 input[type=text], input[type=password]
 {
-    background-color: #272729;
-    border: 1px solid #343536;
+    background-color: var(--input-bg-color);
+    border: 1px solid var(--primary-border-color);
     padding: 8px;
     border-radius: 12px;
-    color: gainsboro;
+    color: var(--primary-txt-color);
 }
 input[type=text]:hover, input[type=text]:focus, input[type=text]:focus-visible,
 input[type=password]:hover, input[type=password]:focus, input[type=password]:focus-visible
 {
-    background-color: #1A1A1B;
+    background-color: var(--primary-bg-color);
 }
 input[type=text]:focus, input[type=text]:focus-visible,
 input[type=password]:focus, input[type=password]:focus-visible
 {
-    border: 1px solid lightgray;
+    border: 1px solid var(--input-focus-border-color);
     outline: none;
 }
 .input-danger
 {
-    border: 1px solid crimson !important;
+    border: 1px solid var(--danger-color) !important;
 }
 
 .text-center
@@ -135,11 +174,11 @@ input[type=password]:focus, input[type=password]:focus-visible
 
 .txt-danger
 {
-    color: crimson;
+    color: var(--danger-color);
 }
 .txt-success
 {
-    color: limegreen;
+    color: var(--success-color);
 }
 
 .no-margin
@@ -169,4 +208,66 @@ input[type=password]:focus, input[type=password]:focus-visible
 .custom-form button[type=submit]
 {
     margin-top: 12px;
+}
+
+.pfp
+{
+    max-height: 32px;
+    border-radius: 50%;
+    background-color: #272729;
+    padding: 2px;
+    border: 1px solid #343536;
+    margin-right: 4px;
+}
+
+/* CSS pour un tooltip trouvé en ligne */
+/* Tooltip container */
+.tooltip
+{
+    position: relative;
+    display: inline-block;
+    cursor: default;
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext
+{
+    visibility: hidden;
+    width: 120px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+
+    /* Position the tooltip text */
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+
+    /* Fade in tooltip */
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+/* Tooltip arrow */
+.tooltip .tooltiptext::after
+{
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext
+{
+    visibility: visible;
+    opacity: 1;
 }

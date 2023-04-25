@@ -1,0 +1,38 @@
+.post-header
+{
+    display: flex;
+    justify-content: space-between;
+}
+.post-header p
+{
+    margin: 0;
+}
+
+.post-footer
+{
+    margin-bottom: 4px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.post-content
+{
+    margin-bottom: 24px;
+}
+
+.user-infos
+{
+    display: flex;
+    align-content: center;
+}
+
+#image-post
+{
+    max-height: 240px;
+}
+
+#post-img-preview
+{
+    max-height: 120px;
+    margin-top: 16px;
+}
