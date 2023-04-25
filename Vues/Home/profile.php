@@ -6,7 +6,7 @@ echo $this ->auth ->getUser() -> getUsername();
 
 <div id="canvas">
     <div class="post">
-    <form action="changer_mot_de_passe.php" method="post">
+    <form action="changer_mot_de_passe" method="post">
   <label for="ancien_mot_de_passe">Ancien mot de passe :</label>
   <input type="password" id="ancien_mot_de_passe" name="ancien_mot_de_passe"><br>
 
@@ -25,7 +25,7 @@ echo $this ->auth ->getUser() -> getUsername();
 <div id="canvas">
     <div class="post">
 
-<form action="changer_nom_utilisateur.php" method="post">
+<form action="changer_nom_utilisateur" method="post">
   <label for="nouveau_nom_utilisateur">Nouveau nom d'utilisateur :</label>
   <input type="text" id="nouveau_nom_utilisateur" name="nouveau_nom_utilisateur"><br>
 
