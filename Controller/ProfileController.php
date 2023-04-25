@@ -37,7 +37,9 @@ if(isset($_FILES['nouvelle_photo_profil'])) {
         $_SESSION["photo_error"]='Erreur : impossible d\'enregistrer la photo de profil.';
     }
   }
+
 }
 $this ->redirect ("/profile");
     }
 }
+
