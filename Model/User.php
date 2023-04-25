@@ -101,7 +101,7 @@ class User
     public function getAvatar(): ?string
     {
         return file_exists(PFP."/".$this->idUser.".png")
-            ? PFP."/".$this->idUser.".png"
+            ? "/photo_de_profil/".$this->idUser.".png"
             : "/PublicAssets/Images/basic-pfp.png";
     }
 }

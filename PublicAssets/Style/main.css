@@ -212,7 +212,8 @@ input[type=password]:focus, input[type=password]:focus-visible
 
 .pfp
 {
-    max-height: 32px;
+    height: 32px;
+    width: 32px;
     border-radius: 50%;
     background-color: #272729;
     padding: 2px;
