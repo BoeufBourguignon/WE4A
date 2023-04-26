@@ -2,6 +2,32 @@ doOnLoad(() =>
 {
     let titleInput = document.getElementById("title")
     let idPost = document.getElementById("idPost").value
+    let imgInput = document.getElementById("image-upload")
+    let imgPreviewGroup = document.getElementById("post-img-preview-group")
+    let imgPreview = document.getElementById("post-img-preview")
+
+    document.getElementById("img-preview-btn-delete").addEventListener("click", () =>
+    {
+        imgInput.value = ""
+        imgPreview.src = "data:,"
+        imgPreviewGroup.classList.add("d-none")
+    })
+
+    imgInput.addEventListener("change", () =>
+    {
+        let img = imgInput.files
+        if(FileReader && img && img.length)
+        {
+            imgPreviewGroup.classList.remove("d-none")
+
+            let fr = new FileReader()
+            fr.onload = () =>
+            {
+                imgPreview.src = fr.result
+            }
+            fr.readAsDataURL(img[0])
+        }
+    })
 
     document.getElementById("edit-post").addEventListener("click", () =>
     {

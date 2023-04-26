@@ -82,6 +82,7 @@ class PostController extends ControllerBase
 
         $this->render("/Post/editPost.php",
             params: ["post" => $post],
+            css:["post"],
             js: ["post/edit-post"]
         );
     }
@@ -135,9 +136,14 @@ class PostController extends ControllerBase
                     if (!file_exists(POSTS_IMGS)) {
                         mkdir(POSTS_IMGS, 0777, true);
                     }
+                    $files = glob(ROOT . "/PublicAssets/Images/Posts/".$postId.".*");
+                    if($files !== false && count($files) > 0)
+                    {
+                        unlink($files[0]);
+                    }
                     if(!move_uploaded_file($img["tmp_name"],
                             ROOT."/PublicAssets/Images/Posts/".$postId.".".
-                            ltrim(strrchr($img["type"], "/"), "/")))
+                            pathinfo($img["name"], PATHINFO_EXTENSION)))
                     {
                         $response["response"] = false;
                         $postManager->deletePost($postId);
@@ -195,7 +201,7 @@ class PostController extends ControllerBase
             {
                 $response["response"] = $postManager->editPost($idPost, $title, $msg);
 
-                if($response["response"] && $img != null)
+                if($response["response"])
                 {
                     // Supprime l'ancienne
                     $files = glob(ROOT . "/PublicAssets/Images/Posts/".$idPost.".*");
@@ -204,10 +210,13 @@ class PostController extends ControllerBase
                         unlink($files[0]);
                     }
 
-                    // Ajoute la nouvelle
-                    $response["response"] = move_uploaded_file($img["tmp_name"],
-                        ROOT."/PublicAssets/Images/Posts/".$idPost.".".
-                        ltrim(strrchr($img["type"], "/"), "/"));
+                    if($img != null)
+                    {
+                        // Ajoute la nouvelle image
+                        $response["response"] = move_uploaded_file($img["tmp_name"],
+                            ROOT."/PublicAssets/Images/Posts/".$idPost.".".
+                            pathinfo($img["name"], PATHINFO_EXTENSION));
+                    }
                 }
             }
         }
