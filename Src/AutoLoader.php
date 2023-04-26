@@ -11,11 +11,11 @@ class AutoLoader
      */
     private static function loadClass(string $class): void
     {
-        $file = ROOT."\\".$class.".php";
+        $file = ROOT."/".str_replace("\\", "/", $class).".php";
 
         if(!file_exists($file))
         {
-            throw new \Exception("La classe ".$class." n'a pas ".$file." comment chemin d'accès");
+            throw new \Exception("La classe ".$class." n'a pas ".$file." comme chemin d'accès");
         }
 
         require_once $file;
