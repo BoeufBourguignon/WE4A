@@ -204,8 +204,8 @@ class PostController extends ControllerBase
 
                     // Ajoute la nouvelle
                     $response["response"] = move_uploaded_file($img["tmp_name"],
-                        ROOT."/PublicAssets/Images/Posts/".$idPost.".".pathinfo($img["full_path"],
-                            PATHINFO_EXTENSION));
+                        ROOT."/PublicAssets/Images/Posts/".$idPost.".".
+                        ltrim(strrchr($img["type"], "/"), "/"));
                 }
             }
         }
