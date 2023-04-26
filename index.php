@@ -19,6 +19,12 @@ const MAX_FILE_SIZE = 52428800; // Taille maximale des fichiers uploadables (50M
 require_once ROOT . "/Src/BaseApp.php";
 $app = new Src\BaseApp();
 
-// TODO Réception des erreurs
-$app->launchApp(); // Cette méthode regroupe tout ce que fait l'application,
-// et donc toutes les erreurs pouvant être renvoyées par celle-ci
+try
+{
+    $app->launchApp(); // Cette méthode regroupe tout ce que fait l'application,
+    // et donc toutes les erreurs pouvant être renvoyées par celle-ci
+}
+catch(Exception $e)
+{
+    include(VIEWS."/erreur.php");
+}
