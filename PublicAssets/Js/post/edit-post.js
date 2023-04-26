@@ -1,10 +1,17 @@
 doOnLoad(() =>
 {
-    let titleInput = document.getElementById("title")
-    let idPost = document.getElementById("idPost").value
-    let imgInput = document.getElementById("image-upload")
-    let imgPreviewGroup = document.getElementById("post-img-preview-group")
-    let imgPreview = document.getElementById("post-img-preview")
+    const titleInput = document.getElementById("title")
+    const idPost = document.getElementById("idPost").value
+    const imgInput = document.getElementById("image-upload")
+    const imgPreviewGroup = document.getElementById("post-img-preview-group")
+    const imgPreview = document.getElementById("post-img-preview")
+
+    // Charger l'image dans le imgInput
+    const imgFile = new File([], imgPreview.src);
+
+    const dataTransfer = new DataTransfer();
+    dataTransfer.items.add(imgFile);
+    imgInput.files = dataTransfer.files;
 
     document.getElementById("img-preview-btn-delete").addEventListener("click", () =>
     {
