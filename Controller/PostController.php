@@ -172,8 +172,10 @@ class PostController extends ControllerBase
         if ($idPost == null ||
             $title == null || strlen($title) == 0 || strlen($title) > 100 ||
             $msg == null || strlen($msg) < 2 || strlen($msg) > 500 ||
-            ( $img != null && !in_array($img["type"], ["image/jpeg", "image/png", "image/gif"]) &&
-                !file_exists($img["tmp_name"]) && filesize($img["tmp_name"]) > 50000000 ) ||
+            (   $img != null &&
+                !in_array(pathinfo($img["name"], PATHINFO_EXTENSION), ["jpeg", "png", "gif", "jpg"]) &&
+                !file_exists($img["tmp_name"]) &&
+                filesize($img["tmp_name"]) > 50000000 ) ||
             $this->auth->getUser() == null)
         {
             $response["response"] = false;

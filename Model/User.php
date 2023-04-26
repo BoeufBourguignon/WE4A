@@ -100,8 +100,10 @@ class User
      */
     public function getAvatar(): ?string
     {
-        return file_exists(PFP."/".$this->idUser.".png")
-            ? "/photo_de_profil/".$this->idUser.".png"
+        $files = glob(PFP . "/".$this->idUser.".*");
+
+        return $files !== false && count($files) > 0
+            ? "/photo_de_profil/".pathinfo($files[0], PATHINFO_BASENAME)
             : "/PublicAssets/Images/basic-pfp.png";
     }
 }

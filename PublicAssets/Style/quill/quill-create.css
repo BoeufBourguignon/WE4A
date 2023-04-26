@@ -1,3 +1,6 @@
+/*
+ * Styles des formulaires de création de post de et de comment, utilisants le rich text editor Quill
+ */
 #post-header
 {
     display: flex;

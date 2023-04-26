@@ -1,3 +1,7 @@
+/*
+ * Feuille de style principale, utilisé sur toutes les pages du site
+ */
+
 /* Constantes */
 :root
 {
@@ -60,6 +64,11 @@ body
     {
         width: 96%;
     }
+}
+#main-title, #main-title span
+{
+    font-family: Impact, sans-serif;
+    font-size: 1.4rem;
 }
 
 .post

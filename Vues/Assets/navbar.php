@@ -1,5 +1,5 @@
 <nav id='main-nav'>
-    <a href="/home">Accueil</a>
+    <a href="/home" id="main-title">Game<span class="txt-orange">Z</span>one</a>
     <div id="navbar-search-container">
         <label for='search' hidden></label><input type='text' id='search' placeholder='Rechercher...'>
         <div id="navbar-search-content" class="d-none">

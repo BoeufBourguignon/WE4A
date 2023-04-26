@@ -2,6 +2,9 @@
 
 namespace Model;
 
+/**
+ * Classe correspondante à la table Comment de la BDD
+ */
 class Comment
 {
     private int $idComment;

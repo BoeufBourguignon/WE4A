@@ -5,35 +5,49 @@ namespace Controller;
 
 use Src\ControllerBase;
 use Src\Routing\Route;
-use Model\User;
 use Managers\UserManager;
 
 class ProfileController extends ControllerBase
 {
+    /**
+     * Permet de modifier la photo de profil liée à un utilisateur
+     *
+     * @return void
+     *
+     * @throws \Exception
+     */
     #[Route("/changer_photo_profil")]
-    public function changer_photo_profil()
+    public function changer_photo_profil(): void
     {
         if (isset($_FILES['nouvelle_photo_profil']))
         {
-            $dossier = ROOT . "/photo_de_profil/";
-            $taille_max = 1000000; // Taille maximale en octets (1 Mo)
-            $extensions = array('.jpg', '.jpeg', '.png', '.gif'); // Extensions autorisées
-            $extension = strrchr($_FILES['nouvelle_photo_profil']['name'], '.'); // Récupération de l'extension du fichier
+            $img = $_FILES['nouvelle_photo_profil'];
+            $extension = pathinfo($img["name"], PATHINFO_EXTENSION);
+
             // Vérifications de sécurité
-            if (!in_array($extension, $extensions))
+            if (!in_array($extension, array('jpg', 'jpeg', 'png', 'gif')))
             {
                 $_SESSION["photo_error"] = 'Erreur : le fichier doit être au format JPG, JPEG, PNG ou GIF.';
             }
-            elseif (filesize($_FILES['nouvelle_photo_profil']['tmp_name']) > $taille_max)
+            elseif (filesize($_FILES['nouvelle_photo_profil']['tmp_name']) > MAX_FILE_SIZE)
             {
                 $_SESSION["photo_error"] = 'Erreur : le fichier ne doit pas dépasser 1 Mo.';
             }
             else
             {
                 // Enregistrement du fichier sur le serveur avec le nom d'utilisateur
-                $idUser_utilisateur = $this->auth->getUser()->getIdUser(); // Remplacer par l'idUser de l'utilisateur
-                $nom_fichier = $idUser_utilisateur . $extension;
-                if (move_uploaded_file($_FILES['nouvelle_photo_profil']['tmp_name'], $dossier . $nom_fichier))
+                $idUser = $this->auth->getUser()->getIdUser();
+                $nom_fichier = $idUser . "." . $extension;
+                if (!file_exists(PFP)) {
+                    mkdir(PFP, 0777, true);
+                }
+                // Avant d'ajouter la nouvelle image, on supprime l'ancienne
+                $files = glob(PFP . "/".$idUser.".*");
+                if($files !== false && count($files) > 0)
+                {
+                    unlink($files[0]);
+                }
+                if (move_uploaded_file($_FILES['nouvelle_photo_profil']['tmp_name'], PFP . "/" . $nom_fichier))
                 {
                     $_SESSION["photo_success"] = 'La photo de profil a été enregistrée avec succès.';
                 }
@@ -43,68 +57,106 @@ class ProfileController extends ControllerBase
                 }
             }
         }
+        else
+        {
+            $_SESSION["photo_error"] = 'Erreur : impossible d\'enregistrer la photo de profil.';
+        }
         $this->redirect("/profile");
     }
 
 
-
+    /**
+     * Modifie le mot de passe d'un utilisateur
+     *
+     * @param UserManager $userManager
+     *
+     * @return void
+     *
+     * @throws \Exception
+     */
     #[Route("/changer_mot_de_passe")]
-    public function changer_mot_de_passe()
-
+    public function changer_mot_de_passe(UserManager $userManager): void
     {
-      $bdd = (new UserManager())->getConnection();
-      // Récupération des données du formulaire
-$ancien_mot_de_passe = $_POST['ancien_mot_de_passe'];
-$nouveau_mot_de_passe = $_POST['nouveau_mot_de_passe'];
-$confirmer_mot_de_passe = $_POST['confirmer_mot_de_passe'];
+        // Récupération des données du formulaire
+        $ancien_mot_de_passe = filter_input(INPUT_POST, "ancien_mot_de_passe");
+        $nouveau_mot_de_passe = filter_input(INPUT_POST, "nouveau_mot_de_passe");
+        $confirmer_mot_de_passe = filter_input(INPUT_POST, "confirmer_mot_de_passe");
 
-// Vérification de la correspondance entre l'ancien mot de passe et celui stocké en base de données
-$req = $bdd->prepare('SELECT passwd FROM User WHERE idUser = :idUser');
-$req->execute(array('idUser' => $this->auth->getUser()->getIdUser()));
-$resultat = $req->fetch();
+        if(!empty($ancien_mot_de_passe) && !empty($nouveau_mot_de_passe) && !empty($confirmer_mot_de_passe))
+        {
+            if(strlen($nouveau_mot_de_passe) > 20)
+            {
+                $_SESSION["mot_de_passe_error"] = "Le mot de passe doit faire moins de 20 caractères";
+            }
+            else
+            {
+                if (password_verify($ancien_mot_de_passe, $this->auth->getUser()->getPasswd()))
+                {
+                    // Si les mots de passe correspondent, on met à jour le mot de passe en base de données
+                    if ($nouveau_mot_de_passe == $confirmer_mot_de_passe)
+                    {
+                        $userManager->updatePassword($this->auth->getUser()->getIdUser(), $nouveau_mot_de_passe);
+                        $_SESSION["mot_de_passe_success"] = 'Le mot de passe a été modifié avec succès !';
+                    }
+                    else
+                    {
+                        $_SESSION["mot_de_passe_error"] = 'Les nouveaux mots de passe ne correspondent pas.';
+                    }
+                }
+                else
+                {
+                    $_SESSION["mot_de_passe_error"] = 'L\'ancien mot de passe est incorrect.';
+                }
+            }
+        }
+        else
+        {
+            $_SESSION["mot_de_passe_error"] = 'Veuillez remplir tous les champs.';
+        }
 
-if (password_verify($ancien_mot_de_passe, $resultat['passwd'])) {
-    // Si les mots de passe correspondent, on met à jour le mot de passe en base de données
-    if ($nouveau_mot_de_passe == $confirmer_mot_de_passe) {
-        $nouveau_mot_de_passe_hash = password_hash($nouveau_mot_de_passe, PASSWORD_DEFAULT);
-        $req = $bdd->prepare('UPDATE user SET passwd = :passwd WHERE idUser = :idUser');
-        $req->execute(array('passwd' => $nouveau_mot_de_passe_hash, 'idUser' => $this->auth->getUser()->getIdUser()));
-        $_SESSION["mot_de_passe_success"]= 'Le mot de passe a été modifié avec succès !';
-    } else {
-      $_SESSION["mot_de_passe_error"]='Les nouveaux mots de passe ne correspondent pas.';
+        $this->redirect("/profile");
     }
-} else {
-  $_SESSION["mot_de_passe_incorrect"] ='L\'ancien mot de passe est incorrect.';
-}
-$this ->redirect ("/profile");
+
+    /**
+     * Modifie le nom de l'utilisateur
+     *
+     * @param UserManager $userManager
+     *
+     * @return void
+     *
+     * @throws \Exception
+     */
+    #[Route("/changer_nom_utilisateur")]
+    public function changer_mon_utilisateur(UserManager $userManager): void
+    {
+        // Récupération des données du formulaire
+        $nouveau_nom_utilisateur = filter_input(INPUT_POST, "nouveau_nom_utilisateur");
+
+        if($nouveau_nom_utilisateur != null)
+        {
+            if(strlen($nouveau_nom_utilisateur) > 20 || strlen($nouveau_nom_utilisateur) < 4)
+            {
+                $_SESSION["username_error"] = "Le nom d'utilisateur doit faire entre 4 et 20 caractères";
+            }
+            else
+            {
+                // Vérification de l'unicité du nouveau nom d'utilisateur
+                if (!$userManager->isUsernameUsedBySomeoneElse($nouveau_nom_utilisateur, $this->auth->getUser()->getIdUser()))
+                {
+                    $userManager->updateUsername($nouveau_nom_utilisateur, $this->auth->getUser()->getIdUser());
+                    $_SESSION["username_sucess"] = 'Le nom d\'utilisateur a été mis à jour.';
+                }
+                else
+                {
+                    $_SESSION["username_error"] = 'Le nom d\'utilisateur est déjà utilisé par un autre utilisateur.';
+                }
+            }
+        }
+        else
+        {
+            $_SESSION["username_error"] = 'Veuillez remplir tous les champs.';
+        }
+
+        $this->redirect("/profile");
     }
-    
-  
-
-
-  #[Route("/changer_nom_utilisateur")]
-  public function changer_mon_utilisateur()
-
-  {
-
-    $bdd = (new UserManager())->getConnection();
-
-// Récupération des données du formulaire
-$nouveau_nom_utilisateur = $_POST['nouveau_nom_utilisateur'];
-
-// Vérification de l'unicité du nouveau nom d'utilisateur
-$req = $bdd->prepare('SELECT COUNT(*) AS nb_utilisateurs FROM user WHERE username = :username AND idUser != :idUser');
-$req->execute(array('username' => $nouveau_nom_utilisateur, 'idUser' => $this->auth->getUser()->getIdUser()));
-$resultat = $req->fetch();
-
-if ($resultat['nb_utilisateurs'] == 0) {
-    // Si le nouveau nom d'utilisateur est unique, on met à jour le nom d'utilisateur en base de données
-    $req = $bdd->prepare('UPDATE user SET username = :username WHERE idUser = :idUser');
-    $req->execute(array('username' => $nouveau_nom_utilisateur, 'idUser' => $this->auth->getUser()->getIdUser()));
-    $_SESSION["username_succes"]='Le nom d\'utilisateur a été modifié avec succès !';
-} else {
-  $_SESSION["username_error"]='Le nom d\'utilisateur est déjà utilisé par un autre utilisateur.';
-}
-$this ->redirect ("/profile");
-  }
 }

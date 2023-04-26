@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <title><?php echo $this->route->getTitle() ?? "Projet WE4A" ?></title>
+    <title><?php echo $this->route->getTitle() ?? "GameZone" ?></title>
     <meta charset="utf-8"/>
 
     <link rel="stylesheet" href="/PublicAssets/Style/main.css">

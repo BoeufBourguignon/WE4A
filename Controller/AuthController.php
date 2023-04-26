@@ -83,6 +83,14 @@ class AuthController extends ControllerBase
         {
             $_SESSION["register_error"] = "Veuillez remplir tous les champs";
         }
+        else if(strlen($username) > 20 || strlen($username) < 4)
+        {
+            $_SESSION["register_error"] = "Le nom d'utilisateur doit faire entre 4 et 20 caractères";
+        }
+        else if(strlen($password) > 20)
+        {
+            $_SESSION["register_error"] = "Le mot de passe doit faire moins de 20 caractères";
+        }
         else
         {
             // Vérifie que le compte n'existe pas
@@ -105,7 +113,7 @@ class AuthController extends ControllerBase
                     }
                     else
                     {
-                        if($userManager->addUser($username, password_hash($password, PASSWORD_BCRYPT)))
+                        if($userManager->addUser($username, $password))
                         {
                             $redirect = "/login";
                             $_SESSION["register_success"] = "Le compte a bien été créé";

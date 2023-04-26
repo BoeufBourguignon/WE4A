@@ -62,11 +62,18 @@ class UserManager extends Database
 
         $stmt = self::$cnx->prepare($sql);
         $stmt->bindParam("username", $username);
-        $stmt->bindParam("passwd", $password);
+        $stmt->bindValue("passwd", password_hash($password, PASSWORD_BCRYPT));
 
         return $stmt->execute();
     }
 
+    /**
+     * Récupère les utilisateurs dont le nom contient le paramètre
+     *
+     * @param string $str
+     *
+     * @return array
+     */
     public function searchUser(string $str): array
     {
         $sql = "
@@ -86,5 +93,72 @@ class UserManager extends Database
         $stmt->execute();
 
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Modifie le mot de passe d'un utilisateur
+     *
+     * @param int $idUser
+     * @param string $password
+     *
+     * @return bool
+     */
+    public function updatePassword(int $idUser, string $password): bool
+    {
+        $sql = "
+            UPDATE user
+            SET passwd = :passwd
+            WHERE idUser = :idUser
+        ";
+
+        $stmt = self::$cnx->prepare($sql);
+        $stmt->bindValue("passwd", password_hash($password, PASSWORD_BCRYPT));
+        $stmt->bindParam("idUser", $idUser);
+
+        return $stmt->execute();
+    }
+
+    /**
+     * Retourne TRUE si le nom d'utilisateur est utilisé par un autre utilisateur, sinon FALSE
+     *
+     * @param string $username
+     * @param int $idUser
+     *
+     * @return bool
+     */
+    public function isUsernameUsedBySomeoneElse(string $username, int $idUser): bool
+    {
+        $sql = "
+            SELECT COUNT(*)
+            FROM user 
+            WHERE username = :username 
+              AND idUser != :idUser
+        ";
+
+        $stmt = self::$cnx->prepare($sql);
+        $stmt->bindParam("username", $username);
+        $stmt->bindParam("idUser", $idUser);
+
+        return $stmt->fetchColumn() > 0;
+    }
+
+    /**
+     * Change le nom d'utilisateur d'un certain utilisateur
+     *
+     * @return bool
+     */
+    public function updateUsername(string $username, int $idUser): bool
+    {
+        $sql = "
+            UPDATE user 
+            SET username = :username 
+            WHERE idUser = :idUser
+        ";
+
+        $stmt = self::$cnx->prepare($sql);
+        $stmt->bindParam("username", $username);
+        $stmt->bindParam("idUser", $idUser);
+
+        return $stmt->execute();
     }
 }
