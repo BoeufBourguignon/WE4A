@@ -5,19 +5,14 @@ doOnLoad(() =>
     const imgInput = document.getElementById("image-upload")
     const imgPreviewGroup = document.getElementById("post-img-preview-group")
     const imgPreview = document.getElementById("post-img-preview")
-
-    // Charger l'image dans le imgInput
-    const imgFile = new File([], imgPreview.src);
-
-    const dataTransfer = new DataTransfer();
-    dataTransfer.items.add(imgFile);
-    imgInput.files = dataTransfer.files;
+    const imgDelete = document.getElementById("img-delete")
 
     document.getElementById("img-preview-btn-delete").addEventListener("click", () =>
     {
         imgInput.value = ""
         imgPreview.src = "data:,"
         imgPreviewGroup.classList.add("d-none")
+        imgDelete.value = "true"
     })
 
     imgInput.addEventListener("change", () =>
@@ -79,6 +74,7 @@ doOnLoad(() =>
             data.append("message", quill.root.innerHTML)
             data.append("idPost", idPost)
             data.append("image", img)
+            data.append("img-delete", imgDelete.value)
 
             axios.post("/ajax/post/edit", data)
                 .then(function (resp)

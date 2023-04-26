@@ -174,6 +174,7 @@ class PostController extends ControllerBase
         $msg = $_POST["message"] ?? null;
         $idPost = filter_input(INPUT_POST, "idPost");
         $img = $_FILES["image"] ?? null;
+        $imgDelete = filter_input(INPUT_POST, "img-delete");
 
         if ($idPost == null ||
             $title == null || strlen($title) == 0 || strlen($title) > 100 ||
@@ -203,11 +204,14 @@ class PostController extends ControllerBase
 
                 if($response["response"])
                 {
-                    // Supprime l'ancienne
-                    $files = glob(ROOT . "/PublicAssets/Images/Posts/".$idPost.".*");
-                    if($files !== false && count($files) > 0)
+                    if($imgDelete == "true")
                     {
-                        unlink($files[0]);
+                        // Supprime l'ancienne
+                        $files = glob(ROOT . "/PublicAssets/Images/Posts/".$idPost.".*");
+                        if($files !== false && count($files) > 0)
+                        {
+                            unlink($files[0]);
+                        }
                     }
 
                     if($img != null)

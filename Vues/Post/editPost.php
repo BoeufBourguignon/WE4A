@@ -26,6 +26,7 @@
             $img = glob(ROOT . "/PublicAssets/Images/Posts/" . $post->getIdPost() . ".*");
             $imgExists = $img !== false && count($img) > 0;
             ?>
+            <input type="hidden" value="false" id="img-delete">
             <div id="post-img-preview-group" class="<?php if(!$imgExists) echo "d-none" ?>">
                 <div><img id="post-img-preview" alt="Preview" src="<?php echo $imgExists
                         ? "/PublicAssets/Images/Posts/".pathinfo($img[0], PATHINFO_BASENAME)
