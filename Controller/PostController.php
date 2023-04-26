@@ -216,6 +216,9 @@ class PostController extends ControllerBase
 
                     if($img != null)
                     {
+                        if (!file_exists(POSTS_IMGS)) {
+                            mkdir(POSTS_IMGS, 0777, true);
+                        }
                         // Ajoute la nouvelle image
                         $response["response"] = move_uploaded_file($img["tmp_name"],
                             ROOT."/PublicAssets/Images/Posts/".$idPost.".".
